@@ -33,6 +33,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   List<Map<String, String>> _predictions = [];
   List<String> _sentencePredictions = [];
   Timer? _debounceTimer;
+  Timer? _sentenceDebounceTimer;
 
   bool get _isUpperCase => _isShift || _isCaps;
 
@@ -50,6 +51,13 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   Future<void> _speak(String text) async {
     if (text.trim().isEmpty) return;
+    
+    http.post(
+      Uri.parse('http://127.0.0.1:8000/api/submit_sentence'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'text': text.trim()}),
+    ).catchError((e) => debugPrint('Failed to submit: $e'));
+
     setState(() => _isSpeaking = true);
     await _tts.speak(text);
     if (mounted) setState(() => _isSpeaking = false);
@@ -120,7 +128,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _output += ' ';
     });
     _fetchNextWordPredictions();
-    _fetchSentencePredictions();
+    _debouncedFetchSentencePredictions();
   }
 
   void _newLine() {
@@ -128,7 +136,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _output += '\n';
     });
     _fetchNextWordPredictions();
-    _fetchSentencePredictions();
+    _debouncedFetchSentencePredictions();
   }
 
   void _clear() {
@@ -138,18 +146,26 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _sentencePredictions = [];
     });
     _debounceTimer?.cancel();
-    _fetchSentencePredictions();
+    _sentenceDebounceTimer?.cancel();
+    _debouncedFetchSentencePredictions();
   }
 
   void _saveText() {
     if (_output.trim().isNotEmpty) {
+      final textToSubmit = _output.trim();
+      http.post(
+        Uri.parse('http://127.0.0.1:8000/api/submit_sentence'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'text': textToSubmit}),
+      ).catchError((e) => debugPrint('Failed to submit: $e'));
+
       setState(() {
         _history.add(_output.trim());
         _output = '';
         _predictions = [];
         _sentencePredictions = [];
       });
-      _fetchSentencePredictions();
+      _debouncedFetchSentencePredictions();
     }
   }
 
@@ -159,7 +175,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _output += word;
     });
     _fetchNextWordPredictions();
-    _fetchSentencePredictions();
+    _debouncedFetchSentencePredictions();
   }
 
   void _acceptPrediction(String word) {
@@ -183,7 +199,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _predictions = [];
     });
     _fetchNextWordPredictions();
-    _fetchSentencePredictions();
+    _debouncedFetchSentencePredictions();
   }
 
   void _addSentence(String sentence) {
@@ -194,7 +210,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _sentencePredictions = [];
     });
     _fetchNextWordPredictions();
-    _fetchSentencePredictions();
+    _debouncedFetchSentencePredictions();
   }
 
   void _debouncedFetchPredictions() {
@@ -205,13 +221,28 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       });
       return;
     }
-    _debounceTimer = Timer(const Duration(milliseconds: 200), () {
+    // Reduced from 200ms to 50ms for near-instant typing feedback
+    _debounceTimer = Timer(const Duration(milliseconds: 50), () {
       _fetchPrefixPredictions();
     });
   }
 
+  void _debouncedFetchSentencePredictions() {
+    _sentenceDebounceTimer?.cancel();
+    if (_output.trim().isEmpty) {
+      setState(() {
+        _sentencePredictions = [];
+      });
+      return;
+    }
+    _sentenceDebounceTimer = Timer(const Duration(milliseconds: 800), () {
+      _fetchSentencePredictions();
+    });
+  }
+
   Future<void> _fetchPrefixPredictions() async {
-    final lastWord = _output.split(RegExp(r'\s+')).last;
+    final currentText = _output;
+    final lastWord = currentText.split(RegExp(r'\s+')).last;
     if (lastWord.isEmpty) return;
 
     try {
@@ -221,59 +252,72 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
         body: jsonEncode({'text': lastWord}),
       );
 
-      if (response.statusCode == 200) {
+      // Guard: only update if the user hasn't typed more letters while waiting
+      if (response.statusCode == 200 && mounted && _output == currentText) {
         final data = jsonDecode(response.body);
         final suggestions = data['suggestions'] as List;
-        if (mounted) {
-          setState(() {
-            _predictions = suggestions.map((e) => {
-              'word': e['word'].toString(),
-              'source': e['source'].toString(),
-            }).toList();
-          });
-        }
+        setState(() {
+          _predictions = suggestions.map((e) => {
+            'word': e['word'].toString(),
+            'source': e['source'].toString(),
+          }).toList();
+        });
       }
     } catch (e) {
       debugPrint('Failed to fetch prefix predictions: $e');
     }
   }
 
-  Future<void> _fetchNextWordPredictions() async {
-    if (_output.trim().isEmpty) {
+  void _fetchNextWordPredictions() {
+    final currentText = _output;
+    if (currentText.trim().isEmpty) {
       setState(() {
         _predictions = [];
       });
       return;
     }
 
-    try {
-      final response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/spacebar'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'text': _output}),
-      );
-
-      if (response.statusCode == 200) {
+    // 1. Instant N-gram request
+    http.post(
+      Uri.parse('http://127.0.0.1:8000/api/spacebar_fast'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'text': currentText}),
+    ).then((response) {
+      if (response.statusCode == 200 && mounted && _output == currentText) {
         final data = jsonDecode(response.body);
         final suggestions = data['suggestions'] as List;
-        if (mounted) {
-          setState(() {
-            _predictions = suggestions.map((e) => {
-              'word': e['word'].toString(),
-              'source': e['source'].toString(),
-            }).toList();
-          });
-        }
+        setState(() {
+          _predictions = suggestions.map((e) => {
+            'word': e['word'].toString(),
+            'source': e['source'].toString(),
+          }).toList();
+        });
       }
-    } catch (e) {
-      debugPrint('Failed to fetch next word predictions: $e');
-    }
+    }).catchError((e) => debugPrint('Failed fast: $e'));
+
+    // 2. Heavy LLM background request
+    http.post(
+      Uri.parse('http://127.0.0.1:8000/api/spacebar'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'text': currentText}),
+    ).then((response) {
+      if (response.statusCode == 200 && mounted && _output == currentText) {
+        final data = jsonDecode(response.body);
+        final suggestions = data['suggestions'] as List;
+        setState(() {
+          _predictions = suggestions.map((e) => {
+            'word': e['word'].toString(),
+            'source': e['source'].toString(),
+          }).toList();
+        });
+      }
+    }).catchError((e) => debugPrint('Failed slow: $e'));
   }
 
   Future<void> _fetchSentencePredictions() async {
     try {
       final response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/sentences'),
+        Uri.parse('http://127.0.0.1:8000/api/complete_sentence'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'text': _output.trim()}),
       );
@@ -283,7 +327,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
         final suggestions = data['suggestions'] as List;
         if (mounted) {
           setState(() {
-            _sentencePredictions = suggestions.map((e) => e['sentence'] as String).toList();
+            _sentencePredictions = suggestions.map((e) => e.toString()).toList();
           });
         }
       }
