@@ -21,7 +21,8 @@ app.add_middleware(
 
 # Global backend instance
 backend = None
-backend_lock = threading.Lock()  # For heavy LLM calls
+backend_lock = threading.Lock()  # For heavy LLM calls and state updates
+fast_ai_lock = threading.Lock()  # For 0.5B word predictions
 fast_lock = threading.Lock()     # For instant N-gram calls (never blocked by LLM)
 
 class InitRequest(BaseModel):
@@ -74,11 +75,13 @@ async def predict_next_word(req: SpacebarRequest):
     if not backend:
         raise HTTPException(status_code=503, detail="Backend not initialized. Is the model downloaded?")
 
-    with backend_lock:
-        # If the user just completed/sent a full sentence, record it in session history
-        if req.sentence_complete and req.text.strip():
+    # 1. Update state using the global backend_lock to prevent memory corruption
+    if req.sentence_complete and req.text.strip():
+        with backend_lock:
             backend.on_sentence_submitted(req.text.strip())
 
+    # 2. Run the 0.5B word prediction model on its own dedicated thread lock
+    with fast_ai_lock:
         suggestions = backend.on_spacebar(req.text)
 
     return {"suggestions": suggestions}

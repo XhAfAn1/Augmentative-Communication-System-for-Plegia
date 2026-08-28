@@ -241,9 +241,9 @@ class HybridKeyboardBackend:
 
         # Initialize the dual LLM models
         print(f"[Backend] Loading Fast LLM from {fast_gguf_path}...")
-        self.fast_llm = Llama(model_path=fast_gguf_path, n_ctx=512, logits_all=True, verbose=False)
+        self.fast_llm = Llama(model_path=fast_gguf_path, n_ctx=512, n_gpu_layers=-1, logits_all=True, verbose=False)
         print(f"[Backend] Loading Heavy LLM from {heavy_gguf_path}...")
-        self.heavy_llm = Llama(model_path=heavy_gguf_path, n_ctx=512, verbose=False)
+        self.heavy_llm = Llama(model_path=heavy_gguf_path, n_ctx=512, n_gpu_layers=-1, verbose=False)
         self.ai_cache = {}
 
         # Note: Smart Compose now uses purely the Llama 3 LLM (no static dataset).
@@ -253,10 +253,8 @@ class HybridKeyboardBackend:
     # ---------------------------------------------------------
     def _build_llm_prompt(self, current_sentence: str) -> str:
         """
-        FIX 2: Replaced AAC-specific persona with a neutral smart-keyboard framing.
-        The old 'AAC user' persona caused the LLM to bleed in medical vocabulary.
-        Now uses a neutral, domain-free framing that works for any conversation topic.
-        Session history is preserved to give the LLM continuity of topic.
+        Builds the prompt for the 0.5B word prediction model, specifically instructing
+        it to focus on daily life conversation words.
         """
         history_str = ""
         if self.session_history:
@@ -266,9 +264,9 @@ class HybridKeyboardBackend:
             history_str += "\n"
 
         prompt = (
-            "You are a smart keyboard next-word predictor. "
-            "Complete the sentence below with the single most natural and contextually "
-            "appropriate next word. Output only the word, nothing else.\n\n"
+            "You are an assistant predicting the next word for daily life conversations. "
+            "Complete the sentence below with the single most natural and contextually relevant next word for a daily life scenario of a patient. "
+            "Output only the word, nothing else.\n\n"
             f"{history_str}"
             f"Sentence: {current_sentence}"
         )
@@ -493,7 +491,28 @@ class HybridKeyboardBackend:
             messages = [
                 {
                     "role": "system",
-                    "content": "You are a smart keyboard assistant that helps complete user sentences. Your job is to output exactly 5 different natural, grammatically correct ways to complete the sentence provided by the user. Do not add any introductory text. Just output a numbered list from 1 to 5. Ensure each sentence starts with the user's provided text."
+                    "content": (
+                        "You are an AAC (Augmentative and Alternative Communication) keyboard assistant for patients with severe motor disabilities. "
+                        "Your job is to generate simple, natural, clear everyday sentences that a patient would use to communicate daily needs, feelings, or requests to caregivers, family, or medical staff. "
+                        "Output exactly 5 short, natural completions. Each sentence must start with the user's provided text. "
+                        "Output only a numbered list from 1 to 5 with no extra conversational text."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": "Provide 5 completions for this text:\ni want"
+                },
+                {
+                    "role": "assistant",
+                    "content": "1. I want water please.\n2. I want to rest now.\n3. I want to watch TV.\n4. I want to turn off the lights.\n5. I want to talk to my doctor."
+                },
+                {
+                    "role": "user",
+                    "content": "Provide 5 completions for this text:\ni feel"
+                },
+                {
+                    "role": "assistant",
+                    "content": "1. I feel tired today.\n2. I feel much better now.\n3. I feel pain in my back.\n4. I feel cold, please cover me.\n5. I feel hungry."
                 },
                 {
                     "role": "user",
@@ -504,7 +523,7 @@ class HybridKeyboardBackend:
             output = self.heavy_llm.create_chat_completion(
                 messages=messages,
                 max_tokens=150,
-                temperature=0.5,
+                temperature=0.2,
             )
             text = output["choices"][0]["message"]["content"].strip()
 
