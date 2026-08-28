@@ -4,6 +4,14 @@ import '../../core/constants/app_constants.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/dwell_wrapper.dart';
 
+/// Increment this to instantly fire whatever key the cursor is currently over.
+/// Driven by the Spacebar listener in keyboard_screen.dart.
+final ValueNotifier<int> spacebarTrigger = ValueNotifier<int>(0);
+// Global toggle for Flutter spacebar handling
+final ValueNotifier<bool> flutterSpacebarEnabled = ValueNotifier<bool>(true);
+// Global toggle for Dwell clicking
+final ValueNotifier<bool> flutterDwellEnabled = ValueNotifier<bool>(true);
+
 
 class GazeKeyboard extends StatelessWidget {
   final bool isUpperCase;
@@ -15,6 +23,7 @@ class GazeKeyboard extends StatelessWidget {
   final VoidCallback deleteLastWord;
   final VoidCallback addSpace;
   final VoidCallback newLine;
+  final ValueNotifier<int>? spacebarNotifier;
 
   const GazeKeyboard({
     super.key,
@@ -27,6 +36,7 @@ class GazeKeyboard extends StatelessWidget {
     required this.deleteLastWord,
     required this.addSpace,
     required this.newLine,
+    this.spacebarNotifier,
   });
 
   @override
@@ -68,11 +78,12 @@ class GazeKeyboard extends StatelessWidget {
         label: l,
         displayLabel: display,
         onPressed: () => addChar(display),
+        spacebarNotifier: spacebarNotifier ?? spacebarTrigger,
       ),
     );
   }
 
-  // Q W E R T Y U I O P ⌫
+  // Q W E R T Y U I O P
   Widget _row1() {
     const letters = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
     return Row(
@@ -82,19 +93,11 @@ class GazeKeyboard extends StatelessWidget {
           if (i > 0) _gap(),
           _letterKey(letters[i]),
         ],
-        _gap(),
-        KeyboardKey(
-          label: 'bs',
-          keyType: KeyType.backspace,
-          fixedWidth: 70,
-          bgColor: AppColors.keyBgSpecial,
-          onPressed: backspace,
-        ),
       ],
     );
   }
 
-  // A S D F G H J K L Enter
+  // A S D F G H J K L
   Widget _row2() {
     const letters = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
     return Row(
@@ -104,32 +107,16 @@ class GazeKeyboard extends StatelessWidget {
           if (i > 0) _gap(),
           _letterKey(letters[i]),
         ],
-        _gap(),
-        KeyboardKey(
-          label: 'Enter',
-          keyType: KeyType.enter,
-          fixedWidth: 92,
-          onPressed: newLine,
-        ),
       ],
     );
   }
 
-  // ⇧  Z X C V B N M , .
+  // Z X C V B N M , .
   Widget _row3() {
     const letters = ['Z', 'X', 'C', 'V', 'B', 'N', 'M', ', ', '. '];
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        KeyboardKey(
-          label: 'shift',
-          keyType: KeyType.shift,
-          fixedWidth: 70,
-          bgColor: isUpperCase ? AppColors.primaryBlue : AppColors.keyBgSpecial,
-          fgColor: isUpperCase ? Colors.white : AppColors.keyTextSpecial,
-          onPressed: toggleShift,
-        ),
-        _gap(),
         for (int i = 0; i < letters.length; i++) ...[
           if (i > 0) _gap(),
           _letterKey(letters[i]),
@@ -138,27 +125,18 @@ class GazeKeyboard extends StatelessWidget {
     );
   }
 
-  // 123 🌐  [   Space   ]  Delete
+  //  ⌫   [   Space   ]  Delete
   Widget _row4() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         KeyboardKey(
-          label: isNumbers ? 'ABC' : '123',
-          keyType: KeyType.special,
-          fixedWidth: 62,
-          bgColor: isNumbers ? AppColors.primaryBlue : AppColors.keyBgSpecial,
-          fgColor: isNumbers ? Colors.white : AppColors.keyTextSpecial,
-          onPressed: toggleNumbers,
-        ),
-        _gap(),
-        KeyboardKey(
-          label: 'globe',
-          keyType: KeyType.globe,
-          fixedWidth: 62,
+          label: 'bs',
+          keyType: KeyType.backspace,
+          fixedWidth: 200,
           bgColor: AppColors.keyBgSpecial,
-          fgColor: AppColors.keyTextSpecial,
-          onPressed: () {},
+          onPressed: backspace,
+          spacebarNotifier: spacebarNotifier ?? spacebarTrigger,
         ),
         _gap(),
         Expanded(
@@ -167,6 +145,7 @@ class GazeKeyboard extends StatelessWidget {
             displayLabel: 'Space',
             keyType: KeyType.space,
             onPressed: addSpace,
+            spacebarNotifier: spacebarNotifier ?? spacebarTrigger,
           ),
         ),
         _gap(),
@@ -174,10 +153,11 @@ class GazeKeyboard extends StatelessWidget {
           label: 'Delete',
           displayLabel: 'Delete',
           keyType: KeyType.delete,
-          fixedWidth: 92,
+          fixedWidth: 200,
           bgColor: AppColors.keyBgSpecial,
           fgColor: AppColors.keyTextSpecial,
           onPressed: deleteLastWord,
+          spacebarNotifier: spacebarNotifier ?? spacebarTrigger,
         ),
       ],
     );
@@ -198,6 +178,7 @@ class KeyboardKey extends StatefulWidget {
   final Color? bgColor;
   final Color? fgColor;
   final bool dwellEnabled;
+  final ValueNotifier<int>? spacebarNotifier;
 
   const KeyboardKey({
     super.key,
@@ -209,6 +190,7 @@ class KeyboardKey extends StatefulWidget {
     this.bgColor,
     this.fgColor,
     this.dwellEnabled = true,
+    this.spacebarNotifier,
   });
 
   @override
@@ -230,10 +212,20 @@ class _KeyboardKeyState extends State<KeyboardKey>
     )..addStatusListener((s) {
         if (s == AnimationStatus.completed) _onDwellFired();
       });
+    widget.spacebarNotifier?.addListener(_onSpacebarTrigger);
+  }
+
+  void _onSpacebarTrigger() {
+    // Fire instantly only if the cursor is currently hovering over this key
+    if (_hovering) {
+      _dwellCtrl.reset();
+      _triggerPress();
+    }
   }
 
   @override
   void dispose() {
+    widget.spacebarNotifier?.removeListener(_onSpacebarTrigger);
     _dwellCtrl.dispose();
     super.dispose();
   }
@@ -275,7 +267,9 @@ class _KeyboardKeyState extends State<KeyboardKey>
       onEnter: (_) {
         if (!widget.dwellEnabled) return;
         setState(() => _hovering = true);
-        _dwellCtrl.forward();
+        if (flutterDwellEnabled.value) {
+          _dwellCtrl.forward();
+        }
       },
       onExit: (_) {
         setState(() => _hovering = false);

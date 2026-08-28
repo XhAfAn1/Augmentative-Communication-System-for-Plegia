@@ -25,7 +25,8 @@ class DwellSentenceTile extends StatelessWidget {
       builder: (hovering, dwellCtrl) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 120),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
+          padding: const EdgeInsets.fromLTRB(14, 14, 14, 20),
+          constraints: const BoxConstraints(minHeight: 56),
           decoration: BoxDecoration(
             color: hovering
                 ? (isAiPrediction
@@ -59,7 +60,7 @@ class DwellSentenceTile extends StatelessWidget {
                 child: Text(
                   text,
                   style: GoogleFonts.inter(
-                    fontSize: 13.5,
+                    fontSize: 14.5,
                     color: hovering
                         ? (isAiPrediction
                             ? AppColors.accentCyan

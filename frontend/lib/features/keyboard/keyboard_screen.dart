@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -41,10 +42,22 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   void initState() {
     super.initState();
     _tts.init();
+    HardwareKeyboard.instance.addHandler(_onHardwareKey);
+  }
+
+  bool _onHardwareKey(KeyEvent event) {
+    if (event is KeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.space &&
+        flutterSpacebarEnabled.value) {
+      spacebarTrigger.value++;
+      return true; // consume the event
+    }
+    return false;
   }
 
   @override
   void dispose() {
+    HardwareKeyboard.instance.removeHandler(_onHardwareKey);
     _tts.stop();
     super.dispose();
   }
@@ -56,18 +69,13 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       Uri.parse('http://127.0.0.1:8000/api/submit_sentence'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'text': text.trim()}),
-    ).catchError((e) => debugPrint('Failed to submit: $e'));
+    ).then((_) {}).catchError((e) { debugPrint('Failed to submit: $e'); });
 
     setState(() => _isSpeaking = true);
     await _tts.speak(text);
     if (mounted) setState(() => _isSpeaking = false);
   }
 
-  void _showSnack(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(msg), duration: const Duration(seconds: 1)),
-    );
-  }
 
   void _addChar(String c) {
     setState(() {
@@ -157,7 +165,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
         Uri.parse('http://127.0.0.1:8000/api/submit_sentence'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'text': textToSubmit}),
-      ).catchError((e) => debugPrint('Failed to submit: $e'));
+      ).then((_) {}).catchError((e) { debugPrint('Failed to submit: $e'); });
 
       setState(() {
         _history.add(_output.trim());
@@ -204,8 +212,12 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   void _addSentence(String sentence) {
     setState(() {
-      if (_output.isNotEmpty && !_output.endsWith(' ') && !_output.endsWith('\n')) _output += ' ';
-      _output += sentence + ' ';
+      final lastNewlineIdx = _output.lastIndexOf('\n');
+      if (lastNewlineIdx == -1) {
+        _output = sentence + ' ';
+      } else {
+        _output = _output.substring(0, lastNewlineIdx + 1) + sentence + ' ';
+      }
       _predictions = [];
       _sentencePredictions = [];
     });
@@ -293,7 +305,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           }).toList();
         });
       }
-    }).catchError((e) => debugPrint('Failed fast: $e'));
+    }).then((_) {}).catchError((e) { debugPrint('Failed fast: $e'); });
 
     // 2. Heavy LLM background request
     http.post(
@@ -311,7 +323,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           }).toList();
         });
       }
-    }).catchError((e) => debugPrint('Failed slow: $e'));
+    }).then((_) {}).catchError((e) { debugPrint('Failed slow: $e'); });
   }
 
   Future<void> _fetchSentencePredictions() async {
@@ -338,7 +350,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget buildDwellFuncBtn({required String label, required IconData icon, required Color color, required VoidCallback onTap}) {
+    Widget buildDwellFuncBtn({required String label, required IconData icon, required Color color, required VoidCallback onTap, double? height}) {
       return DwellWrapper(
         onTap: onTap,
         dwellColor: color,
@@ -346,7 +358,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
         builder: (hovering, dwellCtrl) {
           return AnimatedContainer(
             duration: const Duration(milliseconds: 120),
-            height: 52,
+            height: height ?? 60,
             transform: hovering
                 ? (Matrix4.identity()..translate(0.0, -2.0))
                 : Matrix4.identity(),
@@ -395,74 +407,74 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       body: Column(
         children: [
           // ── Top bar ────────────────────────────────────────────
-          Container(
-            height: 50,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color: AppColors.keyboardDark,
-              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.25), blurRadius: 6)],
-            ),
-            child: Row(
-              children: [
-                // Logo
-                Text(
-                  'Synap',
-                  style: GoogleFonts.inter(
-                      color: Colors.white, fontSize: 20, fontWeight: FontWeight.w800),
-                ),
-                Text(
-                  'Talk',
-                  style: GoogleFonts.inter(
-                      color: AppColors.accentCyan, fontSize: 20, fontWeight: FontWeight.w800),
-                ),
-                const SizedBox(width: 6),
-                Text(
-                  '— Assistive Communication System',
-                  style: GoogleFonts.inter(
-                      color: Colors.white54, fontSize: 12, fontWeight: FontWeight.w400),
-                ),
-                const Spacer(),
-                // Status badges
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.remove_red_eye_outlined, color: AppColors.statusOffline, size: 15),
-                    const SizedBox(width: 4),
-                    Text('Eye Camera',
-                        style: GoogleFonts.inter(color: AppColors.statusOffline, fontSize: 11, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-                const SizedBox(width: 8),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.psychology_outlined, color: AppColors.statusOffline, size: 15),
-                    const SizedBox(width: 4),
-                    Text('EEG',
-                        style: GoogleFonts.inter(color: AppColors.statusOffline, fontSize: 11, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-                const SizedBox(width: 8),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.surround_sound_outlined, color: _isSpeaking ? AppColors.statusWarning : AppColors.statusOnline, size: 15),
-                    const SizedBox(width: 4),
-                    Text(_isSpeaking ? 'Speaking…' : 'TTS Ready',
-                        style: GoogleFonts.inter(color: _isSpeaking ? AppColors.statusWarning : AppColors.statusOnline, fontSize: 11, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                // Dashboard button
-                TextButton.icon(
-                  onPressed: () => context.push('/dashboard'),
-                  icon: const Icon(Icons.dashboard_outlined, color: Colors.white70, size: 18),
-                  label: Text('Dashboard',
-                      style: GoogleFonts.inter(color: Colors.white70, fontSize: 12)),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   height: 50,
+          //   padding: const EdgeInsets.symmetric(horizontal: 16),
+          //   decoration: BoxDecoration(
+          //     color: AppColors.keyboardDark,
+          //     boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.25), blurRadius: 6)],
+          //   ),
+          //   child: Row(
+          //     children: [
+          //       // Logo
+          //       Text(
+          //         'AAC ',
+          //         style: GoogleFonts.inter(
+          //             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w800),
+          //       ),
+          //       Text(
+          //         'System',
+          //         style: GoogleFonts.inter(
+          //             color: AppColors.accentCyan, fontSize: 20, fontWeight: FontWeight.w800),
+          //       ),
+          //       const SizedBox(width: 6),
+          //       Text(
+          //         '— Assistive Communication System',
+          //         style: GoogleFonts.inter(
+          //             color: Colors.white54, fontSize: 12, fontWeight: FontWeight.w400),
+          //       ),
+          //       const Spacer(),
+          //       // Status badges
+          //       Row(
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [
+          //           Icon(Icons.remove_red_eye_outlined, color: AppColors.statusOffline, size: 15),
+          //           const SizedBox(width: 4),
+          //           Text('Eye Camera',
+          //               style: GoogleFonts.inter(color: AppColors.statusOffline, fontSize: 11, fontWeight: FontWeight.w600)),
+          //         ],
+          //       ),
+          //       const SizedBox(width: 8),
+          //       Row(
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [
+          //           Icon(Icons.psychology_outlined, color: AppColors.statusOffline, size: 15),
+          //           const SizedBox(width: 4),
+          //           Text('EEG',
+          //               style: GoogleFonts.inter(color: AppColors.statusOffline, fontSize: 11, fontWeight: FontWeight.w600)),
+          //         ],
+          //       ),
+          //       const SizedBox(width: 8),
+          //       Row(
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [
+          //           Icon(Icons.surround_sound_outlined, color: _isSpeaking ? AppColors.statusWarning : AppColors.statusOnline, size: 15),
+          //           const SizedBox(width: 4),
+          //           Text(_isSpeaking ? 'Speaking…' : 'TTS Ready',
+          //               style: GoogleFonts.inter(color: _isSpeaking ? AppColors.statusWarning : AppColors.statusOnline, fontSize: 11, fontWeight: FontWeight.w600)),
+          //         ],
+          //       ),
+          //       const SizedBox(width: 12),
+          //       // Dashboard button
+          //       TextButton.icon(
+          //         onPressed: () => context.push('/dashboard'),
+          //         icon: const Icon(Icons.dashboard_outlined, color: Colors.white70, size: 18),
+          //         label: Text('Dashboard',
+          //             style: GoogleFonts.inter(color: Colors.white70, fontSize: 12)),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           // ── Main content ───────────────────────────────────────
           Expanded(
             child: Padding(
@@ -472,7 +484,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 children: [
                   // Left: output + quick words + keyboard
                   Expanded(
-                    flex: 74,
+                    flex: 70,
                     child: Column(
                       children: [
                         // ── OutputPanel ───────────────────────────────────────
@@ -500,6 +512,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                             // Text display area
                             Container(
                               height: 120,
+                              alignment: Alignment.centerLeft,
                               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                               decoration: BoxDecoration(
                                 color: AppColors.panelBg,
@@ -512,7 +525,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                 child: Text(
                                   _output.isEmpty ? '' : _output,
                                   style: GoogleFonts.inter(
-                                    fontSize: 24,
+                                    fontSize: 40,
                                     color: const Color(0xFF1A1A2E),
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -531,7 +544,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                   if (showAiIcon) ...[
                                     Container(
                                       width: 30,
-                                      height: 44,
+                                      height: 90,
                                       margin: const EdgeInsets.only(right: 6),
                                       decoration: BoxDecoration(
                                         color: AppColors.accentCyan.withOpacity(0.12),
@@ -587,20 +600,20 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                   ? _predictions.sublist(midpoint)
                                   : <Map<String, String>>[];
                               return SizedBox(
-                                height: 93,
+                                height: 185,
                                 child: Column(
                                   children: [
                                     buildPredictionRow(row1, showAiIcon: true),
                                     const SizedBox(height: 5),
                                     row2.isNotEmpty
                                         ? buildPredictionRow(row2, showAiIcon: false)
-                                        : const SizedBox(height: 44),
+                                        : const SizedBox(height: 90),
                                   ],
                                 ),
                               );
                             } else {
                               return SizedBox(
-                                height: 93,
+                                height: 185,
                                 child: Column(
                                   children: [
                                     buildStaticRow(AppConstants.quickWordsRow1),
@@ -632,7 +645,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                   const SizedBox(width: 12),
                   // Right: sentences + functions
                   SizedBox(
-                    width: 248,
+                    width: 348,
                     child: Column(
                       children: [
                         Expanded(
@@ -704,40 +717,56 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 20),
                         // ── FunctionsPanel ────────────────────────────────────
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             // Header
                             Container(
-                              padding: const EdgeInsets.symmetric(vertical: 9),
+                              height: 40,
                               decoration: BoxDecoration(
                                 color: AppColors.panelHeader,
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Text(
-                                'Other Functions',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.inter(
-                                    color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Text(
+                                    'Other Functions',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.inter(
+                                        color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+                                  ),
+                                  Positioned(
+                                    right: 2,
+                                    child: IconButton(
+                                      icon: const Icon(Icons.settings, color: Colors.white70, size: 18),
+                                      onPressed: () => context.push('/settings'),
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Expanded(child: buildDwellFuncBtn(label: 'Speak', icon: Icons.volume_up_rounded, color: AppColors.speakBtn, onTap: () => _speak(_output))),
-                                const SizedBox(width: 8),
-                                Expanded(child: buildDwellFuncBtn(label: 'Clear', icon: Icons.delete_outline_rounded, color: AppColors.clearBtn, onTap: () { _clear(); _showSnack('Cleared'); })),
-                              ],
+                            buildDwellFuncBtn(
+                              label: 'Speak',
+                              icon: Icons.volume_up_rounded,
+                              color: AppColors.speakBtn,
+                              onTap: () => _speak(_output),
+                              height: 130,
                             ),
                             const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Expanded(child: buildDwellFuncBtn(label: 'Settings', icon: Icons.settings_outlined, color: AppColors.settingsBtn, onTap: () => context.push('/settings'))),
-                                const SizedBox(width: 8),
-                                Expanded(child: buildDwellFuncBtn(label: 'Save', icon: Icons.save_alt_rounded, color: AppColors.saveBtn, onTap: () { _saveText(); _showSnack('Saved!'); })),
-                              ],
+                            buildDwellFuncBtn(
+                              label: 'Clear',
+                              icon: Icons.delete_outline_rounded,
+                              color: AppColors.clearBtn,
+                              onTap: () {
+                                _clear();
+                              },
+                              height: 110,
                             ),
                           ],
                         ),

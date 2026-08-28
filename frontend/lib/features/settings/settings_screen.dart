@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_colors.dart';
+import '../keyboard/gaze_keyboard.dart' show flutterSpacebarEnabled, flutterDwellEnabled;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -42,6 +43,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onChanged: (v) => setState(() => _gazeEnabled = v),
               icon: Icons.remove_red_eye_outlined,
               iconColor: AppColors.primaryBlue,
+            ),
+            const Divider(),
+            _SwitchTile(
+              title: 'Spacebar Select',
+              subtitle: 'Press spacebar to instantly select hovered item',
+              value: flutterSpacebarEnabled.value,
+              onChanged: (v) {
+                setState(() {
+                  flutterSpacebarEnabled.value = v;
+                });
+              },
+              icon: Icons.space_bar,
+              iconColor: const Color(0xFF22c55e),
+            ),
+            const Divider(),
+            _SwitchTile(
+              title: 'Dwell Auto-Select',
+              subtitle: 'Automatically select buttons by looking at them',
+              value: flutterDwellEnabled.value,
+              onChanged: (v) {
+                setState(() {
+                  flutterDwellEnabled.value = v;
+                });
+              },
+              icon: Icons.mouse_outlined,
+              iconColor: AppColors.accentCyan,
             ),
             const Divider(),
             ListTile(
@@ -100,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ]),
-          _SectionHeader('About SynapTalk'),
+          _SectionHeader('About AAC System'),
           _SettingCard(children: [
             ListTile(
               leading: const Icon(Icons.info_outline, color: AppColors.primaryBlue),

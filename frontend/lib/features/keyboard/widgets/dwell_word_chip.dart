@@ -29,7 +29,7 @@ class DwellWordChip extends StatelessWidget {
       builder: (hovering, dwellCtrl) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 120),
-          height: 44,
+          height: 90,
           transform: hovering
               ? (Matrix4.identity()..translate(0.0, -1.5))
               : Matrix4.identity(),
@@ -73,7 +73,7 @@ class DwellWordChip extends StatelessWidget {
             child: Text(
               label,
               style: GoogleFonts.inter(
-                fontSize: 14,
+                fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: hovering
                     ? (isPrediction && hl

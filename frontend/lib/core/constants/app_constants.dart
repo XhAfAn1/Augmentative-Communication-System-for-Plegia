@@ -9,22 +9,17 @@ class AppConstants {
   static const double keyboardPadding = 12.0;
 
   // ── Quick word chips ────────────────────────────────────
-  static const List<String> quickWordsRow1 = ['The', 'Is', 'Of', 'And', 'To', 'In'];
-  static const List<String> quickWordsRow2 = ['Hello', 'I want', 'Thank You', 'Yes', 'No'];
+  static const List<String> quickWordsRow1 = [' I ', 'The', 'It','Can','Do',];
+  static const List<String> quickWordsRow2 = ['Why', 'Where', 'Want', 'Need', 'Let'];
 
   // ── Preset sentences ────────────────────────────────────
   static const List<String> presetSentences = [
-    'Hello, my name is...',
-    'I need help please.',
-    'I want to say...',
-    'Thank you!',
-    'I feel pain.',
-    "I don't understand.",
-    'Please call a doctor.',
-    "I'm thirsty.",
-    "I'm hungry.",
-    'Please repeat that.',
-    'Yes, I agree.',
-    'No, thank you.',
+    'Yes.',
+    'No.',
+    'I don\'t know.',
+    'I don\'t understand.',
+    'Thank you.',
+    'I need help.',
+
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
+import '../../features/keyboard/gaze_keyboard.dart' show spacebarTrigger, flutterDwellEnabled;
 
 /// Draws a rounded-rect progress ring for dwell selection.
 /// Shared by all interactive widgets (words, sentences, buttons).
@@ -78,10 +79,19 @@ class _DwellWrapperState extends State<DwellWrapper>
           _onDwellFired();
         }
       });
+    spacebarTrigger.addListener(_onSpacebarTrigger);
+  }
+
+  void _onSpacebarTrigger() {
+    if (_hovering) {
+      _dwellCtrl.reset();
+      _onDwellFired();
+    }
   }
 
   @override
   void dispose() {
+    spacebarTrigger.removeListener(_onSpacebarTrigger);
     _dwellCtrl.dispose();
     super.dispose();
   }
@@ -101,7 +111,9 @@ class _DwellWrapperState extends State<DwellWrapper>
       cursor: SystemMouseCursors.click,
       onEnter: (_) {
         setState(() => _hovering = true);
-        _dwellCtrl.forward();
+        if (flutterDwellEnabled.value) {
+          _dwellCtrl.forward();
+        }
       },
       onExit: (_) {
         setState(() {
