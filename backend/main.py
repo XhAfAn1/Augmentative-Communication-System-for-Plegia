@@ -37,6 +37,9 @@ class SpacebarRequest(BaseModel):
     text: str
     sentence_complete: bool = False  # True when user finishes/sends a sentence
 
+class GpuToggleRequest(BaseModel):
+    enabled: bool
+
 @app.on_event("startup")
 async def startup_event():
     global backend
@@ -62,7 +65,7 @@ async def initialize_backend(req: InitRequest):
             raise HTTPException(status_code=500, detail=f"Failed to initialize backend: {str(e)}")
 
 @app.post("/api/spacebar_fast")
-async def predict_next_word_fast(req: SpacebarRequest):
+def predict_next_word_fast(req: SpacebarRequest):
     """Instant N-gram predictions (< 1ms). Uses its own lock, never blocked by LLM."""
     if not backend:
         raise HTTPException(status_code=503, detail="Backend not initialized.")
@@ -71,7 +74,7 @@ async def predict_next_word_fast(req: SpacebarRequest):
     return {"suggestions": suggestions}
 
 @app.post("/api/spacebar")
-async def predict_next_word(req: SpacebarRequest):
+def predict_next_word(req: SpacebarRequest):
     if not backend:
         raise HTTPException(status_code=503, detail="Backend not initialized. Is the model downloaded?")
 
@@ -87,7 +90,7 @@ async def predict_next_word(req: SpacebarRequest):
     return {"suggestions": suggestions}
 
 @app.post("/api/submit_sentence")
-async def submit_sentence(req: TextRequest):
+def submit_sentence(req: TextRequest):
     """Called when a user finishes and sends a full sentence.
     Updates the session history buffer and triggers personalization learning."""
     if not backend:
@@ -100,7 +103,7 @@ async def submit_sentence(req: TextRequest):
     return {"status": "ok", "history_size": len(backend.session_history)}
 
 @app.post("/api/type")
-async def predict_prefix(req: TextRequest):
+def predict_prefix(req: TextRequest):
     if not backend:
         raise HTTPException(status_code=503, detail="Backend not initialized. Is the model downloaded?")
     
@@ -109,13 +112,45 @@ async def predict_prefix(req: TextRequest):
     return {"suggestions": suggestions}
 
 @app.post("/api/complete_sentence")
-async def complete_sentence(req: TextRequest):
+def complete_sentence(req: TextRequest):
     if not backend:
         raise HTTPException(status_code=503, detail="Backend not initialized. Is the model downloaded?")
     
     with backend_lock:
         suggestions = backend.on_sentence_completion(req.text)
     return {"suggestions": suggestions}
+
+@app.get("/api/settings/gpu")
+def get_gpu_settings():
+    if not backend:
+        import shutil, subprocess, llama_cpp
+        device_name = None
+        if shutil.which("nvidia-smi"):
+            try:
+                out = subprocess.check_output(
+                    ["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader"],
+                    encoding="utf-8"
+                )
+                device_name = out.strip().splitlines()[0]
+            except Exception:
+                pass
+        return {
+            "gpu_available": bool(device_name),
+            "device_name": device_name or "CPU",
+            "gpu_enabled": False,
+            "llama_cuda": llama_cpp.llama_supports_gpu_offload(),
+            "active_mode": "Backend starting...",
+        }
+    return backend.get_gpu_info()
+
+@app.post("/api/settings/gpu")
+def set_gpu_settings(req: GpuToggleRequest):
+    if not backend:
+        raise HTTPException(status_code=503, detail="Backend not initialized.")
+    with backend_lock:
+        with fast_ai_lock:
+            info = backend.set_gpu_mode(req.enabled)
+            return info
 
 # Serve static files for the UI
 @app.get("/")

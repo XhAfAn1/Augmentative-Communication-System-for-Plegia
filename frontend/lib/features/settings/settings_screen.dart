@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/theme/app_colors.dart';
 import '../keyboard/gaze_keyboard.dart' show flutterSpacebarEnabled, flutterDwellEnabled;
 
@@ -18,6 +21,100 @@ class _SettingsScreenState extends State<SettingsScreen> {
   double _ttsRate = 1.0;
   double _ttsPitch = 1.0;
 
+  // GPU & AI Hardware Acceleration
+  bool _gpuEnabled = true;
+  bool _isLoadingGpu = false;
+  String _gpuSubtitle = 'Detecting GPU and AI status...';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadGpuSettings();
+  }
+
+  Future<void> _loadGpuSettings() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final cachedGpu = prefs.getBool('gpu_acceleration') ?? true;
+      if (mounted) {
+        setState(() => _gpuEnabled = cachedGpu);
+      }
+    } catch (_) {}
+
+    try {
+      final res = await http
+          .get(Uri.parse('http://127.0.0.1:8000/api/settings/gpu'))
+          .timeout(const Duration(seconds: 2));
+      if (res.statusCode == 200) {
+        final data = jsonDecode(res.body);
+        if (mounted) {
+          setState(() {
+            _gpuEnabled = data['gpu_enabled'] ?? _gpuEnabled;
+            final mode = data['active_mode'] ?? (_gpuEnabled ? 'GPU Enabled' : 'CPU Mode');
+            final device = data['device_name'] ?? 'NVIDIA GPU';
+            _gpuSubtitle = '$mode ($device)';
+          });
+        }
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _gpuSubtitle = _gpuEnabled
+              ? 'GPU Mode preferred (Backend offline)'
+              : 'CPU Mode active';
+        });
+      }
+    }
+  }
+
+  Future<void> _toggleGpu(bool value) async {
+    setState(() {
+      _gpuEnabled = value;
+      _isLoadingGpu = true;
+      _gpuSubtitle = value ? 'Switching to GPU mode...' : 'Switching to CPU mode...';
+    });
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('gpu_acceleration', value);
+    } catch (_) {}
+
+    try {
+      final res = await http
+          .post(
+            Uri.parse('http://127.0.0.1:8000/api/settings/gpu'),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({'enabled': value}),
+          )
+          .timeout(const Duration(seconds: 15));
+
+      if (res.statusCode == 200) {
+        final data = jsonDecode(res.body);
+        if (mounted) {
+          setState(() {
+            _gpuEnabled = data['gpu_enabled'] ?? value;
+            final mode = data['active_mode'] ?? (value ? 'GPU Enabled' : 'CPU Mode');
+            final device = data['device_name'] ?? 'NVIDIA GPU';
+            _gpuSubtitle = '$mode ($device)';
+            _isLoadingGpu = false;
+          });
+        }
+        return;
+      }
+    } catch (e) {
+      debugPrint('Failed to toggle GPU: $e');
+    }
+
+    if (mounted) {
+      setState(() {
+        _isLoadingGpu = false;
+        _gpuSubtitle = value
+            ? 'GPU Mode saved (Applied on backend)'
+            : 'CPU Mode active';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +131,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          _SectionHeader('Gaze & Dwell Interaction'),
+          const _SectionHeader('Gaze & Dwell Interaction'),
           _SettingCard(children: [
             _SwitchTile(
               title: 'Eye Tracking (Gaze Control)',
@@ -86,7 +183,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ]),
-          _SectionHeader('EEG / Brain Signal Input'),
+          const _SectionHeader('EEG / Brain Signal Input'),
           _SettingCard(children: [
             _SwitchTile(
               title: 'EEG Sensor Input',
@@ -97,7 +194,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
               iconColor: AppColors.accentCyan,
             ),
           ]),
-          _SectionHeader('Text-to-Speech (TTS)'),
+          const _SectionHeader('AI & Hardware Acceleration'),
+          _SettingCard(children: [
+            _SwitchTile(
+              title: 'GPU Acceleration (NVIDIA CUDA)',
+              subtitle: _gpuSubtitle,
+              value: _gpuEnabled,
+              onChanged: _isLoadingGpu ? (_) {} : (v) => _toggleGpu(v),
+              icon: Icons.memory,
+              iconColor: const Color(0xFF10b981),
+            ),
+          ]),
+          const _SectionHeader('Text-to-Speech (TTS)'),
           _SettingCard(children: [
             ListTile(
               leading: const Icon(Icons.speed, color: AppColors.primaryBlue),
@@ -127,7 +235,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ]),
-          _SectionHeader('About AAC System'),
+          const _SectionHeader('About AAC System'),
           _SettingCard(children: [
             ListTile(
               leading: const Icon(Icons.info_outline, color: AppColors.primaryBlue),

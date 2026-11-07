@@ -35,6 +35,9 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   List<String> _sentencePredictions = [];
   Timer? _debounceTimer;
   Timer? _sentenceDebounceTimer;
+  int _prefixSeq = 0;
+  int _nextWordSeq = 0;
+  final http.Client _client = http.Client();
 
   bool get _isUpperCase => _isShift || _isCaps;
 
@@ -57,6 +60,9 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   @override
   void dispose() {
+    _debounceTimer?.cancel();
+    _sentenceDebounceTimer?.cancel();
+    _client.close();
     HardwareKeyboard.instance.removeHandler(_onHardwareKey);
     _tts.stop();
     super.dispose();
@@ -65,7 +71,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   Future<void> _speak(String text) async {
     if (text.trim().isEmpty) return;
     
-    http.post(
+    _client.post(
       Uri.parse('http://127.0.0.1:8000/api/submit_sentence'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'text': text.trim()}),
@@ -204,7 +210,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       } else {
         _output += '$word ';
       }
-      _predictions = [];
     });
     _fetchNextWordPredictions();
     _debouncedFetchSentencePredictions();
@@ -233,8 +238,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       });
       return;
     }
-    // Reduced from 200ms to 50ms for near-instant typing feedback
-    _debounceTimer = Timer(const Duration(milliseconds: 50), () {
+    // Instant response with 10ms debounce
+    _debounceTimer = Timer(const Duration(milliseconds: 10), () {
       _fetchPrefixPredictions();
     });
   }
@@ -247,7 +252,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       });
       return;
     }
-    _sentenceDebounceTimer = Timer(const Duration(milliseconds: 800), () {
+    _sentenceDebounceTimer = Timer(const Duration(milliseconds: 600), () {
       _fetchSentencePredictions();
     });
   }
@@ -257,23 +262,28 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     final lastWord = currentText.split(RegExp(r'\s+')).last;
     if (lastWord.isEmpty) return;
 
+    final seq = ++_prefixSeq;
+
     try {
-      final response = await http.post(
+      final response = await _client.post(
         Uri.parse('http://127.0.0.1:8000/api/type'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'text': lastWord}),
       );
 
-      // Guard: only update if the user hasn't typed more letters while waiting
-      if (response.statusCode == 200 && mounted && _output == currentText) {
-        final data = jsonDecode(response.body);
-        final suggestions = data['suggestions'] as List;
-        setState(() {
-          _predictions = suggestions.map((e) => {
-            'word': e['word'].toString(),
-            'source': e['source'].toString(),
-          }).toList();
-        });
+      if (response.statusCode == 200 && mounted && seq == _prefixSeq) {
+        final currentLastWord = _output.split(RegExp(r'\s+')).last;
+        // Accept as long as user is still in the same word (e.g. still matches prefix)
+        if (currentLastWord.toLowerCase().startsWith(lastWord.toLowerCase()) || currentLastWord.isEmpty) {
+          final data = jsonDecode(response.body);
+          final suggestions = data['suggestions'] as List;
+          setState(() {
+            _predictions = suggestions.map((e) => {
+              'word': e['word'].toString(),
+              'source': e['source'].toString(),
+            }).toList();
+          });
+        }
       }
     } catch (e) {
       debugPrint('Failed to fetch prefix predictions: $e');
@@ -289,13 +299,15 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       return;
     }
 
-    // 1. Instant N-gram request
-    http.post(
+    final seq = ++_nextWordSeq;
+
+    // 1. Instant N-gram request (Sub-millisecond)
+    _client.post(
       Uri.parse('http://127.0.0.1:8000/api/spacebar_fast'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'text': currentText}),
     ).then((response) {
-      if (response.statusCode == 200 && mounted && _output == currentText) {
+      if (response.statusCode == 200 && mounted && seq == _nextWordSeq) {
         final data = jsonDecode(response.body);
         final suggestions = data['suggestions'] as List;
         setState(() {
@@ -305,30 +317,32 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           }).toList();
         });
       }
-    }).then((_) {}).catchError((e) { debugPrint('Failed fast: $e'); });
+    }).catchError((e) { debugPrint('Failed fast: $e'); });
 
-    // 2. Heavy LLM background request
-    http.post(
+    // 2. Heavy LLM background refinement (smoothly blends without wiping UI)
+    _client.post(
       Uri.parse('http://127.0.0.1:8000/api/spacebar'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'text': currentText}),
     ).then((response) {
-      if (response.statusCode == 200 && mounted && _output == currentText) {
+      if (response.statusCode == 200 && mounted && seq == _nextWordSeq) {
         final data = jsonDecode(response.body);
         final suggestions = data['suggestions'] as List;
-        setState(() {
-          _predictions = suggestions.map((e) => {
-            'word': e['word'].toString(),
-            'source': e['source'].toString(),
-          }).toList();
-        });
+        if (suggestions.isNotEmpty) {
+          setState(() {
+            _predictions = suggestions.map((e) => {
+              'word': e['word'].toString(),
+              'source': e['source'].toString(),
+            }).toList();
+          });
+        }
       }
-    }).then((_) {}).catchError((e) { debugPrint('Failed slow: $e'); });
+    }).catchError((e) { debugPrint('Failed slow: $e'); });
   }
 
   Future<void> _fetchSentencePredictions() async {
     try {
-      final response = await http.post(
+      final response = await _client.post(
         Uri.parse('http://127.0.0.1:8000/api/complete_sentence'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'text': _output.trim()}),

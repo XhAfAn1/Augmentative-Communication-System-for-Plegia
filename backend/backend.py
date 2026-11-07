@@ -20,10 +20,12 @@ class FrequencyTrie:
         self.root = TrieNode()
         self.top_global_words = []
         self._all_words = []
+        self._cache = {}
 
     def insert(self, word: str, frequency: int):
         word = word.lower().strip()
         if not word: return
+        self._cache.clear()
         node = self.root
         for char in word:
             if char not in node.children: node.children[char] = TrieNode()
@@ -35,6 +37,7 @@ class FrequencyTrie:
     def update_frequency(self, word: str, increment: int = 5):
         word = word.lower().strip()
         if not word: return
+        self._cache.clear()
         node = self.root
         for char in word:
             if char not in node.children: node.children[char] = TrieNode()
@@ -52,6 +55,7 @@ class FrequencyTrie:
                 self.top_global_words.append(w)
                 if len(self.top_global_words) >= 10: break
         self._all_words = []
+        self._cache.clear()
 
     def is_valid_word(self, word: str) -> bool:
         word = word.lower().strip()
@@ -64,6 +68,9 @@ class FrequencyTrie:
     def get_words_with_prefix(self, prefix: str, top_n: int = 10):
         prefix = prefix.lower().strip()
         if not prefix: return self.top_global_words[:top_n]
+        if prefix in self._cache:
+            return self._cache[prefix][:top_n]
+
         node = self.root
         for char in prefix:
             if char not in node.children: return []
@@ -78,7 +85,9 @@ class FrequencyTrie:
 
         dfs(node, prefix)
         results.sort(key=lambda x: x[1], reverse=True)
-        return [word for word, freq in results[:top_n]]
+        top_words = [word for word, freq in results[:top_n]]
+        self._cache[prefix] = top_words
+        return top_words
 
 # ---------------------------------------------------------
 # 2. CONTEXT MANAGER & N-GRAM PREDICTORS
@@ -194,7 +203,12 @@ class RankingEngine:
 # 4. INTELLECTUAL HYBRID ORCHESTRATOR (Upgraded)
 # ---------------------------------------------------------
 class HybridKeyboardBackend:
-    def __init__(self, fast_gguf_path: str, heavy_gguf_path: str, vocab_path: str):
+    def __init__(self, fast_gguf_path: str, heavy_gguf_path: str, vocab_path: str, use_gpu: bool = True):
+        self.fast_gguf_path = fast_gguf_path
+        self.heavy_gguf_path = heavy_gguf_path
+        self.vocab_path = vocab_path
+        self.use_gpu = use_gpu
+
         self.trie = FrequencyTrie()
         self.personalization = PersonalizationEngine()
         self.trigram = TrigramPredictor()
@@ -240,13 +254,79 @@ class HybridKeyboardBackend:
                 print(f"[Backend] Could not load personalization data: {e}. Starting fresh.")
 
         # Initialize the dual LLM models
-        print(f"[Backend] Loading Fast LLM from {fast_gguf_path}...")
-        self.fast_llm = Llama(model_path=fast_gguf_path, n_ctx=512, n_gpu_layers=-1, logits_all=True, verbose=False)
-        print(f"[Backend] Loading Heavy LLM from {heavy_gguf_path}...")
-        self.heavy_llm = Llama(model_path=heavy_gguf_path, n_ctx=512, n_gpu_layers=-1, verbose=False)
         self.ai_cache = {}
+        self._load_llm_models(use_gpu=use_gpu)
 
-        # Note: Smart Compose now uses purely the Llama 3 LLM (no static dataset).
+    def _detect_system_gpu(self):
+        import shutil, subprocess
+        import llama_cpp
+        device_name = None
+        if shutil.which("nvidia-smi"):
+            try:
+                out = subprocess.check_output(
+                    ["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader"],
+                    encoding="utf-8"
+                )
+                device_name = out.strip().splitlines()[0]
+            except Exception:
+                pass
+        return {
+            "gpu_detected": bool(device_name),
+            "device_name": device_name or "CPU",
+            "llama_cuda": llama_cpp.llama_supports_gpu_offload()
+        }
+
+    def _load_llm_models(self, use_gpu: bool):
+        self.use_gpu = use_gpu
+        gpu_info = self._detect_system_gpu()
+        gpu_layers = -1 if (use_gpu and gpu_info["llama_cuda"]) else 0
+        target_device = gpu_info["device_name"] if (use_gpu and gpu_info["llama_cuda"]) else "CPU"
+        print(f"[Backend] Loading models targeting {target_device} (use_gpu={use_gpu}, n_gpu_layers={gpu_layers})...")
+
+        self.fast_llm = Llama(
+            model_path=self.fast_gguf_path,
+            n_ctx=512,
+            n_gpu_layers=gpu_layers,
+            logits_all=True,
+            verbose=False,
+            n_threads=8
+        )
+        self.heavy_llm = Llama(
+            model_path=self.heavy_gguf_path,
+            n_ctx=512,
+            n_gpu_layers=gpu_layers,
+            verbose=False,
+            n_threads=8
+        )
+        print("[Backend] Models loaded successfully.")
+
+    def set_gpu_mode(self, enable_gpu: bool):
+        if hasattr(self, 'fast_llm') and self.use_gpu == enable_gpu:
+            return self.get_gpu_info()
+        print(f"[Backend] Changing GPU mode: enable_gpu={enable_gpu}")
+        if hasattr(self, 'fast_llm'):
+            del self.fast_llm
+        if hasattr(self, 'heavy_llm'):
+            del self.heavy_llm
+        self._load_llm_models(use_gpu=enable_gpu)
+        return self.get_gpu_info()
+
+    def get_gpu_info(self):
+        gpu_info = self._detect_system_gpu()
+        if self.use_gpu and gpu_info["llama_cuda"]:
+            active_mode = "GPU Accelerated (CUDA)"
+        elif self.use_gpu and gpu_info["gpu_detected"]:
+            active_mode = "GPU Enabled (CPU fallback)"
+        else:
+            active_mode = "CPU Mode"
+
+        return {
+            "gpu_available": gpu_info["gpu_detected"],
+            "device_name": gpu_info["device_name"],
+            "gpu_enabled": self.use_gpu,
+            "llama_cuda": gpu_info["llama_cuda"],
+            "active_mode": active_mode,
+        }
 
     # ---------------------------------------------------------
     # INTERNAL: Build context-aware LLM prompt (Action 1)
