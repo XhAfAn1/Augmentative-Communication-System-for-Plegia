@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/utils/tts_service.dart';
 import '../keyboard/gaze_keyboard.dart' show flutterSpacebarEnabled, flutterDwellEnabled;
 
 class SettingsScreen extends StatefulWidget {
@@ -18,8 +19,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _gazeEnabled = true;
   double _dwellDuration = 1.0;
   bool _eegEnabled = false;
+
+  // TTS Settings
+  final TtsService _ttsService = TtsService();
+  String _selectedEngine = 'edge_tts';
+  String _selectedGender = 'female';
+  String _selectedVoice = 'en-US-JennyNeural';
   double _ttsRate = 1.0;
   double _ttsPitch = 1.0;
+  double _ttsTemperature = 0.3;
+  bool _isTestingVoice = false;
+
+  static const Map<String, Map<String, List<Map<String, String>>>> _ttsVoiceCatalog = {
+    'edge_tts': {
+      'female': [
+        {'id': 'en-US-JennyNeural', 'name': 'Jenny (US Female — Conversational Flagship)'},
+        {'id': 'en-US-AriaNeural', 'name': 'Aria (US Female — Expressive)'},
+        {'id': 'en-GB-SoniaNeural', 'name': 'Sonia (UK Female — British)'},
+      ],
+      'male': [
+        {'id': 'en-US-GuyNeural', 'name': 'Guy (US Male — Conversational Flagship)'},
+        {'id': 'en-US-ChristopherNeural', 'name': 'Christopher (US Male — Professional)'},
+        {'id': 'en-GB-RyanNeural', 'name': 'Ryan (UK Male — British)'},
+      ],
+    },
+    'pocket_tts': {
+      'female': [
+        {'id': 'anna', 'name': 'Anna (Gentle Female)'},
+        {'id': 'cosette', 'name': 'Cosette (Melodic Female)'},
+        {'id': 'jane', 'name': 'Jane (Grounded Female)'},
+      ],
+      'male': [
+        {'id': 'jean', 'name': 'Jean (Natural Male)'},
+        {'id': 'paul', 'name': 'Paul (Warm Male)'},
+        {'id': 'george', 'name': 'George (Deep Male)'},
+        {'id': 'michael', 'name': 'Michael (Clean Male)'},
+      ],
+    },
+    'sapi': {
+      'female': [
+        {'id': 'default', 'name': 'Windows Default Voice'},
+      ],
+      'male': [
+        {'id': 'default', 'name': 'Windows Default Voice'},
+      ],
+    },
+  };
 
   // GPU & AI Hardware Acceleration
   bool _gpuEnabled = true;
@@ -30,6 +75,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     super.initState();
     _loadGpuSettings();
+    _loadTtsSettings();
+  }
+
+  Future<void> _loadTtsSettings() async {
+    await _ttsService.init();
+    if (mounted) {
+      setState(() {
+        _selectedEngine = _ttsService.engine;
+        _selectedGender = _ttsService.gender;
+        _selectedVoice = _ttsService.voice;
+        _ttsRate = _ttsService.rate;
+        _ttsPitch = _ttsService.pitch;
+        _ttsTemperature = _ttsService.temperature;
+        _ensureValidVoice();
+      });
+      // Ensure synchronized state if valid voice changed
+      if (_selectedVoice != _ttsService.voice) {
+        _saveTtsSettings();
+      }
+    }
+  }
+
+  void _ensureValidVoice() {
+    final available = _ttsVoiceCatalog[_selectedEngine]?[_selectedGender] ?? [];
+    if (!available.any((v) => v['id'] == _selectedVoice)) {
+      if (available.isNotEmpty) {
+        _selectedVoice = available.first['id']!;
+      }
+    }
+  }
+
+  Future<void> _saveTtsSettings() async {
+    await _ttsService.updateConfig(
+      engine: _selectedEngine,
+      gender: _selectedGender,
+      voice: _selectedVoice,
+      rate: _ttsRate,
+      pitch: _ttsPitch,
+      temperature: _ttsTemperature,
+    );
+  }
+
+  Future<void> _testVoiceSample() async {
+    if (_isTestingVoice) return;
+    setState(() => _isTestingVoice = true);
+    await _ttsService.speak(
+      'Hello! This is a test of my assistive speech voice.',
+      engine: _selectedEngine,
+      voice: _selectedVoice,
+      speed: _ttsRate,
+      pitch: _ttsPitch,
+      temperature: _ttsTemperature,
+    );
+    if (mounted) setState(() => _isTestingVoice = false);
   }
 
   Future<void> _loadGpuSettings() async {
@@ -205,22 +304,177 @@ class _SettingsScreenState extends State<SettingsScreen> {
               iconColor: const Color(0xFF10b981),
             ),
           ]),
-          const _SectionHeader('Text-to-Speech (TTS)'),
+          const _SectionHeader('Text-to-Speech (TTS) Configuration'),
           _SettingCard(children: [
-            ListTile(
-              leading: const Icon(Icons.speed, color: AppColors.primaryBlue),
-              title: Text('Speech Rate: ${_ttsRate.toStringAsFixed(1)}',
-                  style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
-              subtitle: Slider(
-                value: _ttsRate,
-                min: 0.1,
-                max: 1.0,
-                divisions: 9,
-                activeColor: AppColors.primaryBlue,
-                onChanged: (v) => setState(() => _ttsRate = v),
+            // 1. Engine Dropdown
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  const Icon(Icons.record_voice_over_outlined, color: AppColors.primaryBlue),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('TTS Engine',
+                            style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 14)),
+                        Text('Select neural cloud or on-device edge model',
+                            style: GoogleFonts.inter(fontSize: 12, color: Colors.grey[600])),
+                      ],
+                    ),
+                  ),
+                  DropdownButton<String>(
+                    value: _selectedEngine,
+                    underline: const SizedBox(),
+                    items: const [
+                      DropdownMenuItem(
+                        value: 'edge_tts',
+                        child: Text('Edge-TTS (Azure Cloud)'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'pocket_tts',
+                        child: Text('Pocket TTS (On-Device 100M)'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'sapi',
+                        child: Text('Windows Native (SAPI)'),
+                      ),
+                    ],
+                    onChanged: (val) {
+                      if (val != null) {
+                        setState(() {
+                          _selectedEngine = val;
+                          _ensureValidVoice();
+                        });
+                        _saveTtsSettings();
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
             const Divider(),
+
+            // 2. Gender Selection
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  const Icon(Icons.wc_outlined, color: AppColors.primaryBlue, size: 20),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text('Voice Persona Gender',
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 14)),
+                  ),
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      ChoiceChip(
+                        label: const Text('Female'),
+                        selected: _selectedGender == 'female',
+                        selectedColor: AppColors.primaryBlueLight.withValues(alpha: 0.2),
+                        labelStyle: GoogleFonts.inter(
+                          fontWeight: FontWeight.w600,
+                          color: _selectedGender == 'female' ? AppColors.primaryBlue : Colors.black87,
+                        ),
+                        onSelected: (selected) {
+                          if (selected) {
+                            setState(() {
+                              _selectedGender = 'female';
+                              _ensureValidVoice();
+                            });
+                            _saveTtsSettings();
+                          }
+                        },
+                      ),
+                      ChoiceChip(
+                        label: const Text('Male'),
+                        selected: _selectedGender == 'male',
+                        selectedColor: AppColors.primaryBlueLight.withValues(alpha: 0.2),
+                        labelStyle: GoogleFonts.inter(
+                          fontWeight: FontWeight.w600,
+                          color: _selectedGender == 'male' ? AppColors.primaryBlue : Colors.black87,
+                        ),
+                        onSelected: (selected) {
+                          if (selected) {
+                            setState(() {
+                              _selectedGender = 'male';
+                              _ensureValidVoice();
+                            });
+                            _saveTtsSettings();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const Divider(),
+
+            // 3. Voice Persona Dropdown
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  const Icon(Icons.person_pin_circle_outlined, color: AppColors.primaryBlue),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Voice Persona',
+                            style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 14)),
+                        Text('Available voices for selected engine',
+                            style: GoogleFonts.inter(fontSize: 12, color: Colors.grey[600])),
+                      ],
+                    ),
+                  ),
+                  DropdownButton<String>(
+                    value: _selectedVoice,
+                    underline: const SizedBox(),
+                    items: (_ttsVoiceCatalog[_selectedEngine]?[_selectedGender] ?? []).map((voice) {
+                      return DropdownMenuItem<String>(
+                        value: voice['id'],
+                        child: Text(
+                          voice['name'] ?? '',
+                          style: GoogleFonts.inter(fontSize: 13),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (val) {
+                      if (val != null) {
+                        setState(() => _selectedVoice = val);
+                        _saveTtsSettings();
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const Divider(),
+
+            // 4. Speech Rate Slider
+            ListTile(
+              leading: const Icon(Icons.speed, color: AppColors.primaryBlue),
+              title: Text('Speech Rate: ${_ttsRate.toStringAsFixed(1)}x',
+                  style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+              subtitle: Slider(
+                value: _ttsRate,
+                min: 0.5,
+                max: 1.5,
+                divisions: 10,
+                activeColor: AppColors.primaryBlue,
+                onChanged: (v) {
+                  setState(() => _ttsRate = v);
+                  _saveTtsSettings();
+                },
+              ),
+            ),
+            const Divider(),
+
+            // 5. Pitch Slider
             ListTile(
               leading: const Icon(Icons.graphic_eq, color: AppColors.primaryBlue),
               title: Text('Pitch: ${_ttsPitch.toStringAsFixed(1)}',
@@ -228,10 +482,87 @@ class _SettingsScreenState extends State<SettingsScreen> {
               subtitle: Slider(
                 value: _ttsPitch,
                 min: 0.5,
-                max: 2.0,
-                divisions: 15,
+                max: 1.5,
+                divisions: 10,
                 activeColor: AppColors.primaryBlue,
-                onChanged: (v) => setState(() => _ttsPitch = v),
+                onChanged: (v) {
+                  setState(() => _ttsPitch = v);
+                  _saveTtsSettings();
+                },
+              ),
+            ),
+
+            // 6. Voice Expressiveness (Temperature) — Pocket TTS specific
+            if (_selectedEngine == 'pocket_tts') ...[
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.tune_rounded, color: AppColors.primaryBlue),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Expressiveness (Temp): ${_ttsTemperature.toStringAsFixed(2)}',
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+                    Text(
+                      _ttsTemperature <= 0.2
+                          ? 'Calm / Steady'
+                          : (_ttsTemperature <= 0.45 ? 'Balanced (Default)' : 'Dynamic / Expressive'),
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        color: AppColors.primaryBlue,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 4),
+                    Text(
+                      'Controls Pocket-TTS flow temperature (0.1 = stable & predictable, 0.6 = animated prosody)',
+                      style: GoogleFonts.inter(fontSize: 11, color: Colors.grey[600]),
+                    ),
+                    Slider(
+                      value: _ttsTemperature,
+                      min: 0.1,
+                      max: 0.7,
+                      divisions: 12,
+                      activeColor: AppColors.primaryBlue,
+                      onChanged: (v) {
+                        setState(() => _ttsTemperature = v);
+                        _saveTtsSettings();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+            const Divider(),
+
+            // 7. Test Voice Button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: _isTestingVoice ? null : _testVoiceSample,
+                  icon: _isTestingVoice
+                      ? const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        )
+                      : const Icon(Icons.volume_up_rounded),
+                  label: Text(_isTestingVoice ? 'Speaking Sample...' : 'Test Voice Sample'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryBlue,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
               ),
             ),
           ]),

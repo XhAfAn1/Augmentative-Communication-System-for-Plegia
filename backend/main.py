@@ -2,11 +2,13 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
+from typing import Optional
 import os
 import threading
 
 # Import our backend logic
 from backend import HybridKeyboardBackend
+from tts_manager import tts_manager
 
 app = FastAPI(title="Hybrid Keyboard API")
 
@@ -39,6 +41,18 @@ class SpacebarRequest(BaseModel):
 
 class GpuToggleRequest(BaseModel):
     enabled: bool
+
+class TtsSpeakRequest(BaseModel):
+    text: str
+    engine: str = "edge_tts"
+    voice: Optional[str] = None
+    speed: float = 1.0
+    pitch: float = 1.0
+    temperature: float = 0.3
+    play_now: bool = True
+
+class SelectEngineRequest(BaseModel):
+    engine: str
 
 @app.on_event("startup")
 async def startup_event():
@@ -151,6 +165,58 @@ def set_gpu_settings(req: GpuToggleRequest):
         with fast_ai_lock:
             info = backend.set_gpu_mode(req.enabled)
             return info
+
+# -------------------------------------------------------------
+# Text-to-Speech (TTS) Endpoints
+# -------------------------------------------------------------
+@app.get("/api/tts/voices")
+def get_tts_voices():
+    """Returns available TTS engines, voices, and metadata."""
+    return tts_manager.get_available_voices()
+
+@app.post("/api/tts/select_engine")
+async def select_engine(req: SelectEngineRequest):
+    """Called when an engine is selected in the UI:
+    - Preloads Pocket TTS proactively in the background if selected.
+    - Unloads Pocket TTS to free memory if switching away to another engine.
+    """
+    if req.engine == "pocket_tts":
+        import asyncio
+        asyncio.create_task(asyncio.to_thread(tts_manager.preload_pocket_model))
+        return {"status": "loading", "engine": "pocket_tts", "message": "Pocket TTS preload started."}
+    else:
+        tts_manager.unload_pocket_model()
+        return {"status": "unloaded", "engine": req.engine, "message": "Pocket TTS unloaded from memory."}
+
+@app.post("/api/tts/speak")
+async def speak_text(req: TtsSpeakRequest):
+    """Synthesizes and plays speech non-blockingly."""
+    print(f"[API TTS Speak] engine={req.engine}, voice={req.voice}, speed={req.speed}, pitch={req.pitch}, temp={req.temperature}, text={req.text!r}")
+    res = await tts_manager.synthesize(
+        text=req.text,
+        engine=req.engine,
+        voice=req.voice,
+        speed=req.speed,
+        pitch=req.pitch,
+        temperature=req.temperature,
+        play_now=req.play_now
+    )
+    return res
+
+@app.post("/api/tts/stop")
+def stop_speech():
+    """Interrupts any currently playing speech."""
+    tts_manager.stop_playback()
+    return {"status": "stopped"}
+
+@app.get("/api/tts/audio/{filename}")
+def get_audio_file(filename: str):
+    """Static file endpoint to download or stream generated TTS audio."""
+    file_path = os.path.join(tts_manager.cache_dir, filename)
+    if os.path.exists(file_path):
+        media_type = "audio/mpeg" if filename.endswith(".mp3") else "audio/wav"
+        return FileResponse(file_path, media_type=media_type)
+    raise HTTPException(status_code=404, detail="Audio file not found.")
 
 # Serve static files for the UI
 @app.get("/")
