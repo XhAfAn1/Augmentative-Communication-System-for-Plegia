@@ -1,78 +1,61 @@
 # Augmentative Communication System for Plegia
 
-This project consists of three main modules that work together to provide an eye-tracking-based communication system:
-1. **Backend**: A FastAPI server that provides predictive text and sentence completion using local LLMs.
-2. **GazeMouse**: A Python-based eye-tracking module that controls the system cursor using a webcam.
-3. **Frontend**: A Flutter-based UI providing an on-screen keyboard optimized for gaze and dwell-clicking.
+A communication system for people who cannot speak or move their hands (plegia, ALS): they type and speak
+with their eyes. Version 1.2.0, Windows.
 
----
+## What it has
 
-## 1. Backend (Python)
+- **Eye tracker:** two small infrared cameras on an eyeglass frame, one per eye. Pupil detection, calibration and
+  a gaze-controlled Windows mouse.
+- **AAC keyboard app:** large on-screen keyboard, word predictions, sentence suggestions, quick words and fixed
+  phrases. Buttons are selected by **dwell** (looking at them) or with the **Spacebar**.
+- **AI prediction:** two local language models (no internet needed) plus learned word statistics, per
+  **profile** (e.g. *Test* and *Patient*). Sentences you have spoken are offered again when you start typing them.
+- **Speech:** online neural voices, with the Windows voice as an automatic offline fallback.
 
-The backend handles the AI text predictions.
+## How it works
 
-### Installation
-Navigate to the `backend` directory and install the required Python libraries. It is highly recommended to use a virtual environment.
-
-```powershell
-cd backend
-python -m venv venv
-.\venv\Scripts\activate
-pip install -r requirements.txt
+```
+ eye cameras --> Eye tracker (Python, port 8001) --> moves the Windows mouse cursor
+                                                        |
+                                    the app's buttons react to the cursor (dwell / Spacebar)
+                                                        |
+ AAC app (Flutter) <-- word & sentence predictions, speech -- AI backend (Python, port 8000)
 ```
 
-> **Note:** Ensure you have the required model files (`qwen2.5-0.5b-instruct-q8_0.gguf`, `Llama-3.2-3B-Instruct-Q4_K_M.gguf`) and `vocab.json` placed inside the `backend` directory before running.
+1. The tracker finds both pupils in the camera images and maps them to a screen position with your calibration.
+2. That position drives the mouse cursor, smoothed so it stays calm.
+3. Looking at a button for the dwell time (or pressing Space) selects it; the app predicts the next words and
+   whole sentences, and **Speak** reads the message aloud.
+4. The app starts the tracker and the backend itself and stops them when it closes.
 
-### Running the Backend
-Ensure your virtual environment is activated, then run:
+## Folders
 
-```powershell
-python main.py
-```
-The server will start and be available at `http://localhost:8000`.
+| Folder | Contents |
+|---|---|
+| `frontend/` | The AAC app (Flutter, Windows desktop) |
+| `Binocular Eye Tracking Module/` | Eye tracker (`tracker_service.py`; `launcher.py` = standalone control panel) |
+| `backend/` | AI prediction + speech server (`main.py`), language models, learning profiles |
+| `logs/` | `tracker.log`, `backend.log`, setup logs |
 
----
+## Start
 
-## 2. GazeMouse (Python)
+- **This PC:** double-click **`start_aac.bat`**. It rebuilds the app only when the code changed, then opens it.
+- **New PC:** copy this folder (without `backend/venv`), run **`setup_new_pc.bat`** once (installs what is missing,
+  asks before big installs; `setup_new_pc.bat check` only reports), then use `start_aac.bat`.
 
-The GazeMouse module is responsible for detecting pupils and moving the mouse cursor.
+## First use
 
-### Installation
-Navigate to the `GazeMouse` directory and install its dependencies. It is recommended to use a separate virtual environment for this module.
+1. **Eye Tracking > Sensors:** check that each camera shows the right eye.
+2. **Eye Tracking > Calibration:** run a **Full Calibration** each time the headset is put on.
+3. **Settings:** choose the prediction profile, dwell time and voice. Every setting is kept after a restart.
+4. Switch the eye mouse on with **F5** (F6 stops it at any time).
 
-```powershell
-cd GazeMouse
-python -m venv venv
-.\venv\Scripts\activate
-pip install -r requirements.txt
-```
+## Helpful features
 
-### Running GazeMouse
-Ensure your virtual environment is activated, then launch the control panel:
+- **Quick Re-centre** (8 s) and **Level 2 Fine-tune** correct a headset that has slipped.
+- **Auto re-centre while using** (off by default): learns the remaining cursor offset from the buttons you select.
+- **System Status** (Settings) shows every part of the system and can restart the background programs.
+- **Logs** in `logs/` help when something does not work.
 
-```powershell
-python launcher.py
-```
-This will open the EyeTracker Module Control Panel, where you can configure your camera, perform calibration, and start cursor control.
-
----
-
-## 3. Frontend (Flutter)
-
-The frontend is the main user interface featuring the gaze-optimized keyboard.
-
-### Installation
-Ensure you have the [Flutter SDK](https://docs.flutter.dev/get-started/install) installed on your system. Navigate to the `frontend` directory and fetch the required packages:
-
-```powershell
-cd frontend
-flutter pub get
-```
-
-### Running the Frontend
-Run the Flutter application (targeting Windows):
-
-```powershell
-flutter run -d windows
-```
-*(You can omit `-d windows` or replace it with another target device if needed)*
+Do not run `launcher.py` while the app is running: both would use the cameras.

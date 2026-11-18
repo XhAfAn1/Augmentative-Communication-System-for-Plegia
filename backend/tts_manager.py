@@ -61,6 +61,9 @@ class TTSManager:
         # Playback tracking via native pygame.mixer
         self._mixer_initialized = False
         self._playback_lock = threading.Lock()
+        self._playback_process = None
+        # every Stop / new request ends the older ones: a late result (slow network) is never played afterwards
+        self._generation = 0
 
     def _cleanup_cache(self):
         """Cleans up legacy files in tts_outputs on startup."""
@@ -156,9 +159,18 @@ class TTSManager:
             except Exception as e:
                 print(f"[TTSManager] Failed to init pygame mixer: {e}")
 
+    EDGE_TIMEOUT_S = 6.0   # slow / broken internet: speak with Windows SAPI instead of keeping the user waiting
+
     def stop_playback(self):
-        """Immediately interrupts any playing audio."""
+        """Immediately interrupts any playing audio (also SAPI speech) and cancels requests still synthesizing."""
+        self._generation += 1
         with self._playback_lock:
+            p, self._playback_process = self._playback_process, None
+            if p is not None and p.poll() is None:
+                try:
+                    p.kill()
+                except Exception:
+                    pass
             try:
                 import pygame
                 if pygame.mixer.get_init():
@@ -195,6 +207,7 @@ class TTSManager:
             return {"status": "error", "message": "Empty text provided."}
 
         timestamp = int(time.time() * 1000)
+        gen = self._generation          # Stop (or the app's timeout) after this point cancels the playback
 
         # ----------------------------------------------------
         # 1. Edge-TTS (Cloud Neural)
@@ -218,10 +231,10 @@ class TTSManager:
                     rate=rate_str,
                     pitch=pitch_str
                 )
-                await communicate.save(output_path)
+                await asyncio.wait_for(communicate.save(output_path), timeout=self.EDGE_TIMEOUT_S)
                 latency_ms = round((time.time() - t0) * 1000, 1)
 
-                if play_now:
+                if play_now and gen == self._generation:
                     self._play_audio_file(output_path)
 
                 return {
@@ -236,7 +249,7 @@ class TTSManager:
             except Exception as e:
                 print(f"[TTSManager] Edge-TTS failed: {e}. Falling back to SAPI...")
                 # Graceful fallback to SAPI if internet is down
-                return await self._synthesize_sapi(cleaned_text, play_now=play_now)
+                return await self._synthesize_sapi(cleaned_text, play_now=play_now and gen == self._generation)
 
         # ----------------------------------------------------
         # 2. Pocket TTS (On-Device CPU)
@@ -283,7 +296,7 @@ class TTSManager:
 
                 scipy.io.wavfile.write(output_path, sample_rate, audio_int16)
 
-                if play_now:
+                if play_now and gen == self._generation:
                     self._play_audio_file(output_path)
 
                 return {
@@ -297,7 +310,7 @@ class TTSManager:
                 }
             except Exception as e:
                 print(f"[TTSManager] Pocket TTS failed: {e}. Falling back to SAPI...")
-                return await self._synthesize_sapi(cleaned_text, play_now=play_now)
+                return await self._synthesize_sapi(cleaned_text, play_now=play_now and gen == self._generation)
 
         # ----------------------------------------------------
         # 3. Windows Native SAPI Fallback

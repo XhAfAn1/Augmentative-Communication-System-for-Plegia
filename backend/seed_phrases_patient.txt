@@ -1,0 +1,69 @@
+# Starting phrases for the Patient profile (phrase memory + word learning).
+# Read ONCE, when the Patient profile is created (first time it is selected). One sentence per line.
+# Edit freely before that. Lines starting with # are ignored.
+
+# Basic answers
+Yes.
+No.
+Maybe.
+I don't know.
+Wait a moment please.
+Thank you.
+
+# Needs
+I need help.
+I need water.
+I am thirsty.
+I am hungry.
+I need to go to the bathroom.
+I need my medicine.
+I need to rest.
+I want to sleep.
+
+# Comfort and position
+Please change my position.
+Please adjust my pillow.
+Please raise the head of the bed.
+Please lower the bed.
+I am cold.
+I am hot.
+Please cover me with a blanket.
+Please open the window.
+Please close the window.
+Please turn off the light.
+Please turn on the light.
+
+# Body and pain
+I am in pain.
+My back hurts.
+My head hurts.
+I feel sick.
+It is hard to breathe.
+Please wipe my face.
+Please scratch my nose.
+My mouth is dry.
+
+# People and care
+Please call the nurse.
+Please call the doctor.
+Please call my family.
+When is the doctor coming?
+Can you help me?
+Can you stay with me?
+Please do not leave yet.
+
+# Feelings and social
+I feel better today.
+I am tired.
+I am happy to see you.
+I love you.
+How are you?
+Good morning.
+Good night.
+
+# Communication
+Please wait, I am typing.
+Can you say that again?
+I don't understand.
+Please speak slowly.
+Please read it to me.

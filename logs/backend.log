@@ -1,0 +1,1192 @@
+
+===== 2026-11-17 23:13:12.300280 start pid 2228 =====
+
+===== 2026-11-17 23:34:03.877358 start pid 13160 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [23000]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:51116 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51119 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51395 - "GET /openapi.json HTTP/1.1" 200 OK
+
+===== 2026-11-18 00:20:21.787932 start pid 21164 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [24072]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55011 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55208 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55207 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55460 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+[TTSManager] Preloading Pocket TTS on CPU (Zero VRAM impact)...
+[TTSManager] Pocket TTS loaded successfully on CPU.
+INFO:     127.0.0.1:55539 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55538 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55893 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55892 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-18 00:30:06.449697 start pid 12532 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [21896]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+
+===== 2026-11-18 19:56:09.985690 start pid 6776 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [14084]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:63371 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63376 - "GET /openapi.json HTTP/1.1" 200 OK
+
+===== 2026-11-18 20:04:52.683854 start pid 9168 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [8440]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:64935 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64929 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65317 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65316 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+[TTSManager] Preloading Pocket TTS on CPU (Zero VRAM impact)...
+[TTSManager] Pocket TTS loaded successfully on CPU.
+INFO:     127.0.0.1:3867 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3876 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=1, ngram_conf=19626, LLM_weight=0.40
+INFO:     127.0.0.1:3877 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3877 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=792, LLM_weight=0.40
+INFO:     127.0.0.1:3881 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3876 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3876 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=3, ngram_conf=20, LLM_weight=0.50
+INFO:     127.0.0.1:3877 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3881 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+[API TTS Speak] engine=pocket_tts, voice=jean, speed=1.1, pitch=1.0, temp=0.3, text='i am hungry'
+INFO:     127.0.0.1:3890 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+[Backend] Session history updated. Buffer size: 1
+INFO:     127.0.0.1:3876 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3881 - "POST /api/submit_sentence HTTP/1.1" 200 OK
+pygame 2.6.1 (SDL 2.28.4, Python 3.13.8)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+INFO:     127.0.0.1:3891 - "POST /api/tts/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3892 - "POST /api/tts/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3928 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+[API TTS Speak] engine=pocket_tts, voice=jean, speed=1.1, pitch=1.0, temp=0.3, text='i am hungry'
+[Backend] Session history updated. Buffer size: 2
+INFO:     127.0.0.1:3929 - "POST /api/tts/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3927 - "POST /api/submit_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3930 - "POST /api/tts/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3956 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=7, ngram_conf=98, LLM_weight=0.55
+INFO:     127.0.0.1:3957 - "POST /api/spacebar HTTP/1.1" 200 OK
+[API TTS Speak] engine=pocket_tts, voice=jean, speed=1.1, pitch=1.0, temp=0.3, text='I am hungry, can I have food?'
+INFO:     127.0.0.1:3962 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3963 - "POST /api/tts/stop HTTP/1.1" 200 OK
+[Backend] Session history updated. Buffer size: 3
+INFO:     127.0.0.1:3956 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3957 - "POST /api/submit_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3964 - "POST /api/tts/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4467 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4466 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4530 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4529 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4540 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=4, ngram_conf=152, LLM_weight=0.46
+INFO:     127.0.0.1:4541 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4542 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+[API TTS Speak] engine=pocket_tts, voice=jean, speed=1.1, pitch=1.0, temp=0.3, text="I don't understand."
+INFO:     127.0.0.1:4543 - "POST /api/tts/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4544 - "POST /api/tts/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4549 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4548 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+[Backend] Session history updated. Buffer size: 4
+INFO:     127.0.0.1:4541 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4540 - "POST /api/submit_sentence HTTP/1.1" 200 OK
+[TTSManager] Unloading Pocket TTS to free memory...
+[TTSManager] Pocket TTS unloaded successfully.
+INFO:     127.0.0.1:4554 - "POST /api/tts/select_engine HTTP/1.1" 200 OK
+[API TTS Speak] engine=edge_tts, voice=en-US-GuyNeural, speed=1.1, pitch=1.0, temp=0.3, text="I don't understand."
+[Backend] Session history updated. Buffer size: 5
+INFO:     127.0.0.1:4559 - "POST /api/tts/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4558 - "POST /api/submit_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4560 - "POST /api/tts/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4574 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=1, ngram_conf=19638, LLM_weight=0.40
+INFO:     127.0.0.1:4575 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4574 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=798, LLM_weight=0.40
+INFO:     127.0.0.1:4579 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4575 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4575 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=3, ngram_conf=22, LLM_weight=0.48
+INFO:     127.0.0.1:4574 - "POST /api/spacebar HTTP/1.1" 200 OK
+[API TTS Speak] engine=edge_tts, voice=en-US-GuyNeural, speed=1.1, pitch=1.0, temp=0.3, text='I am hungry'
+INFO:     127.0.0.1:4583 - "POST /api/tts/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4579 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4584 - "POST /api/tts/speak HTTP/1.1" 200 OK
+[Backend] Session history updated. Buffer size: 5
+INFO:     127.0.0.1:4575 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4574 - "POST /api/submit_sentence HTTP/1.1" 200 OK
+
+===== 2026-11-18 20:35:00.494897 start pid 13044 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [17340]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:9767 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10178 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-18 20:55:09.119277 start pid 13208 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [22092]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:13026 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13075 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13108 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13467 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-18 21:00:14.932067 start pid 4612 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [10732]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:13518 - "GET /openapi.json HTTP/1.1" 200 OK
+
+===== 2026-11-18 21:05:40.870347 start pid 22020 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [21496]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:14046 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14352 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14363 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14877 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-18 22:15:52.169751 start pid 15952 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [13120]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:17530 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17533 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17535 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17570 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17589 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17613 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17630 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17747 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17747 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17747 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17747 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17747 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17747 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17747 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17804 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17887 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17887 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17887 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17887 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17887 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17887 - "POST /api/type HTTP/1.1" 200 OK
+[Backend] Session history updated. Buffer size: 1
+INFO:     127.0.0.1:17887 - "POST /api/submit_sentence HTTP/1.1" 200 OK
+[API TTS Speak] engine=edge_tts, voice=en-US-GuyNeural, speed=1.1, pitch=1.0, temp=0.3, text='guyp, mj'
+pygame 2.6.1 (SDL 2.28.4, Python 3.13.8)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+INFO:     127.0.0.1:17896 - "POST /api/tts/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17897 - "POST /api/tts/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17903 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:18628 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:18695 - "GET /openapi.json HTTP/1.1" 200 OK
+
+===== 2026-11-18 22:26:14.721166 start pid 16780 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [22156]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+[Backend] Loading models targeting CPU (use_gpu=True, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:19033 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:20305 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-18 23:09:14.849983 start pid 18644 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:57: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [22336]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Backend] Loaded persisted personalization data.
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting NVIDIA GeForce RTX 3070, 8192 MiB (use_gpu=True, n_gpu_layers=-1)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:22498 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22501 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=525, LLM_weight=0.40
+INFO:     127.0.0.1:22502 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22501 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22501 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=1506, LLM_weight=0.40
+INFO:     127.0.0.1:22502 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22501 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22501 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=4, ngram_conf=164, LLM_weight=0.46
+INFO:     127.0.0.1:22502 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22501 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+[Backend] Session history updated. Buffer size: 1
+INFO:     127.0.0.1:22501 - "POST /api/submit_sentence HTTP/1.1" 200 OK
+[API TTS Speak] engine=edge_tts, voice=en-US-GuyNeural, speed=1.1, pitch=1.0, temp=0.3, text='I some food, please.'
+pygame 2.6.1 (SDL 2.28.4, Python 3.13.8)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+INFO:     127.0.0.1:22519 - "POST /api/tts/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22521 - "POST /api/tts/speak HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22536 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=1, ngram_conf=19642, LLM_weight=0.40
+INFO:     127.0.0.1:22537 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22536 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22536 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=525, LLM_weight=0.40
+INFO:     127.0.0.1:22537 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22536 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22552 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=3, ngram_conf=1518, LLM_weight=0.43
+INFO:     127.0.0.1:22553 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22553 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22553 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=4, ngram_conf=100, LLM_weight=0.46
+INFO:     127.0.0.1:22560 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22553 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+
+===== 2026-11-19 00:24:53.627622 start pid 11640 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [21388]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] moved the earlier learning (personalization.pkl) into profile 'Test'
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting NVIDIA GeForce RTX 3070, 8192 MiB (use_gpu=True, n_gpu_layers=-1)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55645 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55755 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55756 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55809 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=1, ngram_conf=19642, LLM_weight=0.40
+INFO:     127.0.0.1:55810 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55809 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55809 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=525, LLM_weight=0.40
+INFO:     127.0.0.1:55810 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55809 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55809 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=3, ngram_conf=1518, LLM_weight=0.43
+INFO:     127.0.0.1:55810 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55809 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55824 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=1, ngram_conf=19642, LLM_weight=0.40
+INFO:     127.0.0.1:55825 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55824 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55824 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=2117, LLM_weight=0.40
+INFO:     127.0.0.1:55825 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55824 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55824 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=3, ngram_conf=16415, LLM_weight=0.43
+INFO:     127.0.0.1:55825 - "POST /api/spacebar HTTP/1.1" 200 OK
+
+===== 2026-11-19 00:29:04.197967 start pid 15876 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [8004]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting NVIDIA GeForce RTX 3070, 8192 MiB (use_gpu=True, n_gpu_layers=-1)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+
+===== 2026-11-19 00:29:59.410558 start pid 19392 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [3448]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting NVIDIA GeForce RTX 3070, 8192 MiB (use_gpu=True, n_gpu_layers=-1)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:58238 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58249 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58447 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58448 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+[Backend] Changing GPU mode: enable_gpu=False
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     127.0.0.1:58455 - "POST /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58460 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58461 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-19 00:31:10.922051 start pid 1716 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [4308]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:58488 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58489 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58490 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-19 00:50:10.957209 start pid 11088 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [14640]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59158 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59176 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59177 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59488 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59489 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-19 01:03:54.830064 start pid 13412 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [2964]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:60478 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60481 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=1, ngram_conf=19642, LLM_weight=0.40
+INFO:     127.0.0.1:60626 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=2117, LLM_weight=0.40
+INFO:     127.0.0.1:60626 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60626 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60626 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=3, ngram_conf=1520, LLM_weight=0.43
+INFO:     127.0.0.1:60625 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60668 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=4, ngram_conf=0, LLM_weight=1.00
+INFO:     127.0.0.1:60669 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60625 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60669 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60686 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=1, ngram_conf=19642, LLM_weight=0.40
+INFO:     127.0.0.1:60687 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60687 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60697 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=2, ngram_conf=525, LLM_weight=0.40
+INFO:     127.0.0.1:60698 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60698 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=3, ngram_conf=15202, LLM_weight=0.43
+INFO:     127.0.0.1:60701 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60697 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60697 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=4, ngram_conf=575, LLM_weight=0.46
+INFO:     127.0.0.1:60698 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60698 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=5, ngram_conf=15078, LLM_weight=0.49
+INFO:     127.0.0.1:60720 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60701 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60701 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60701 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60697 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60698 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60701 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60701 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60701 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60701 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60773 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60773 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60776 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60777 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60776 - "POST /api/spacebar_fast HTTP/1.1" 200 OK
+[Engine] words=6, ngram_conf=15, LLM_weight=0.57
+INFO:     127.0.0.1:60779 - "POST /api/spacebar HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60773 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60777 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60773 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60773 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60779 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60773 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61612 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61613 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61643 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61644 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-19 01:34:45.170318 start pid 15072 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [18984]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:3450 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3575 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3576 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-19 01:37:55.687957 start pid 14016 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [14476]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:3677 - "GET /openapi.json HTTP/1.1" 200 OK
+
+===== 2026-11-19 02:27:03.473960 start pid 7400 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [5636]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:6550 - "GET /openapi.json HTTP/1.1" 200 OK
+
+===== 2026-11-19 02:29:56.423153 start pid 6552 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [5212]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:6761 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8417 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8418 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8485 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8486 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8632 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8648 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8648 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8632 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8632 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8632 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8657 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8657 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8674 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8674 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8674 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8674 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8648 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8632 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8632 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8632 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8657 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8611 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8674 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8674 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8674 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8648 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8743 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8743 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8748 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8748 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8751 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8751 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8756 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8757 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8757 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8757 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8632 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8616 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8791 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8791 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8796 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8674 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8796 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8743 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8743 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8743 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8825 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8825 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8748 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8748 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8748 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8835 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8836 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8751 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8835 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8835 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8836 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8836 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8845 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8846 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8757 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8757 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8757 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8654 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8791 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8615 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8791 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8791 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8795 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8627 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8743 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8643 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8748 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8751 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8835 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8836 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8835 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8835 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8836 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8836 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8900 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8900 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8903 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8903 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8846 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8846 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8846 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8903 - "POST /api/phrases HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8903 - "POST /api/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8757 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8791 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8835 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8836 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8753 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8931 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8932 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8900 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8846 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8903 - "POST /api/complete_sentence HTTP/1.1" 200 OK
+
+===== 2026-11-19 03:03:07.599780 start pid 3048 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [1576]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:11256 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11343 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11344 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-19 03:15:43.930654 start pid 12692 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [2544]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:12584 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:12588 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:12589 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+INFO:     127.0.0.1:12833 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:12834 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-19 03:20:48.198818 start pid 10760 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [18776]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:13289 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13309 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13310 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+
+===== 2026-11-19 03:26:09.043285 start pid 5360 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [4484]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:14890 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14938 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14939 - "GET /api/settings/gpu HTTP/1.1" 200 OK
+pygame 2.6.1 (SDL 2.28.4, Python 3.13.8)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+INFO:     127.0.0.1:14948 - "POST /api/tts/stop HTTP/1.1" 200 OK
+[API TTS Speak] engine=edge_tts, voice=en-US-GuyNeural, speed=1.1, pitch=1.0, temp=0.3, text='Hello! This is a test of my assistive speech voice.'
+INFO:     127.0.0.1:14950 - "POST /api/tts/speak HTTP/1.1" 200 OK
+
+===== 2026-11-19 03:29:42.447608 start pid 5136 =====
+E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\main.py:85: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+Starting Hybrid Keyboard Server...
+UI will be available at: http://localhost:8000
+INFO:     Started server process [8156]
+INFO:     Waiting for application startup.
+Initializing backend engine on startup...
+[Backend] Loading pre-trained trigrams from trigrams.json...
+[Backend] Loaded 30736 contexts into TrigramPredictor.
+[Profile] active profile: Test (0 phrases, 0 words)
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+[Backend] Loading models targeting CPU (use_gpu=False, n_gpu_layers=0)...
+llama_context: n_ctx_seq (512) < n_ctx_train (32768) -- the full capacity of the model will not be utilized
+llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+[Backend] Models loaded successfully.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:15246 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:15251 - "GET /api/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:15252 - "GET /api/settings/gpu HTTP/1.1" 200 OK

@@ -154,6 +154,7 @@ class TtsService {
       }
     } catch (e) {
       debugPrint('[TtsService] Backend error: $e, falling back to SAPI');
+      await _stopBackend(); // a late backend result must not be spoken as well (double speech)
       await _speakSapi(useText);
     } finally {
       _isSpeaking = false;
@@ -184,13 +185,17 @@ class TtsService {
     _fallbackProcess?.kill();
     _fallbackProcess = null;
 
-    // Notify backend to stop any playing audio
+    await _stopBackend();
+    _isSpeaking = false;
+  }
+
+  /// Stops the backend's audio and cancels what it is still synthesizing. Awaited, so it always reaches the
+  /// backend BEFORE the next speak request (otherwise it could cancel the new sentence).
+  Future<void> _stopBackend() async {
     try {
-      http
+      await http
           .post(Uri.parse('http://127.0.0.1:8000/api/tts/stop'))
           .timeout(const Duration(milliseconds: 500));
     } catch (_) {}
-
-    _isSpeaking = false;
   }
 }

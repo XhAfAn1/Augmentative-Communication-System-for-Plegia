@@ -4,6 +4,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
 import os
+import json
 import threading
 
 # Import our backend logic
@@ -27,6 +28,29 @@ backend_lock = threading.Lock()  # For heavy LLM calls and state updates
 fast_ai_lock = threading.Lock()  # For 0.5B word predictions
 fast_lock = threading.Lock()     # For instant N-gram calls (never blocked by LLM)
 
+# Backend's own saved settings (shared by all profiles): GPU on/off survives a restart of the backend / app
+SETTINGS_FILE = os.environ.get("AAC_BACKEND_SETTINGS") or os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                                       "backend_settings.json")
+
+def load_settings() -> dict:
+    try:
+        with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
+            d = json.load(f)
+        return d if isinstance(d, dict) else {}
+    except Exception:
+        return {}
+
+def save_setting(key: str, value):
+    d = load_settings()
+    d[key] = value
+    try:
+        tmp = SETTINGS_FILE + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(d, f, indent=2)
+        os.replace(tmp, SETTINGS_FILE)             # never a half-written file
+    except Exception as e:
+        print(f"[Settings] could not save {key}: {e}")
+
 class InitRequest(BaseModel):
     fast_gguf_path: str = "qwen2.5-0.5b-instruct-q8_0.gguf"
     heavy_gguf_path: str = "Llama-3.2-3B-Instruct-Q4_K_M.gguf"
@@ -34,6 +58,10 @@ class InitRequest(BaseModel):
 
 class TextRequest(BaseModel):
     text: str
+    context: Optional[str] = None   # /api/type: the whole typed text, so completions fit the sentence
+
+class ProfileRequest(BaseModel):
+    name: str
 
 class SpacebarRequest(BaseModel):
     text: str
@@ -63,7 +91,9 @@ async def startup_event():
     
     if os.path.exists(fast_gguf_path) and os.path.exists(heavy_gguf_path) and os.path.exists(vocab_path):
         print("Initializing backend engine on startup...")
-        backend = HybridKeyboardBackend(fast_gguf_path=fast_gguf_path, heavy_gguf_path=heavy_gguf_path, vocab_path=vocab_path)
+        use_gpu = bool(load_settings().get("use_gpu", True))     # the user's last choice (Settings > GPU)
+        backend = HybridKeyboardBackend(fast_gguf_path=fast_gguf_path, heavy_gguf_path=heavy_gguf_path,
+                                        vocab_path=vocab_path, use_gpu=use_gpu)
     else:
         print("Backend not fully initialized on startup. Missing model or vocab file.")
         print(f"Looked for: {fast_gguf_path}, {heavy_gguf_path} and {vocab_path}")
@@ -73,7 +103,8 @@ async def initialize_backend(req: InitRequest):
     global backend
     with backend_lock:
         try:
-            backend = HybridKeyboardBackend(fast_gguf_path=req.fast_gguf_path, heavy_gguf_path=req.heavy_gguf_path, vocab_path=req.vocab_path)
+            backend = HybridKeyboardBackend(fast_gguf_path=req.fast_gguf_path, heavy_gguf_path=req.heavy_gguf_path,
+                                            vocab_path=req.vocab_path, use_gpu=bool(load_settings().get("use_gpu", True)))
             return {"status": "success", "message": "Backend initialized successfully."}
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Failed to initialize backend: {str(e)}")
@@ -122,8 +153,16 @@ def predict_prefix(req: TextRequest):
         raise HTTPException(status_code=503, detail="Backend not initialized. Is the model downloaded?")
     
     with fast_lock:
-        suggestions = backend.on_letter_typed(req.text)
+        suggestions = backend.on_letter_typed(req.text, req.context)
     return {"suggestions": suggestions}
+
+@app.post("/api/phrases")
+def phrase_memory(req: TextRequest):
+    """Sentences this profile has spoken that start with the typed text (quick lookup, no model).
+    The app asks this at every letter, so the sentence list keeps fitting what is typed."""
+    if not backend:
+        raise HTTPException(status_code=503, detail="Backend not initialized.")
+    return {"suggestions": backend.profile.phrases_for(req.text, n=3)}
 
 @app.post("/api/complete_sentence")
 def complete_sentence(req: TextRequest):
@@ -133,6 +172,24 @@ def complete_sentence(req: TextRequest):
     with backend_lock:
         suggestions = backend.on_sentence_completion(req.text)
     return {"suggestions": suggestions}
+
+@app.get("/api/profile")
+def get_profile():
+    """Active learning profile (e.g. Test / Patient) and the list of profiles."""
+    if not backend:
+        raise HTTPException(status_code=503, detail="Backend not initialized.")
+    return {"active": backend.profile.name, "profiles": backend.list_profiles(), "phrases": len(backend.profile.phrases)}
+
+@app.post("/api/profile")
+def set_profile(req: ProfileRequest):
+    """Switches the learning profile: predictions learn from and use only this profile's sentences."""
+    if not backend:
+        raise HTTPException(status_code=503, detail="Backend not initialized.")
+    with backend_lock, fast_ai_lock, fast_lock:
+        try:
+            return backend.set_profile(req.name)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/api/settings/gpu")
 def get_gpu_settings():
@@ -164,6 +221,7 @@ def set_gpu_settings(req: GpuToggleRequest):
     with backend_lock:
         with fast_ai_lock:
             info = backend.set_gpu_mode(req.enabled)
+            save_setting("use_gpu", bool(req.enabled))          # used again at the next start
             return info
 
 # -------------------------------------------------------------

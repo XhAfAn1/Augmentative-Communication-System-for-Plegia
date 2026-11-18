@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/dwell_wrapper.dart';
+import '../../core/services/win_native.dart';
+import '../../core/services/gaze_offset_learner.dart';
 
 /// Increment this to instantly fire whatever key the cursor is currently over.
 /// Driven by the Spacebar listener in keyboard_screen.dart.
@@ -11,6 +13,11 @@ final ValueNotifier<int> spacebarTrigger = ValueNotifier<int>(0);
 final ValueNotifier<bool> flutterSpacebarEnabled = ValueNotifier<bool>(true);
 // Global toggle for Dwell clicking
 final ValueNotifier<bool> flutterDwellEnabled = ValueNotifier<bool>(true);
+// Settings > Selection Sound: a short click on every selection (dwell, Spacebar or mouse)
+final ValueNotifier<bool> selectionSoundEnabled = ValueNotifier<bool>(true);
+void selectionFeedback() {
+  if (selectionSoundEnabled.value) WinNative.playClick();
+}
 
 
 class GazeKeyboard extends StatelessWidget {
@@ -201,6 +208,7 @@ class _KeyboardKeyState extends State<KeyboardKey>
     with SingleTickerProviderStateMixin {
   late AnimationController _dwellCtrl;
   bool _hovering = false;
+  final HoverTrail _trail = HoverTrail(); // where the cursor rested (Auto re-centre)
   bool _pressed = false;
 
   @override
@@ -208,34 +216,50 @@ class _KeyboardKeyState extends State<KeyboardKey>
     super.initState();
     _dwellCtrl = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: AppConstants.dwellDurationMs),
+      duration: Duration(milliseconds: dwellDurationMs.value), // the Settings Dwell Time slider
     )..addStatusListener((s) {
         if (s == AnimationStatus.completed) _onDwellFired();
       });
     widget.spacebarNotifier?.addListener(_onSpacebarTrigger);
+    dwellDurationMs.addListener(_onDwellTimeChanged);
   }
+
+  void _onDwellTimeChanged() => _dwellCtrl.duration = Duration(milliseconds: dwellDurationMs.value);
 
   void _onSpacebarTrigger() {
     // Fire instantly only if the cursor is currently hovering over this key
     if (_hovering) {
       _dwellCtrl.reset();
+      _learn();
       _triggerPress();
     }
+  }
+
+  /// Auto re-centre: a dwell / Spacebar selection teaches the headset slip (not a mouse click).
+  /// Backspace / Delete mean the selections just before were mistakes: those are not sent.
+  void _learn() {
+    if (widget.keyType == KeyType.backspace || widget.keyType == KeyType.delete) {
+      GazeOffsetLearner.instance.cancelPending();
+    }
+    GazeOffsetLearner.instance.selected(context, _trail);
   }
 
   @override
   void dispose() {
     widget.spacebarNotifier?.removeListener(_onSpacebarTrigger);
+    dwellDurationMs.removeListener(_onDwellTimeChanged);
     _dwellCtrl.dispose();
     super.dispose();
   }
 
   void _onDwellFired() {
+    _learn();
     _triggerPress();
     _dwellCtrl.reset();
   }
 
   void _triggerPress() {
+    selectionFeedback();
     widget.onPressed?.call();
     setState(() => _pressed = true);
     Future.delayed(const Duration(milliseconds: 120), () {
@@ -264,13 +288,17 @@ class _KeyboardKeyState extends State<KeyboardKey>
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) {
+      onEnter: (e) {
         if (!widget.dwellEnabled) return;
+        _trail
+          ..clear()
+          ..add(e.position);
         setState(() => _hovering = true);
         if (flutterDwellEnabled.value) {
           _dwellCtrl.forward();
         }
       },
+      onHover: (e) => _trail.add(e.position),
       onExit: (_) {
         setState(() => _hovering = false);
         _dwellCtrl.reset();
@@ -299,21 +327,36 @@ class _KeyboardKeyState extends State<KeyboardKey>
               ],
             );
           },
+          // hover look as on the other buttons (word chips): blue border + tint + small lift, so the user
+          // always sees which key the gaze cursor is on, with dwell on or off
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 80),
             width: widget.fixedWidth,
+            transform: _hovering && !_pressed ? (Matrix4.identity()..translate(0.0, -1.5)) : Matrix4.identity(),
+            transformAlignment: Alignment.center,
             decoration: BoxDecoration(
               color: _pressed
                   ? (_bg == AppColors.keyBg
                       ? AppColors.primaryBlueLight
                       : _bg.withOpacity(0.75))
-                  : _bg,
+                  : _hovering
+                      ? Color.alphaBlend(AppColors.primaryBlue.withOpacity(0.10), _bg)
+                      : _bg,
+              border: Border.all(
+                color: !_hovering
+                    ? Colors.transparent
+                    : (_bg == AppColors.primaryBlue ? AppColors.dwellRing : AppColors.primaryBlue), // Enter is blue
+
+                width: 1.8,
+              ),
               borderRadius: BorderRadius.circular(AppConstants.keyRadius),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(_pressed ? 0.05 : 0.18),
-                  blurRadius: _pressed ? 1 : 3,
-                  offset: Offset(0, _pressed ? 0 : 2),
+                  color: _hovering && !_pressed
+                      ? AppColors.primaryBlue.withOpacity(0.25)
+                      : Colors.black.withOpacity(_pressed ? 0.05 : 0.18),
+                  blurRadius: _pressed ? 1 : (_hovering ? 8 : 3),
+                  offset: Offset(0, _pressed ? 0 : (_hovering ? 3 : 2)),
                 ),
               ],
             ),

@@ -6,7 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/tts_service.dart';
-import '../keyboard/gaze_keyboard.dart' show flutterSpacebarEnabled, flutterDwellEnabled;
+import '../../core/services/tracker_client.dart';
+import '../../core/widgets/dwell_wrapper.dart' show dwellDurationMs;
+import '../../core/widgets/ui_kit.dart';
+import '../keyboard/gaze_keyboard.dart' show flutterSpacebarEnabled, flutterDwellEnabled, selectionSoundEnabled, selectionFeedback;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -16,9 +19,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _gazeEnabled = true;
-  double _dwellDuration = 1.0;
-  bool _eegEnabled = false;
+  double _dwellDuration = dwellDurationMs.value / 1000.0;
 
   // TTS Settings
   final TtsService _ttsService = TtsService();
@@ -71,9 +72,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _isLoadingGpu = false;
   String _gpuSubtitle = 'Detecting GPU and AI status...';
 
+  // Prediction profile (backend): each profile learns only from its own spoken sentences (Test vs Patient)
+  String? _profile;
+  List<String> _profiles = const [];
+  int _profilePhrases = 0;
+
+  Future<void> _loadProfile([String? switchTo]) async {
+    try {
+      final uri = Uri.parse('http://127.0.0.1:8000/api/profile');
+      final r = switchTo == null
+          ? await http.get(uri).timeout(const Duration(seconds: 3))
+          : await http
+              .post(uri, headers: {'Content-Type': 'application/json'}, body: jsonEncode({'name': switchTo}))
+              .timeout(const Duration(seconds: 10));
+      if (r.statusCode != 200) return;
+      final d = jsonDecode(r.body) as Map<String, dynamic>;
+      if (!mounted) return;
+      setState(() {
+        _profile = d['active']?.toString();
+        _profiles = ((d['profiles'] as List?) ?? const []).map((e) => e.toString()).toList();
+        _profilePhrases = (d['phrases'] as num?)?.toInt() ?? 0;
+      });
+    } catch (_) {}
+  }
+
   @override
   void initState() {
     super.initState();
+    _loadProfile();
     _loadGpuSettings();
     _loadTtsSettings();
   }
@@ -227,34 +253,66 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onPressed: () => context.pop(),
         ),
       ),
-      body: ListView(
+      body: MenuPage(child: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          const _SectionHeader('Gaze & Dwell Interaction'),
-          _SettingCard(children: [
-            _SwitchTile(
-              title: 'Eye Tracking (Gaze Control)',
-              subtitle: 'Enable camera-based gaze input',
-              value: _gazeEnabled,
-              onChanged: (v) => setState(() => _gazeEnabled = v),
-              icon: Icons.remove_red_eye_outlined,
-              iconColor: AppColors.primaryBlue,
-            ),
-            const Divider(),
-            _SwitchTile(
-              title: 'Spacebar Select',
-              subtitle: 'Press spacebar to instantly select hovered item',
-              value: flutterSpacebarEnabled.value,
-              onChanged: (v) {
-                setState(() {
-                  flutterSpacebarEnabled.value = v;
-                });
+          const SectionHeader('Gaze & Dwell Interaction'),
+          SettingCard(children: [
+            ListenableBuilder(
+              listenable: TrackerClient.instance,
+              builder: (context, _) {
+                final st = TrackerClient.instance.status;
+                return SwitchTile(
+                  title: 'Eye Tracking (Gaze Control)',
+                  subtitle: st == null
+                      ? 'Eye tracker not running'
+                      : st.mouseEnabled
+                          ? 'The eye mouse moves the cursor (F5 toggles, F6 stops)'
+                          : 'Eye mouse off · ${st.calibrated ? 'calibration grade ${st.gradeLetter}' : 'not calibrated'}',
+                  value: st?.mouseEnabled ?? false,
+                  onChanged: st == null ? null : (v) => TrackerClient.instance.setMouseEnabled(v),
+                  icon: Icons.remove_red_eye_outlined,
+                  iconColor: AppColors.primaryBlue,
+                );
               },
-              icon: Icons.space_bar,
-              iconColor: const Color(0xFF22c55e),
+            ),
+            ListTile(
+              leading: const Icon(Icons.center_focus_strong_outlined, color: AppColors.primaryBlue),
+              title: Text('Eye Tracking Setup & Calibration', style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+              subtitle: Text('Cameras, calibration, fine-tune, re-centre and cursor tuning',
+                  style: GoogleFonts.inter(fontSize: 12)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push('/tracking'),
             ),
             const Divider(),
-            _SwitchTile(
+            ValueListenableBuilder<bool>(
+              valueListenable: flutterSpacebarEnabled, // also changes from the Tracking screen's Spacebar Click
+              builder: (context, on, _) => SwitchTile(
+                title: 'Spacebar Select',
+                subtitle: "Press spacebar to instantly select hovered item · same switch as the eye tracker's Spacebar Click",
+                value: on,
+                onChanged: (v) => TrackerClient.instance.setSpacebarClick(v),
+                icon: Icons.space_bar,
+                iconColor: const Color(0xFF22c55e),
+              ),
+            ),
+            const Divider(),
+            ValueListenableBuilder<bool>(
+              valueListenable: selectionSoundEnabled,
+              builder: (context, on, _) => SwitchTile(
+                title: 'Selection Sound',
+                subtitle: 'A short click on every selection (dwell, Spacebar or mouse)',
+                value: on,
+                onChanged: (v) {
+                  selectionSoundEnabled.value = v;
+                  selectionFeedback(); // let the user hear it when switching on
+                },
+                icon: Icons.volume_up_outlined,
+                iconColor: const Color(0xFF22c55e),
+              ),
+            ),
+            const Divider(),
+            SwitchTile(
               title: 'Dwell Auto-Select',
               subtitle: 'Automatically select buttons by looking at them',
               value: flutterDwellEnabled.value,
@@ -278,24 +336,55 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 divisions: 7,
                 label: '${_dwellDuration.toStringAsFixed(1)}s',
                 activeColor: AppColors.primaryBlue,
-                onChanged: (v) => setState(() => _dwellDuration = v),
+                onChanged: (v) {
+                  setState(() => _dwellDuration = v);
+                  dwellDurationMs.value = (v * 1000).round();
+                },
+                onChangeEnd: (v) async {
+                  try {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setInt('dwell_ms', (v * 1000).round());
+                  } catch (_) {}
+                },
               ),
             ),
           ]),
-          const _SectionHeader('EEG / Brain Signal Input'),
-          _SettingCard(children: [
-            _SwitchTile(
-              title: 'EEG Sensor Input',
-              subtitle: 'Enable brain-computer interface signal',
-              value: _eegEnabled,
-              onChanged: (v) => setState(() => _eegEnabled = v),
-              icon: Icons.psychology_outlined,
-              iconColor: AppColors.accentCyan,
+          const SectionHeader('EMG / Muscle Signal Input'),
+          const SettingCard(children: [
+            SwitchTile(
+              title: 'EMG Sensor Input',
+              subtitle: 'Muscle sensor as an alternative input · coming in a later version',
+              value: false,
+              onChanged: null, // disabled until the EMG sensor is added
+              icon: Icons.sensors,
+              iconColor: Colors.grey,
             ),
           ]),
-          const _SectionHeader('AI & Hardware Acceleration'),
-          _SettingCard(children: [
-            _SwitchTile(
+          const SectionHeader('Prediction Profile'),
+          SettingCard(children: [
+            ListTile(
+              leading: const Icon(Icons.person_outline, color: AppColors.primaryBlue),
+              title: Text('Profile', style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+              subtitle: Text(
+                  _profile == null
+                      ? 'AI backend not running'
+                      : 'Predictions learn from and use only this profile ($_profilePhrases saved sentences). '
+                          'Use Test for trying things out, Patient for real use.',
+                  style: GoogleFonts.inter(fontSize: 12)),
+              trailing: _profile == null
+                  ? null
+                  : DropdownButton<String>(
+                      value: _profile,
+                      items: [for (final p in _profiles) DropdownMenuItem(value: p, child: Text(p))],
+                      onChanged: (v) {
+                        if (v != null && v != _profile) _loadProfile(v);
+                      },
+                    ),
+            ),
+          ]),
+          const SectionHeader('AI & Hardware Acceleration'),
+          SettingCard(children: [
+            SwitchTile(
               title: 'GPU Acceleration (NVIDIA CUDA)',
               subtitle: _gpuSubtitle,
               value: _gpuEnabled,
@@ -304,8 +393,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               iconColor: const Color(0xFF10b981),
             ),
           ]),
-          const _SectionHeader('Text-to-Speech (TTS) Configuration'),
-          _SettingCard(children: [
+          const SectionHeader('Text-to-Speech (TTS) Configuration'),
+          SettingCard(children: [
             // 1. Engine Dropdown
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -566,84 +655,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ]),
-          const _SectionHeader('About AAC System'),
-          _SettingCard(children: [
+          const SectionHeader('About AAC System'),
+          SettingCard(children: [
             ListTile(
               leading: const Icon(Icons.info_outline, color: AppColors.primaryBlue),
-              title: Text('Version 1.0.0 (Phase 1 — UI Prototype)',
+              title: Text('Version 1.2.0',
                   style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
               subtitle: Text(
                 'Intelligent Assistive Communication System\nfor individuals with severe motor disabilities.',
                 style: GoogleFonts.inter(fontSize: 12),
               ),
             ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.dashboard_outlined, color: AppColors.primaryBlue),
+              title: Text('System Status', style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+              subtitle: Text('Eye tracker and AI backend', style: GoogleFonts.inter(fontSize: 12)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push('/dashboard'),
+            ),
           ]),
         ],
-      ),
-    );
-  }
-}
-
-class _SectionHeader extends StatelessWidget {
-  final String title;
-  const _SectionHeader(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 8, left: 4),
-      child: Text(title,
-          style: GoogleFonts.inter(
-              fontWeight: FontWeight.w700,
-              fontSize: 13,
-              color: AppColors.primaryBlue,
-              letterSpacing: 0.5)),
-    );
-  }
-}
-
-class _SettingCard extends StatelessWidget {
-  final List<Widget> children;
-  const _SettingCard({required this.children});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(color: AppColors.panelBorder),
-      ),
-      child: Column(children: children),
-    );
-  }
-}
-
-class _SwitchTile extends StatelessWidget {
-  final String title, subtitle;
-  final bool value;
-  final void Function(bool) onChanged;
-  final IconData icon;
-  final Color iconColor;
-  const _SwitchTile({
-    required this.title,
-    required this.subtitle,
-    required this.value,
-    required this.onChanged,
-    required this.icon,
-    required this.iconColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SwitchListTile(
-      secondary: Icon(icon, color: iconColor),
-      title: Text(title, style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
-      subtitle: Text(subtitle, style: GoogleFonts.inter(fontSize: 12)),
-      value: value,
-      activeColor: iconColor,
-      onChanged: onChanged,
+      )),
     );
   }
 }

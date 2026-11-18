@@ -1,0 +1,41 @@
+================================================================================
+BINOCULAR EYE TRACKING MODULE — CALIBRATION SESSION REPORT
+================================================================================
+Timestamp:        2026-11-18 20:09:54
+Algorithm:        ArcFit
+Screen:           1920 x 1080 px
+Model Type:       Robust cubic, drift-aligned pursuit
+Status / Grade:   B [GOOD - ACCESSIBLE]
+
+--- ACCURACY & PRECISION SUMMARY ---
+Validation Mean Error:      48.9 px (~1.24 deg)
+Validation 95% Error:       63.4 px (~1.61 deg)
+9-Point Revisit Mean Error: 29.0 px (dots also used for training)
+Fixation Jitter (Fused):    4.4 px (~0.11 deg)
+Pursuit Tracking RMSE:      81.8 px (~2.07 deg)
+Pursuit Lag-Compensated:    72.1 px (~1.83 deg)
+Pursuit Frames Tracked:     2112 / 2112 frames (100.0%)
+
+--- 9-POINT STATIC VALIDATION DETAILS ---
+Point   Target (X, Y)       Gaze Landing (X, Y)     Error (px)    Rating      
+------------------------------------------------------------------------------
+P1      (  96,   54)        ( 108.0,  101.0)         48.5 px      GOOD        
+P2      ( 960,   54)        ( 949.0,   50.0)         11.7 px      EXCELLENT   
+P3      (1824,   54)        (1809.0,   96.0)         44.6 px      GOOD        
+P4      (  96,  540)        (  80.0,  555.0)         21.9 px      EXCELLENT   
+P5      ( 960,  540)        ( 958.0,  529.0)         11.2 px      EXCELLENT   
+P6      (1824,  540)        (1855.0,  540.0)         31.0 px      EXCELLENT   
+P7      (  96, 1026)        ( 111.0, 1046.0)         25.0 px      EXCELLENT   
+P8      ( 960, 1026)        ( 959.0, 1079.0)         53.0 px      ACCEPTABLE  
+P9      (1824, 1026)        (1834.0, 1035.5)         13.8 px      EXCELLENT   
+
+--- STATIC ANCHOR MODEL RESIDUALS ---
+Left Eye Anchors:   9/9 fitted · RMS: 48.1 px (X: 38.6, Y: 28.7)
+Right Eye Anchors:  9/9 fitted · RMS: 27.4 px (X: 15.5, Y: 22.5)
+
+--- PREDICTED AAC KEY HIT RATES ---
+40 px Key (Dense Grid):     12.3%
+60 px Key (Standard Grid):  25.6%
+80 px Key (Accessible):     40.8%
+100 px Key (Macro Target):  56.0%
+================================================================================

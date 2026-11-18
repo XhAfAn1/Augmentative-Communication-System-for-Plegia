@@ -13,6 +13,8 @@ import 'widgets/dwell_word_chip.dart';
 import 'widgets/dwell_sentence_tile.dart';
 
 import 'gaze_keyboard.dart';
+import 'sentence_suggestions.dart';
+import '../tracking/tracker_status_tile.dart';
 
 class KeyboardScreen extends StatefulWidget {
   const KeyboardScreen({super.key});
@@ -29,10 +31,10 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   bool _isShift = false;
   bool _isCaps = false;
   bool _isNumbers = false;
-  final List<String> _history = [];
 
   List<Map<String, String>> _predictions = [];
   List<String> _sentencePredictions = [];
+  final SentenceSuggestions _sent = SentenceSuggestions(); // keeps the shown sentences fitting the typed text
   Timer? _debounceTimer;
   Timer? _sentenceDebounceTimer;
   int _prefixSeq = 0;
@@ -91,6 +93,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       }
     });
     _debouncedFetchPredictions();
+    _updateSentencesWhileTyping();
   }
 
   void _toggleShift() {
@@ -118,6 +121,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
         _output = _output.substring(0, _output.length - 1);
       });
       _debouncedFetchPredictions();
+      _updateSentencesWhileTyping();
     }
   }
 
@@ -135,6 +139,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       }
     });
     _debouncedFetchPredictions();
+    _updateSentencesWhileTyping();
   }
 
   void _addSpace() {
@@ -159,28 +164,10 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _predictions = [];
       _sentencePredictions = [];
     });
+    _sent.clear();
     _debounceTimer?.cancel();
     _sentenceDebounceTimer?.cancel();
     _debouncedFetchSentencePredictions();
-  }
-
-  void _saveText() {
-    if (_output.trim().isNotEmpty) {
-      final textToSubmit = _output.trim();
-      http.post(
-        Uri.parse('http://127.0.0.1:8000/api/submit_sentence'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'text': textToSubmit}),
-      ).then((_) {}).catchError((e) { debugPrint('Failed to submit: $e'); });
-
-      setState(() {
-        _history.add(_output.trim());
-        _output = '';
-        _predictions = [];
-        _sentencePredictions = [];
-      });
-      _debouncedFetchSentencePredictions();
-    }
   }
 
   void _addWord(String word) {
@@ -226,6 +213,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _predictions = [];
       _sentencePredictions = [];
     });
+    _sent.clear();
     _fetchNextWordPredictions();
     _debouncedFetchSentencePredictions();
   }
@@ -244,12 +232,35 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     });
   }
 
+  void _showSentences() {
+    if (mounted) setState(() => _sentencePredictions = _sent.visible(_output));
+  }
+
+  /// While letters are typed: the shown sentences are filtered by the letters at once, and the profile's
+  /// phrase memory (a quick lookup, no model) is asked. The model is asked for more when fewer than 3 fit.
+  void _updateSentencesWhileTyping() {
+    _showSentences();
+    if (_output.trim().isEmpty) return;
+    final seq = _sent.nextPhraseRequest();
+    _client
+        .post(Uri.parse('http://127.0.0.1:8000/api/phrases'),
+            headers: {'Content-Type': 'application/json'}, body: jsonEncode({'text': _output}))
+        .then((r) {
+      if (r.statusCode != 200 || !mounted) return;
+      final list = ((jsonDecode(r.body)['suggestions'] as List?) ?? const []).map((e) => e.toString()).toList();
+      if (!_sent.acceptPhrases(seq, list)) return; // a newer letter was typed meanwhile
+      _showSentences();
+      // too few still fit: ask the model for more (after a short pause, see _debouncedFetchSentencePredictions)
+      if (_sentencePredictions.length < SentenceSuggestions.minShown) _debouncedFetchSentencePredictions();
+    }).catchError((e) {
+      debugPrint('Failed to fetch phrases: $e');
+    });
+  }
+
   void _debouncedFetchSentencePredictions() {
     _sentenceDebounceTimer?.cancel();
+    _showSentences(); // sentences that no longer fit disappear at once
     if (_output.trim().isEmpty) {
-      setState(() {
-        _sentencePredictions = [];
-      });
       return;
     }
     _sentenceDebounceTimer = Timer(const Duration(milliseconds: 600), () {
@@ -268,7 +279,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       final response = await _client.post(
         Uri.parse('http://127.0.0.1:8000/api/type'),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'text': lastWord}),
+        body: jsonEncode({'text': lastWord, 'context': currentText}), // context: completions fit the sentence
       );
 
       if (response.statusCode == 200 && mounted && seq == _prefixSeq) {
@@ -341,6 +352,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   }
 
   Future<void> _fetchSentencePredictions() async {
+    final seq = _sent.nextModelRequest();
     try {
       final response = await _client.post(
         Uri.parse('http://127.0.0.1:8000/api/complete_sentence'),
@@ -351,11 +363,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final suggestions = data['suggestions'] as List;
-        if (mounted) {
-          setState(() {
-            _sentencePredictions = suggestions.map((e) => e.toString()).toList();
-          });
-        }
+        // an older request's reply (slow model) is ignored; the newest is filtered by what is typed NOW
+        if (_sent.acceptModel(seq, suggestions.map((e) => e.toString()).toList(), typed: _output)) _showSentences();
       }
     } catch (e) {
       debugPrint('Failed to fetch sentence predictions: $e');
@@ -752,6 +761,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                     style: GoogleFonts.inter(
                                         color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
                                   ),
+                                  const Positioned(left: 2, child: TrackerHeaderButton()),
                                   Positioned(
                                     right: 2,
                                     child: IconButton(

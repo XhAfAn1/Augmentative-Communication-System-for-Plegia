@@ -1,0 +1,225 @@
+
+===== 2026-11-17 23:13:12.311282 start pid 20508 =====
+
+===== 2026-11-17 23:34:03.886357 start pid 14656 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14656)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+
+===== 2026-11-18 00:20:21.794933 start pid 16092 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 16092)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 00:30:06.456698 start pid 23508 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 23508)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 19:56:09.994688 start pid 2112 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 2112)
+[ WARN:0@0.004] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 20:04:52.689854 start pid 1276 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 1276)
+[Calibration] grid nudge left: dots [(9, 5.3)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(9, 4.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(5, 4.0)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(2, 0.82), (3, 0.61), (7, 0.96), (8, 0.85)]
+[Calibration] right: reduced influence for dots [(2, 0.73), (3, 0.91), (8, 0.8)]
+[Calibration] grid shape updated (sessions learned: 7)
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 48.9 px
+[Fine-tune] slip -8, +38 px; new dots vs current model after slip: 11, 3, 27, 37, 35, 47, 9, 13, 9 (limit 120)
+[Fine-tune] path check left: dots [2] disagree (128 px)
+[Fine-tune] extra look at old dot 3 added as its own data point
+[Fine-tune] new dots: current map 21 px -> updated map 24 px; old dots (held out) 40 -> 31 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 21 -> 24 px, old dots 40 -> 31 px)); slip learned, correction now (+8, -38) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 21 -> 24 px, old dots 40 -> 31 px)); slip learned, correction now (+8, -38) px
+[TrackerService] shutting down
+
+===== 2026-11-18 20:35:00.499897 start pid 18536 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 18536)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 20:55:09.124843 start pid 16268 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 16268)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 21:00:14.937065 start pid 22112 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 22112)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 21:05:40.876343 start pid 13680 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 13680)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 22:15:52.175749 start pid 19368 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 19368)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 22:26:14.727163 start pid 8244 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 8244)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-18 23:09:14.854984 start pid 25328 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 25328)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+
+===== 2026-11-19 00:24:53.632620 start pid 3124 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 3124)
+[ WARN:0@0.003] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+
+===== 2026-11-19 00:29:04.210967 start pid 21320 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21320)[ WARN:0@0.003] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+
+[TrackerService] shutting down
+
+===== 2026-11-19 00:29:59.417463 start pid 21904 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21904)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 00:31:10.928052 start pid 2032 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 2032)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 00:50:10.962209 start pid 2200 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 2200)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 01:03:54.835064 start pid 15316 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15316)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 01:34:45.177317 start pid 20232 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 20232)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 01:37:55.692956 start pid 21336 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21336)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 02:27:03.478959 start pid 2240 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 2240)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 02:29:56.429152 start pid 5636 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5636)
+[Calibration] left: reduced influence for dots [(2, 0.82), (6, 0.94), (8, 0.97), (9, 0.89)]
+[Calibration] right: reduced influence for dots [(1, 0.96), (2, 0.86), (7, 0.98), (8, 0.86)]
+[Calibration] grid shape updated (sessions learned: 8)
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 45.8 px
+[Fine-tune] slip +26, +10 px; new dots vs current model after slip: 18, 63, 45, 41, 39, 10, 23, 53, 9 (limit 120)
+[Fine-tune] new dots: current map 33 px -> updated map 29 px; old dots (held out) 42 -> 24 px
+[Fine-tune] Map updated: new dots 33 -> 29 px, old dots 42 -> 24 px, slip (+26, +10) px learned. Saved data/calibrations/20261119_023309_ArcFit_finetune
+[TrackerService] Map updated: new dots 33 -> 29 px, old dots 42 -> 24 px, slip (+26, +10) px learned. Saved data/calibrations/20261119_023309_ArcFit_finetune
+[TrackerService] Re-centred: shift (-48, -11) px
+[AutoRecentre] selection off by (+29, +5) px -> correction moved (+6, +1) px from the calibration
+[AutoRecentre] selection off by (+64, -1) px -> correction moved (+19, +1) px from the calibration
+[AutoRecentre] selection off by (+58, -6) px -> correction moved (+30, -1) px from the calibration
+[AutoRecentre] selection off by (-4, -11) px -> correction moved (+30, -3) px from the calibration
+[AutoRecentre] selection off by (-11, -12) px -> correction moved (+27, -5) px from the calibration
+[AutoRecentre] selection off by (-59, -22) px -> correction moved (+16, -10) px from the calibration
+[AutoRecentre] selection off by (-6, -72) px -> correction moved (+14, -24) px from the calibration
+[AutoRecentre] selection off by (-20, -71) px -> correction moved (+10, -38) px from the calibration
+[AutoRecentre] selection off by (-30, -29) px -> correction moved (+4, -44) px from the calibration
+[AutoRecentre] selection off by (+40, -48) px -> correction moved (+12, -54) px from the calibration
+[AutoRecentre] selection off by (+4, -44) px -> correction moved (+13, -62) px from the calibration
+[AutoRecentre] selection off by (+3, -36) px -> correction moved (+14, -70) px from the calibration
+[AutoRecentre] selection off by (-5, -27) px -> correction moved (+13, -75) px from the calibration
+[AutoRecentre] selection off by (-10, -18) px -> correction moved (+11, -79) px from the calibration
+[AutoRecentre] selection off by (-34, +1) px -> correction moved (+4, -78) px from the calibration
+[AutoRecentre] selection off by (-59, +35) px -> correction moved (-8, -71) px from the calibration
+[AutoRecentre] selection off by (-1, +34) px -> correction moved (-8, -65) px from the calibration
+[AutoRecentre] selection off by (-13, +31) px -> correction moved (-11, -58) px from the calibration
+[AutoRecentre] selection off by (-11, +51) px -> correction moved (-13, -48) px from the calibration
+[AutoRecentre] selection off by (+18, +49) px -> correction moved (-9, -38) px from the calibration
+[AutoRecentre] selection off by (-27, +31) px -> correction moved (-15, -32) px from the calibration
+[AutoRecentre] selection off by (-29, +17) px -> correction moved (-21, -29) px from the calibration
+[AutoRecentre] selection off by (-33, +14) px -> correction moved (-27, -26) px from the calibration
+[AutoRecentre] selection off by (-2, -11) px -> correction moved (-28, -28) px from the calibration
+[AutoRecentre] selection off by (-20, +21) px -> correction moved (-32, -24) px from the calibration
+[AutoRecentre] selection off by (+38, +17) px -> correction moved (-24, -21) px from the calibration
+[AutoRecentre] selection off by (+13, +38) px -> correction moved (-21, -13) px from the calibration
+[AutoRecentre] selection off by (+61, +22) px -> correction moved (-9, -9) px from the calibration
+[AutoRecentre] selection off by (-29, +20) px -> correction moved (-15, -5) px from the calibration
+[AutoRecentre] selection off by (+56, -29) px -> correction moved (-4, -10) px from the calibration
+[AutoRecentre] selection off by (-35, -27) px -> correction moved (-11, -16) px from the calibration
+[AutoRecentre] selection off by (-34, -20) px -> correction moved (-18, -20) px from the calibration
+[AutoRecentre] selection off by (-29, -4) px -> correction moved (-24, -21) px from the calibration
+[AutoRecentre] selection off by (-28, -3) px -> correction moved (-29, -21) px from the calibration
+[AutoRecentre] selection off by (-25, -0) px -> correction moved (-34, -21) px from the calibration
+[AutoRecentre] selection off by (-30, +5) px -> correction moved (-40, -20) px from the calibration
+[AutoRecentre] selection off by (-29, +12) px -> correction moved (-46, -18) px from the calibration
+[AutoRecentre] selection off by (+38, -8) px -> correction moved (-38, -19) px from the calibration
+[AutoRecentre] selection off by (-21, -15) px -> correction moved (-42, -22) px from the calibration
+[AutoRecentre] selection off by (-31, -12) px -> correction moved (-48, -25) px from the calibration
+[AutoRecentre] selection off by (-33, -6) px -> correction moved (-55, -26) px from the calibration
+[AutoRecentre] selection off by (-36, -5) px -> correction moved (-62, -27) px from the calibration
+[AutoRecentre] selection off by (-33, -5) px -> correction moved (-69, -28) px from the calibration
+[AutoRecentre] selection off by (-30, -4) px -> correction moved (-75, -29) px from the calibration
+[AutoRecentre] selection off by (-27, -2) px -> correction moved (-80, -29) px from the calibration
+[AutoRecentre] selection off by (-24, -0) px -> correction moved (-85, -29) px from the calibration
+[AutoRecentre] selection off by (-21, +2) px -> correction moved (-89, -29) px from the calibration
+[AutoRecentre] selection off by (-17, +5) px -> correction moved (-93, -28) px from the calibration
+[AutoRecentre] selection off by (-14, +6) px -> correction moved (-95, -26) px from the calibration
+[AutoRecentre] selection off by (-11, +7) px -> correction moved (-98, -25) px from the calibration
+[AutoRecentre] selection off by (+51, +35) px -> correction moved (-87, -18) px from the calibration
+[AutoRecentre] selection off by (+67, +29) px -> correction moved (-74, -12) px from the calibration
+[AutoRecentre] selection off by (+65, +15) px -> correction moved (-61, -9) px from the calibration
+[AutoRecentre] selection off by (+60, +14) px -> correction moved (-49, -6) px from the calibration
+[AutoRecentre] selection off by (+54, +13) px -> correction moved (-38, -4) px from the calibration
+[AutoRecentre] selection off by (+52, +12) px -> correction moved (-28, -1) px from the calibration
+[AutoRecentre] selection off by (+29, -9) px -> correction moved (-22, -3) px from the calibration
+[AutoRecentre] selection off by (+47, -33) px -> correction moved (-13, -10) px from the calibration
+[AutoRecentre] selection off by (-44, -29) px -> correction moved (-21, -16) px from the calibration
+[AutoRecentre] selection off by (-37, -16) px -> correction moved (-29, -19) px from the calibration
+[AutoRecentre] selection off by (-23, -0) px -> correction moved (-34, -19) px from the calibration
+[AutoRecentre] selection off by (-15, +7) px -> correction moved (-37, -18) px from the calibration
+[AutoRecentre] selection off by (+46, -41) px -> correction moved (-27, -26) px from the calibration
+[AutoRecentre] selection off by (-4, +2) px -> correction moved (-28, -25) px from the calibration
+[AutoRecentre] selection off by (+40, -16) px -> correction moved (-20, -29) px from the calibration
+[AutoRecentre] selection off by (+24, -12) px -> correction moved (-15, -31) px from the calibration
+[AutoRecentre] selection off by (+80, -50) px -> correction moved (+1, -41) px from the calibration
+[AutoRecentre] selection off by (-46, -34) px -> correction moved (-9, -48) px from the calibration
+[AutoRecentre] selection off by (-27, +13) px -> correction moved (-14, -45) px from the calibration
+[AutoRecentre] selection off by (-6, +42) px -> correction moved (-15, -37) px from the calibration
+[AutoRecentre] selection off by (+67, -40) px -> correction moved (-2, -45) px from the calibration
+[TrackerService] shutting down
+
+===== 2026-11-19 03:03:07.604781 start pid 6976 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 6976)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 03:15:43.936654 start pid 9064 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 9064)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 03:20:48.203819 start pid 15880 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15880)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 03:26:09.049284 start pid 3516 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 3516)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-19 03:29:42.453607 start pid 5492 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5492)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down

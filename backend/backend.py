@@ -4,6 +4,7 @@ import json
 import os
 import math
 import pickle
+import time
 from llama_cpp import Llama
 
 # ---------------------------------------------------------
@@ -133,6 +134,88 @@ class PersonalizationEngine(BaseNgramEngine):
     """Tracks user-specific frequently typed phrases."""
     pass
 
+_HERE = os.path.dirname(os.path.abspath(__file__))
+PROFILES_DIR = os.environ.get("AAC_PROFILES_DIR") or os.path.join(_HERE, "profiles")
+DEFAULT_PROFILES = ["Test", "Patient"]
+SEED_FILES = {"Patient": os.path.join(_HERE, "seed_phrases_patient.txt")}   # read once, when the profile is created
+
+
+class UserProfile:
+    """One person's learning, kept apart from other profiles (testing never teaches the patient profile):
+    - ngrams:  their word pairs / triples (same engine as before)
+    - words:   how often they used each word (also words missing from vocab.json, e.g. names)
+    - phrases: every spoken sentence with use count and last use (phrase memory)
+    Saved to profiles/<name>/learning.json after every spoken sentence: temp file + replace, so a crash or
+    power cut can never leave a half-written file."""
+
+    def __init__(self, name: str, folder: str = None):
+        self.name = name
+        self.path = os.path.join(folder or PROFILES_DIR, name, "learning.json")
+        self.ngrams = PersonalizationEngine()
+        self.words = collections.Counter()
+        self.phrases = {}        # key -> {"text": as spoken, "count": n, "last": unix time}
+
+    @staticmethod
+    def key(text: str) -> str:
+        return re.sub(r"\s+", " ", re.sub(r"[^\w' ]", " ", text.lower())).strip()
+
+    def exists(self) -> bool:
+        return os.path.isfile(self.path)
+
+    def load(self) -> bool:
+        try:
+            with open(self.path, "r", encoding="utf-8") as f:
+                d = json.load(f)
+        except Exception:
+            return False
+        for ctx, nxt in d.get("ngrams", {}).items():
+            for w, c in nxt.items():
+                self.ngrams.update(ctx, w, int(c))
+        self.words = collections.Counter({w: int(c) for w, c in d.get("words", {}).items()})
+        self.phrases = dict(d.get("phrases", {}))
+        return True
+
+    def save(self):
+        try:
+            os.makedirs(os.path.dirname(self.path), exist_ok=True)
+            tmp = self.path + ".tmp"
+            with open(tmp, "w", encoding="utf-8") as f:
+                json.dump({"ngrams": {c: dict(n) for c, n in self.ngrams.ngrams.items()},
+                           "words": dict(self.words), "phrases": self.phrases}, f, ensure_ascii=False)
+            os.replace(tmp, self.path)
+        except Exception as e:
+            print(f"[Profile] Warning: could not save profile '{self.name}': {e}")
+
+    def learn(self, sentence: str, save: bool = True):
+        """Learns a spoken sentence: n-grams from every word position, word counts, phrase memory."""
+        words = re.findall(r"\b[a-zA-Z]+(?:'[a-zA-Z]+)?\b", sentence.lower())
+        if not words:
+            return
+        for i, word in enumerate(words):
+            self.words[word] += 1
+            if i >= 1:
+                self.ngrams.update(words[i - 1], word, increment=1)
+            if i >= 2:
+                self.ngrams.update(f"{words[i - 2]} {words[i - 1]}", word, increment=1)
+        k = self.key(sentence)
+        ph = self.phrases.get(k) or {"text": sentence.strip(), "count": 0, "last": 0}
+        ph["text"], ph["count"], ph["last"] = sentence.strip(), ph["count"] + 1, time.time()
+        self.phrases[k] = ph
+        if save:
+            self.save()
+
+    def phrases_for(self, typed: str, n: int = 3) -> list:
+        """Spoken sentences that start with what is typed, most used first (then most recent)."""
+        t = self.key(typed)
+        if not t:
+            return []
+        if typed[-1:].isspace():
+            t += " "                               # "i need " must not match "i needed ..."
+        hits = [p for k, p in self.phrases.items() if k.startswith(t) and len(k) > len(t.strip())]
+        hits.sort(key=lambda p: (p["count"], p["last"]), reverse=True)
+        return [p["text"] for p in hits[:n]]
+
+
 class TrigramPredictor(BaseNgramEngine):
     """Global N-gram model loaded from pre-trained trigrams.json."""
     pass
@@ -216,8 +299,10 @@ class HybridKeyboardBackend:
         # ACTION 3: Session history buffer (last 5 completed sentences)
         self.session_history = collections.deque(maxlen=5)
 
-        # Path for persisting personalization data
-        self._pers_path = os.path.join(os.path.dirname(fast_gguf_path), "personalization.pkl")
+        # Old single learning file (before profiles): moved into the "Test" profile once, file left in place
+        self._pers_path = os.path.join(os.path.dirname(os.path.abspath(fast_gguf_path)), "personalization.pkl")
+        self.conv_freq = collections.Counter()   # everyday-conversation word frequency (from trigrams.json)
+        self._last_cands = ("", [])              # (text before the word, ranked next-word candidates)
 
         if os.path.exists(vocab_path):
             with open(vocab_path, 'r') as f:
@@ -238,24 +323,84 @@ class HybridKeyboardBackend:
                 for context, next_words in pretrained.items():
                     for word, count in next_words.items():
                         self.trigram.update(context, word, increment=count)
+                        if " " not in context:
+                            self.conv_freq[word] += count
                 print(f"[Backend] Loaded {len(pretrained)} contexts into TrigramPredictor.")
             except Exception as e:
                 print(f"Error loading trigrams.json: {e}")
         else:
             print(f"Warning: {trigrams_path} not found. TrigramPredictor will start empty.")
 
-        # ACTION 6: Load persisted personalization data from previous sessions
-        if os.path.exists(self._pers_path):
-            try:
-                with open(self._pers_path, 'rb') as f:
-                    self.personalization = pickle.load(f)
-                print(f"[Backend] Loaded persisted personalization data.")
-            except Exception as e:
-                print(f"[Backend] Could not load personalization data: {e}. Starting fresh.")
+        # Profiles: each person's learning is kept apart (see UserProfile)
+        self.profile = None
+        self.set_profile(self._read_active_profile())
 
         # Initialize the dual LLM models
         self.ai_cache = {}
         self._load_llm_models(use_gpu=use_gpu)
+
+    # ---------------------------------------------------------
+    # PROFILES
+    # ---------------------------------------------------------
+    def _active_file(self):
+        return os.path.join(PROFILES_DIR, "active.txt")
+
+    def _read_active_profile(self) -> str:
+        try:
+            with open(self._active_file(), "r", encoding="utf-8") as f:
+                name = f.read().strip()
+            return name if name in self.list_profiles() else DEFAULT_PROFILES[0]
+        except Exception:
+            return DEFAULT_PROFILES[0]
+
+    def list_profiles(self) -> list:
+        names = list(DEFAULT_PROFILES)
+        try:
+            names += sorted(d for d in os.listdir(PROFILES_DIR)
+                            if os.path.isdir(os.path.join(PROFILES_DIR, d)) and d not in names)
+        except Exception:
+            pass
+        return names
+
+    def set_profile(self, name: str):
+        """Switches the learning to this profile (created on first use; Patient is seeded from its phrase list)."""
+        if name not in self.list_profiles():
+            raise ValueError(f"unknown profile {name!r}")
+        prof = UserProfile(name)
+        if prof.exists():
+            prof.load()
+        else:
+            if name == "Test" and os.path.exists(self._pers_path):
+                try:                                    # the learning made before profiles existed
+                    with open(self._pers_path, "rb") as f:
+                        old = pickle.load(f)
+                    for ctx, nxt in old.ngrams.items():
+                        for w, c in nxt.items():
+                            prof.ngrams.update(ctx, w, c)
+                    print("[Profile] moved the earlier learning (personalization.pkl) into profile 'Test'")
+                except Exception as e:
+                    print(f"[Profile] could not read personalization.pkl: {e}")
+            seed = SEED_FILES.get(name)
+            if seed and os.path.exists(seed):
+                with open(seed, "r", encoding="utf-8") as f:
+                    lines = [l.strip() for l in f if l.strip() and not l.lstrip().startswith("#")]
+                for line in lines:
+                    prof.learn(line, save=False)
+                print(f"[Profile] new profile '{name}' seeded with {len(lines)} phrases")
+            prof.save()
+        self.profile = prof
+        self.personalization = prof.ngrams
+        self.session_history.clear()
+        self.ai_cache = {}
+        self._last_cands = ("", [])
+        try:
+            os.makedirs(PROFILES_DIR, exist_ok=True)
+            with open(self._active_file(), "w", encoding="utf-8") as f:
+                f.write(name)
+        except Exception as e:
+            print(f"[Profile] could not remember the active profile: {e}")
+        print(f"[Profile] active profile: {name} ({len(prof.phrases)} phrases, {len(prof.words)} words)")
+        return {"active": name, "profiles": self.list_profiles(), "phrases": len(prof.phrases)}
 
     def _detect_system_gpu(self):
         import shutil, subprocess
@@ -485,6 +630,8 @@ class HybridKeyboardBackend:
 
         sorted_words = sorted(final_scores.items(), key=lambda x: x[1], reverse=True)
         top_words = [w for w, s in sorted_words[:5]]
+        if self._last_cands[0] != current_sentence.rstrip():     # the model's list (on_spacebar) is better: keep it
+            self._last_cands = (current_sentence.rstrip(), [w for w, s in sorted_words])
 
         results = [{"word": w, "source": "trie"} for w in top_words]
         return results
@@ -524,8 +671,10 @@ class HybridKeyboardBackend:
             llm_scores,
             ngram_total_confidence=total_ngram_conf,
             word_count=word_count,
-            top_n=10
+            top_n=200
         )
+        self._last_cands = (current_sentence.rstrip(), list(top_words))   # for completing the next word
+        top_words = top_words[:10]
 
         # Map source for UI
         results = []
@@ -560,8 +709,9 @@ class HybridKeyboardBackend:
         if not clean_input:
             return []
 
-        # Query the Heavy LLM for intelligent sentence completions
-        matches = []
+        # Phrase memory first: sentences this profile has spoken that start with the typed text
+        matches = self.profile.phrases_for(current_text, n=3)
+        seen = {UserProfile.key(m) for m in matches}
         try:
             history_str = ""
             if self.session_history:
@@ -619,7 +769,9 @@ class HybridKeyboardBackend:
                         full_sentence = full_sentence[0].upper() + full_sentence[1:]
                     if "_" in full_sentence or ".." in full_sentence or "()" in full_sentence.replace(" ", "") or "（）" in full_sentence:
                         continue
-                    if len(full_sentence) > len(current_text) and full_sentence.lower().startswith(clean_input) and full_sentence not in matches:
+                    if (len(full_sentence) > len(current_text) and full_sentence.lower().startswith(clean_input)
+                            and UserProfile.key(full_sentence) not in seen):
+                        seen.add(UserProfile.key(full_sentence))
                         matches.append(full_sentence)
                         if len(matches) >= count:
                             break
@@ -631,73 +783,50 @@ class HybridKeyboardBackend:
     # ---------------------------------------------------------
     # PUBLIC: On Letter Typed — Prefix Prediction
     # ---------------------------------------------------------
-    def on_letter_typed(self, prefix: str):
-        """Triggered on instant keystrokes to return low-latency prefix predictions."""
+    def on_letter_typed(self, prefix: str, context: str = None):
+        """Prefix completion. With `context` (the whole typed text) words that fit the sentence come first.
+        Order: sentence-fitting candidates, the profile's own words, the model's last candidates,
+        then the word list ranked by everyday conversation (encyclopedia-only words last)."""
         prefix = prefix.lower().strip()
-        trie_matches = self.trie.get_words_with_prefix(prefix, top_n=10)
-        ai_matches = [w for w in self.ai_cache if w.startswith(prefix)]
-        ai_matches.sort(key=lambda w: self.ai_cache[w], reverse=True)
+        if not prefix:
+            return []
+        ctx_matches = []
+        if context is not None and context.split():
+            before = context[:len(context) - len(context.split()[-1])].rstrip()
+            if before:
+                if self._last_cands[0] == before:
+                    cands = self._last_cands[1]
+                else:                                   # not from the last space: n-grams only (fast)
+                    p, t, _ = self._get_ngram_scores_with_backoff(before + " ")
+                    sc = {w: max(p.get(w, 0.0), t.get(w, 0.0)) for w in set(p) | set(t)}
+                    cands = sorted(sc, key=lambda w: -sc[w])
+                ctx_matches = [w for w in cands if w.startswith(prefix)][:self.CTX_SLOTS]
+        own = sorted((w for w in self.profile.words if w.startswith(prefix)), key=lambda w: -self.profile.words[w])
+        ai_matches = sorted((w for w in self.ai_cache if w.startswith(prefix)), key=lambda w: -self.ai_cache[w])
+        final, seen = [], set()
+        for src, words in (("ai", ctx_matches), ("trie", own), ("ai", ai_matches), ("trie", self._everyday(prefix))):
+            for w in words:
+                if w not in seen:
+                    seen.add(w)
+                    final.append({"word": w, "source": src})
+        return final[:10]
 
-        final_suggestions = []
-        seen = set()
+    CTX_SLOTS = 5      # at most this many sentence-fitting words, so plain completions keep some places
 
-        for w in ai_matches:
-            if w not in seen:
-                seen.add(w)
-                final_suggestions.append({"word": w, "source": "ai"})
-
-        for w in trie_matches:
-            if w not in seen:
-                seen.add(w)
-                final_suggestions.append({"word": w, "source": "trie"})
-
-        return final_suggestions[:10]
+    def _everyday(self, prefix: str, n: int = 10) -> list:
+        """vocab.json completions, words used in everyday conversation first (by conversation frequency),
+        then the rest in vocab order; single letters other than 'a'/'i' dropped."""
+        cand = [w for w in self.trie.get_words_with_prefix(prefix, top_n=200) if len(w) > 1 or w in ("a", "i")]
+        order = {w: i for i, w in enumerate(cand)}
+        cand.sort(key=lambda w: (self.conv_freq.get(w, 0) == 0, -self.conv_freq.get(w, 0), order[w]))
+        return cand[:n]
 
     # ---------------------------------------------------------
     # PUBLIC: Learn User Typing (Action 6 — Fixed)
     # ---------------------------------------------------------
     def learn_user_typing(self, full_sentence: str):
-        """
-        Dynamically tracks user behavior and updates n-gram frequencies.
-        - ACTION 6: increment reduced from 100 → 5 for the trie (less aggressive)
-        - ACTION 6: learns from ALL word boundaries, not just the last word
-        - ACTION 6: persists personalization state to disk
-        """
-        words = re.findall(r"\b[a-zA-Z]+(?:'[a-zA-Z]+)?\b", full_sentence.lower())
-        if not words:
-            return
-
-        # Learn from every word position in the sentence
-        for i in range(len(words)):
-            word = words[i]
-
-            # Update unigram trie frequency (reduced from 100 to 5)
-            if word.isalpha():
-                self.trie.update_frequency(word, increment=5)
-
-            # Update bigram (1-word context)
-            if i >= 1:
-                context_1 = words[i - 1]
-                self.personalization.update(context_1, word, increment=1)
-
-            # Update trigram (2-word context)
-            if i >= 2:
-                context_2 = f"{words[i - 2]} {words[i - 1]}"
-                self.personalization.update(context_2, word, increment=1)
-
-        # ACTION 6: Persist personalization to disk so it survives restarts
-        self._save_personalization()
-
-    # ---------------------------------------------------------
-    # INTERNAL: Save Personalization to Disk
-    # ---------------------------------------------------------
-    def _save_personalization(self):
-        """Saves personalization engine state to disk."""
-        try:
-            with open(self._pers_path, 'wb') as f:
-                pickle.dump(self.personalization, f)
-        except Exception as e:
-            print(f"[Backend] Warning: Could not save personalization data: {e}")
+        """Learns a spoken sentence into the ACTIVE profile only (n-grams, words, phrase memory) and saves it."""
+        self.profile.learn(full_sentence)
 
 
 if __name__ == "__main__":

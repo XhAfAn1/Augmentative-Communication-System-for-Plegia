@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
-import '../../features/keyboard/gaze_keyboard.dart' show spacebarTrigger, flutterDwellEnabled;
+import '../services/gaze_offset_learner.dart';
+import '../../features/keyboard/gaze_keyboard.dart' show spacebarTrigger, flutterDwellEnabled, selectionFeedback;
+
+/// Dwell time for every gaze button (Settings > Dwell Time, saved). A widget can still pass its own duration.
+final ValueNotifier<int> dwellDurationMs = ValueNotifier<int>(AppConstants.dwellDurationMs);
 
 /// Draws a rounded-rect progress ring for dwell selection.
 /// Shared by all interactive widgets (words, sentences, buttons).
@@ -45,7 +49,7 @@ class DwellPainter extends CustomPainter {
 class DwellWrapper extends StatefulWidget {
   final Widget Function(bool hovering, AnimationController dwellCtrl) builder;
   final VoidCallback onTap;
-  final Duration dwellDuration;
+  final Duration? dwellDuration; // null = the global Dwell Time setting
   final Color dwellColor;
   final double borderRadius;
 
@@ -53,7 +57,7 @@ class DwellWrapper extends StatefulWidget {
     super.key,
     required this.builder,
     required this.onTap,
-    this.dwellDuration = const Duration(milliseconds: AppConstants.dwellDurationMs),
+    this.dwellDuration,
     this.dwellColor = AppColors.dwellRing,
     this.borderRadius = 8.0,
   });
@@ -66,6 +70,7 @@ class _DwellWrapperState extends State<DwellWrapper>
     with SingleTickerProviderStateMixin {
   late AnimationController _dwellCtrl;
   bool _hovering = false;
+  final HoverTrail _trail = HoverTrail(); // where the cursor rested (Auto re-centre)
   bool _pressed = false;
 
   @override
@@ -73,13 +78,20 @@ class _DwellWrapperState extends State<DwellWrapper>
     super.initState();
     _dwellCtrl = AnimationController(
       vsync: this,
-      duration: widget.dwellDuration,
+      duration: widget.dwellDuration ?? Duration(milliseconds: dwellDurationMs.value),
     )..addStatusListener((s) {
         if (s == AnimationStatus.completed) {
           _onDwellFired();
         }
       });
     spacebarTrigger.addListener(_onSpacebarTrigger);
+    dwellDurationMs.addListener(_onDwellTimeChanged);
+  }
+
+  void _onDwellTimeChanged() {
+    if (widget.dwellDuration == null) {
+      _dwellCtrl.duration = Duration(milliseconds: dwellDurationMs.value);
+    }
   }
 
   void _onSpacebarTrigger() {
@@ -92,11 +104,14 @@ class _DwellWrapperState extends State<DwellWrapper>
   @override
   void dispose() {
     spacebarTrigger.removeListener(_onSpacebarTrigger);
+    dwellDurationMs.removeListener(_onDwellTimeChanged);
     _dwellCtrl.dispose();
     super.dispose();
   }
 
-  void _onDwellFired() {
+  void _onDwellFired() {                // dwell or Spacebar (not a mouse click)
+    selectionFeedback();
+    GazeOffsetLearner.instance.selected(context, _trail);
     widget.onTap();
     _dwellCtrl.reset();
     setState(() => _pressed = true);
@@ -109,12 +124,16 @@ class _DwellWrapperState extends State<DwellWrapper>
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) {
+      onEnter: (e) {
+        _trail
+          ..clear()
+          ..add(e.position);
         setState(() => _hovering = true);
         if (flutterDwellEnabled.value) {
           _dwellCtrl.forward();
         }
       },
+      onHover: (e) => _trail.add(e.position),
       onExit: (_) {
         setState(() {
           _hovering = false;
@@ -125,6 +144,7 @@ class _DwellWrapperState extends State<DwellWrapper>
       child: GestureDetector(
         onTap: () {
           _dwellCtrl.reset();
+          selectionFeedback();
           widget.onTap();
           setState(() => _pressed = true);
           Future.delayed(const Duration(milliseconds: 120), () {
