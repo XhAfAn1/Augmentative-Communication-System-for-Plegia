@@ -5,6 +5,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/widgets/dwell_wrapper.dart';
 import '../../core/services/win_native.dart';
 import '../../core/services/gaze_offset_learner.dart';
+import '../../core/services/gaze_targets.dart';
 
 /// Increment this to instantly fire whatever key the cursor is currently over.
 /// Driven by the Spacebar listener in keyboard_screen.dart.
@@ -80,13 +81,18 @@ class GazeKeyboard extends StatelessWidget {
 
   Widget _letterKey(String l) {
     final display = isUpperCase ? l.toUpperCase() : l.toLowerCase();
+    final key = KeyboardKey(
+      label: l,
+      displayLabel: display,
+      onPressed: () => addChar(display),
+      spacebarNotifier: spacebarNotifier ?? spacebarTrigger,
+    );
+    // Level 2 points (GazeTargets): Q, P, Z, ".", G
+    final name = l.trim();
     return Expanded(
-      child: KeyboardKey(
-        label: l,
-        displayLabel: display,
-        onPressed: () => addChar(display),
-        spacebarNotifier: spacebarNotifier ?? spacebarTrigger,
-      ),
+      child: const {'Q', 'P', 'Z', '.', 'G'}.contains(name)
+          ? KeyedSubtree(key: GazeTargets.key(name), child: key)
+          : key,
     );
   }
 
@@ -147,12 +153,15 @@ class GazeKeyboard extends StatelessWidget {
         ),
         _gap(),
         Expanded(
-          child: KeyboardKey(
-            label: 'space',
-            displayLabel: 'Space',
-            keyType: KeyType.space,
-            onPressed: addSpace,
-            spacebarNotifier: spacebarNotifier ?? spacebarTrigger,
+          child: KeyedSubtree(
+            key: GazeTargets.key('Space'), // Level 2 point
+            child: KeyboardKey(
+              label: 'space',
+              displayLabel: 'Space',
+              keyType: KeyType.space,
+              onPressed: addSpace,
+              spacebarNotifier: spacebarNotifier ?? spacebarTrigger,
+            ),
           ),
         ),
         _gap(),

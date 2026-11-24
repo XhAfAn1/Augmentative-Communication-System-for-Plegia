@@ -5,6 +5,8 @@ import '../../core/services/system_processes.dart';
 import '../../core/services/tracker_client.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/ui_kit.dart';
+import 'emg_card.dart';
+import '../../core/services/gaze_targets.dart';
 
 /// Eye Tracking control panel: everything the Python launcher offered (Sensors, Calibration, Mouse), talking to
 /// the background eye tracker. Calibration, fine-tune, re-centre and Eye View still open the tracker's own windows.
@@ -191,6 +193,8 @@ class _SensorsTab extends StatelessWidget {
           ),
         ),
       ]),
+      const SectionHeader('EMG MUSCLE SENSOR'),
+      const EmgCard(),
     ]);
   }
 }
@@ -213,84 +217,55 @@ class _EyeCard extends StatelessWidget {
             : e.pupil == null
                 ? ('Searching', AppColors.statusWarning)
                 : ('Tracking', AppColors.statusOnline);
+    // the last eye in use cannot be switched off (the tracker refuses it too)
+    final lastEye = e.enabled && !other.enabled;
     return SettingCard(children: [
       Padding(
-        padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
-        child: Row(children: [
-          Icon(Icons.remove_red_eye_outlined, color: eye == 'left' ? AppColors.accentCyan : AppColors.statusWarning),
-          const SizedBox(width: 10),
-          Text(name, style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 15, color: AppColors.keyboardDark)),
-          const Spacer(),
-          StatusPill(label, col),
+        padding: const EdgeInsets.fromLTRB(16, 12, 12, 14),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            Icon(Icons.remove_red_eye_outlined, color: eye == 'left' ? AppColors.accentCyan : AppColors.statusWarning),
+            const SizedBox(width: 10),
+            Text(name,
+                style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 15, color: AppColors.keyboardDark)),
+            const SizedBox(width: 10),
+            StatusPill(label, col),
+            const Spacer(),
+            Tooltip(
+              message: lastEye ? 'The other eye is off' : (e.enabled ? 'Use this eye: on' : 'Use this eye: off'),
+              child: Switch(value: e.enabled, onChanged: lastEye ? null : (v) => t.setEyeEnabled(eye, v)),
+            ),
+          ]),
+          const SizedBox(height: 4),
+          Row(children: [
+            Expanded(
+              child: Text(
+                e.enabled && e.connected
+                    ? '${e.fps.toStringAsFixed(0)} FPS · detection ${e.detFps.toStringAsFixed(0)} Hz'
+                        '${e.pupil != null ? ' · confidence ${(e.conf * 100).toStringAsFixed(0)} %' : ''}'
+                    : e.enabled
+                        ? 'No image'
+                        : 'Off · the other eye tracks alone',
+                style: GoogleFonts.inter(fontSize: 12, color: Colors.black54),
+              ),
+            ),
+            DropdownButton<int>(
+              value: e.cameraId,
+              underline: const SizedBox(),
+              isDense: true,
+              style: GoogleFonts.inter(fontSize: 13, color: AppColors.keyboardDark),
+              items: [
+                for (final c in const [0, 1, 2])
+                  DropdownMenuItem(
+                    value: c,
+                    child: Text('Camera $c${other.enabled && other.cameraId == c && c != e.cameraId ? ' (swap)' : ''}'),
+                  ),
+              ],
+              onChanged: e.enabled ? (v) => v == null ? null : t.setCamera(eye, v) : null,
+            ),
+          ]),
         ]),
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            e.enabled && e.connected
-                ? 'Camera ${e.cameraId} · ${e.fps.toStringAsFixed(0)} FPS · detection ${e.detFps.toStringAsFixed(0)} Hz'
-                    '${e.pupil != null ? ' · confidence ${(e.conf * 100).toStringAsFixed(0)} %' : ''}'
-                : e.enabled
-                    ? 'Camera ${e.cameraId} · no image'
-                    : 'Single-eye mode: the other eye tracks alone',
-            style: GoogleFonts.inter(fontSize: 12, color: Colors.black54),
-          ),
-        ),
-      ),
-      SwitchTile(
-        title: 'Use this eye',
-        subtitle: other.enabled ? 'Untick for single-eye mode (recalibrate afterwards)' : 'The other eye is off',
-        value: e.enabled,
-        onChanged: (v) => t.setEyeEnabled(eye, v),
-        icon: Icons.power_settings_new,
-        iconColor: AppColors.primaryBlue,
-      ),
-      const Divider(height: 1),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(children: [
-          Text('Camera', style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 13)),
-          const SizedBox(width: 10),
-          DropdownButton<int>(
-            value: e.cameraId,
-            underline: const SizedBox(),
-            items: [
-              for (final c in const [0, 1, 2])
-                DropdownMenuItem(
-                  value: c,
-                  child: Text(
-                      'Camera $c${other.enabled && other.cameraId == c && c != e.cameraId ? ' (swap)' : ''}',
-                      style: GoogleFonts.inter(fontSize: 13)),
-                ),
-            ],
-            onChanged: e.enabled ? (v) => v == null ? null : t.setCamera(eye, v) : null,
-          ),
-          const Spacer(),
-          _FlipBox('Flip H', e.flipH, e.enabled ? (v) => t.setFlip(eye, v, e.flipV) : null),
-          _FlipBox('Flip V', e.flipV, e.enabled ? (v) => t.setFlip(eye, e.flipH, v) : null),
-        ]),
-      ),
-    ]);
-  }
-}
-
-class _FlipBox extends StatelessWidget {
-  final String label;
-  final bool value;
-  final ValueChanged<bool>? onChanged;
-  const _FlipBox(this.label, this.value, this.onChanged);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(mainAxisSize: MainAxisSize.min, children: [
-      Checkbox(
-          value: value,
-          activeColor: AppColors.primaryBlue,
-          onChanged: onChanged == null ? null : (v) => onChanged!(v ?? false)),
-      Text(label, style: GoogleFonts.inter(fontSize: 12)),
-      const SizedBox(width: 6),
     ]);
   }
 }
@@ -344,6 +319,20 @@ class _CalibrationTab extends StatelessWidget {
                     style: GoogleFonts.inter(fontSize: 12, color: Colors.black54, height: 1.4)),
               ]),
             ),
+            const SizedBox(width: 12),
+            SizedBox(
+              height: 64,
+              child: Center(
+                child: Tooltip(
+                  message: 'Dots + your live gaze, to find your calibration position · changes nothing',
+                  child: OutlinedButton.icon(
+                    onPressed: busy || !st.calibrated ? null : () => t.startPositionGuide(),
+                    icon: const Icon(Icons.accessibility_new, size: 18),
+                    label: const Text('Position Guide'),
+                  ),
+                ),
+              ),
+            ),
           ]),
         ),
       ]),
@@ -384,10 +373,10 @@ class _CalibrationTab extends StatelessWidget {
         Expanded(
           child: DwellActionButton(
             label: 'Level 2 Fine-tune',
-            sublabel: st.canFineTune ? '9 new dots + 2 lines · keeps the map if not better' : 'Needs a full calibration first',
+            sublabel: st.canFineTune ? '13 points on your keyboard · press Space at each' : 'Needs a full calibration first',
             icon: Icons.tune,
             color: AppColors.accentCyan,
-            onTap: busy || !st.canFineTune ? null : () => t.startFineTune(),
+            onTap: busy || !st.canFineTune ? null : () => t.startFineTune(GazeTargets.collect()),
           ),
         ),
         const SizedBox(width: 10),
@@ -405,17 +394,42 @@ class _CalibrationTab extends StatelessWidget {
       SettingCard(children: [
         SwitchTile(
           title: 'Show gaze pointer',
-          subtitle: 'Cyan pointer of your live gaze in full calibration, Level 2 fine-tune and Quick Re-centre',
+          subtitle: 'Pointer of your live gaze in full calibration, Level 2 fine-tune and Quick Re-centre',
           value: st.showGazePointer,
           onChanged: (v) => t.setShowGazePointer(v),
           icon: Icons.my_location,
           iconColor: AppColors.accentCyan,
         ),
         SwitchTile(
+          title: 'Dark calibration background',
+          subtitle: st.darkCalibrationBackground
+              ? 'On: calibration screens are dark. Turn off for a light background (same as the app) to compare accuracy'
+              : 'Off: calibration screens are light like the app. Turn on for the dark background to compare accuracy',
+          value: st.darkCalibrationBackground,
+          onChanged: busy ? null : (v) => t.setDarkCalibrationBackground(v),
+          icon: Icons.dark_mode_outlined,
+          iconColor: AppColors.primaryBlue,
+        ),
+        SwitchTile(
+          title: 'End shift correction',
+          subtitle: st.endShift == null
+              ? 'No end shift stored (none measured, or replaced by Quick Re-centre / fine-tune)'
+              : 'Shift (${st.endShift![0]}, ${st.endShift![1]}) px measured at the end of the calibration'
+                  '${st.endShiftBeforePx != null && st.endShiftAfterPx != null ? ' · check dots ${st.endShiftBeforePx!.round()} px, with it ${st.endShiftAfterPx!.round()} px' : ''}'
+                  ' · ${st.endShiftOn ? 'On: cursor uses it' : 'Off: cursor without it'}',
+          value: st.endShiftOn,
+          onChanged: (v) => t.setEndShift(v),
+          icon: Icons.open_with,
+          iconColor: AppColors.primaryBlue,
+        ),
+        SwitchTile(
           title: 'Auto re-centre while using',
           subtitle: st.autoRecentre
               ? (st.autoRecentreCount == 0
                   ? 'On: learns the headset slip from the buttons you select (nothing learned yet)'
+                  : st.autoRecentreAreas != null
+                  ? 'On: ${st.autoRecentreCount} selections, small corrections in ${st.autoRecentreAreas} screen '
+                      'areas (temporary, never saved) since the last calibration'
                   : 'On: learned from ${st.autoRecentreCount} selections (fitted to the last 5): shift '
                       '(${st.autoRecentreShift[0]}, ${st.autoRecentreShift[1]}) px, scale '
                       '${(st.autoRecentreScale[0] * 100).round()}% x ${(st.autoRecentreScale[1] * 100).round()}% '
@@ -474,7 +488,7 @@ class _CalibrationTab extends StatelessWidget {
   }
 
   static String _activityName(String a) =>
-      {'calibration': 'Full calibration', 'finetune': 'Level 2 fine-tune', 'recentre': 'Quick re-centre'}[a] ?? a;
+      {'calibration': 'Full calibration', 'finetune': 'Level 2 fine-tune', 'recentre': 'Quick re-centre', 'position': 'Position guide'}[a] ?? a;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════ mouse
@@ -595,7 +609,17 @@ class _MouseTab extends StatelessWidget {
           icon: Icons.space_bar,
           iconColor: const Color(0xFF22c55e),
         ),
-
+        const Divider(),
+        SwitchTile(
+          title: 'Edge Reach',
+          subtitle: st.edgeReach
+              ? 'On: easier to reach the screen edges'
+              : 'Off: cursor exactly where you look (more accurate)',
+          value: st.edgeReach,
+          onChanged: (v) => t.setMouseParams({'edge_reach': v}),
+          icon: Icons.fit_screen,
+          iconColor: AppColors.primaryBlue,
+        ),
       ]),
       const SectionHeader('LIVE TELEMETRY'),
       SettingCard(children: [

@@ -9,13 +9,13 @@ from typing import Optional, List, Dict, Any, Tuple
 # Predefined Edge-TTS voices
 EDGE_VOICES = [
     # Female
-    {"id": "en-US-JennyNeural", "name": "Jenny (US Female — Conversational Flagship)", "gender": "female"},
-    {"id": "en-US-AriaNeural", "name": "Aria (US Female — Expressive)", "gender": "female"},
-    {"id": "en-GB-SoniaNeural", "name": "Sonia (UK Female — British)", "gender": "female"},
+    {"id": "en-US-JennyNeural", "name": "Jenny (US Female - Conversational Flagship)", "gender": "female"},
+    {"id": "en-US-AriaNeural", "name": "Aria (US Female - Expressive)", "gender": "female"},
+    {"id": "en-GB-SoniaNeural", "name": "Sonia (UK Female - British)", "gender": "female"},
     # Male
-    {"id": "en-US-GuyNeural", "name": "Guy (US Male — Conversational Flagship)", "gender": "male"},
-    {"id": "en-US-ChristopherNeural", "name": "Christopher (US Male — Professional)", "gender": "male"},
-    {"id": "en-GB-RyanNeural", "name": "Ryan (UK Male — British)", "gender": "male"}
+    {"id": "en-US-GuyNeural", "name": "Guy (US Male - Conversational Flagship)", "gender": "male"},
+    {"id": "en-US-ChristopherNeural", "name": "Christopher (US Male - Professional)", "gender": "male"},
+    {"id": "en-GB-RyanNeural", "name": "Ryan (UK Male - British)", "gender": "male"}
 ]
 
 # Predefined Pocket-TTS voices
@@ -62,6 +62,7 @@ class TTSManager:
         self._mixer_initialized = False
         self._playback_lock = threading.Lock()
         self._playback_process = None
+        self._loaded_path = None   # file pygame currently holds open (see _release_loaded_file)
         # every Stop / new request ends the older ones: a late result (slow network) is never played afterwards
         self._generation = 0
 
@@ -87,7 +88,25 @@ class TTSManager:
             self._current_slot = (self._current_slot + 1) % self._max_slots
             filename = f"tts_slot_{slot}.{extension}"
             filepath = os.path.join(self.cache_dir, filename)
-            return filename, filepath
+        self._release_loaded_file(filepath)
+        return filename, filepath
+
+    def _release_loaded_file(self, file_path: str):
+        """pygame keeps the loaded file open (read-only share on Windows), so writing that slot again fails with
+        WinError 32. This happens when the in-between requests never loaded a file (Stop, play_now=False, SAPI fallback).
+        Unloads only when the slot about to be written is the loaded file; other playback is not touched."""
+        abs_path = os.path.abspath(file_path)
+        with self._playback_lock:
+            if self._loaded_path != abs_path:
+                return
+            try:
+                import pygame
+                if pygame.mixer.get_init():
+                    pygame.mixer.music.stop()
+                    pygame.mixer.music.unload()
+                self._loaded_path = None
+            except Exception as e:
+                print(f"[TTSManager] Could not release {os.path.basename(abs_path)}: {e}")
 
     def get_available_voices(self) -> Dict[str, Any]:
         """Returns metadata for all available engines and their voices."""
@@ -178,18 +197,44 @@ class TTSManager:
             except Exception:
                 pass
 
-    def _play_audio_file(self, file_path: str):
-        """Non-blocking audio playback using native pygame.mixer."""
+    def _play_audio_file(self, file_path: str) -> bool:
+        """Non-blocking audio playback using native pygame.mixer. False = could not play (no audio device, mixer
+        failed): the caller then speaks with Windows SAPI so the user is never left in silence."""
         abs_path = os.path.abspath(file_path)
         with self._playback_lock:
             try:
                 self._ensure_mixer()
                 import pygame
+                if not pygame.mixer.get_init():
+                    raise RuntimeError("audio mixer not available")
                 pygame.mixer.music.stop()
                 pygame.mixer.music.load(abs_path)
+                self._loaded_path = abs_path    # set only after a successful load: a failed load keeps the old file
                 pygame.mixer.music.play()
+                return True
             except Exception as e:
-                print(f"[TTSManager] Playback error: {e}")
+                print(f"[TTSManager] Playback error: {e}. Falling back to SAPI...")
+                return False
+
+    def is_playing(self) -> bool:
+        """True while speech is still audible (audio file or SAPI); the app waits for this to end."""
+        with self._playback_lock:
+            p = self._playback_process
+            if p is not None and p.poll() is None:
+                return True
+        try:
+            import pygame
+            return bool(pygame.mixer.get_init() and pygame.mixer.music.get_busy())
+        except Exception:
+            return False
+
+    @staticmethod
+    def sapi_rate(speed: float) -> int:
+        """App speech rate 0.5..1.5 (1.0 = normal) -> SAPI Rate -10..10 (0 = normal); 0.5 -> -5, 1.5 -> +5."""
+        try:
+            return max(-10, min(10, int(round((float(speed) - 1.0) * 10))))
+        except (TypeError, ValueError):
+            return 0
 
     async def synthesize(
         self,
@@ -234,8 +279,8 @@ class TTSManager:
                 await asyncio.wait_for(communicate.save(output_path), timeout=self.EDGE_TIMEOUT_S)
                 latency_ms = round((time.time() - t0) * 1000, 1)
 
-                if play_now and gen == self._generation:
-                    self._play_audio_file(output_path)
+                if play_now and gen == self._generation and not self._play_audio_file(output_path):
+                    return await self._synthesize_sapi(cleaned_text, speed=speed, play_now=True)
 
                 return {
                     "status": "success",
@@ -243,13 +288,13 @@ class TTSManager:
                     "voice": selected_voice,
                     "audio_filename": output_filename,
                     "audio_path": output_path,
-                    "audio_url": f"/api/tts/audio/{output_filename}",
                     "latency_ms": latency_ms
                 }
             except Exception as e:
                 print(f"[TTSManager] Edge-TTS failed: {e}. Falling back to SAPI...")
                 # Graceful fallback to SAPI if internet is down
-                return await self._synthesize_sapi(cleaned_text, play_now=play_now and gen == self._generation)
+                return await self._synthesize_sapi(cleaned_text, speed=speed,
+                                                   play_now=play_now and gen == self._generation)
 
         # ----------------------------------------------------
         # 2. Pocket TTS (On-Device CPU)
@@ -259,7 +304,9 @@ class TTSManager:
                 import scipy.io.wavfile
                 import numpy as np
 
-                model = self._get_pocket_model()
+                # loading the model (first use) and preparing a voice take seconds: done in a worker thread so
+                # word prediction and the Stop button keep working meanwhile
+                model = await asyncio.to_thread(self._get_pocket_model)
                 selected_voice = voice or "anna"
                 output_filename, output_path = self._get_next_slot("wav")
 
@@ -273,7 +320,7 @@ class TTSManager:
                 if selected_voice not in getattr(self, "_pocket_voice_cache", {}):
                     if not hasattr(self, "_pocket_voice_cache"):
                         self._pocket_voice_cache = {}
-                    v_state = model.get_state_for_audio_prompt(selected_voice)
+                    v_state = await asyncio.to_thread(model.get_state_for_audio_prompt, selected_voice)
                     self._pocket_voice_cache[selected_voice] = v_state
                 else:
                     v_state = self._pocket_voice_cache[selected_voice]
@@ -296,8 +343,8 @@ class TTSManager:
 
                 scipy.io.wavfile.write(output_path, sample_rate, audio_int16)
 
-                if play_now and gen == self._generation:
-                    self._play_audio_file(output_path)
+                if play_now and gen == self._generation and not self._play_audio_file(output_path):
+                    return await self._synthesize_sapi(cleaned_text, speed=speed, play_now=True)
 
                 return {
                     "status": "success",
@@ -305,34 +352,37 @@ class TTSManager:
                     "voice": selected_voice,
                     "audio_filename": output_filename,
                     "audio_path": output_path,
-                    "audio_url": f"/api/tts/audio/{output_filename}",
                     "latency_ms": latency_ms
                 }
             except Exception as e:
                 print(f"[TTSManager] Pocket TTS failed: {e}. Falling back to SAPI...")
-                return await self._synthesize_sapi(cleaned_text, play_now=play_now and gen == self._generation)
+                return await self._synthesize_sapi(cleaned_text, speed=speed,
+                                                   play_now=play_now and gen == self._generation)
 
         # ----------------------------------------------------
         # 3. Windows Native SAPI Fallback
         # ----------------------------------------------------
         else:
-            return await self._synthesize_sapi(cleaned_text, play_now=play_now)
+            return await self._synthesize_sapi(cleaned_text, speed=speed, play_now=play_now)
 
-    async def _synthesize_sapi(self, text: str, play_now: bool = True) -> Dict[str, Any]:
-        """Direct fallback speech using Windows System.Speech."""
-        safe_text = text.replace("'", "''")
+    # The text reaches PowerShell through an environment variable, never inside the command itself: PowerShell
+    # also treats curly quotes (’ ‘) as quote marks, so "I don’t know" used to break the command (silence), and
+    # typed text could never run as a command.
+    SAPI_COMMAND = ("Add-Type -AssemblyName System.Speech; "
+                    "$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; "
+                    "$s.Rate = [int]$env:AAC_TTS_RATE; "
+                    "$s.Speak($env:AAC_TTS_TEXT);")
+
+    async def _synthesize_sapi(self, text: str, speed: float = 1.0, play_now: bool = True) -> Dict[str, Any]:
+        """Direct fallback speech using Windows System.Speech (speech rate follows the app's Speech Rate)."""
         if play_now:
             self.stop_playback()
-            cmd = (
-                f"Add-Type -AssemblyName System.Speech; "
-                f"$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; "
-                f"$s.Speak('{safe_text}');"
-            )
+            env = dict(os.environ, AAC_TTS_TEXT=text, AAC_TTS_RATE=str(self.sapi_rate(speed)))
             with self._playback_lock:
                 try:
                     self._playback_process = subprocess.Popen(
-                        ["powershell", "-NoProfile", "-WindowStyle", "Hidden", "-Command", cmd],
-                        creationflags=subprocess.CREATE_NO_WINDOW
+                        ["powershell", "-NoProfile", "-WindowStyle", "Hidden", "-Command", self.SAPI_COMMAND],
+                        env=env, creationflags=subprocess.CREATE_NO_WINDOW
                     )
                 except Exception as e:
                     print(f"[TTSManager] SAPI playback error: {e}")

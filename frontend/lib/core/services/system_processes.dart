@@ -56,7 +56,7 @@ class SystemProcesses extends ChangeNotifier {
     if (rootDir == null) {
       for (final s in all) {
         s.state = ServiceState.failed;
-        s.detail = 'Combined System folder not found (needs "backend" and "Binocular Eye Tracking Module")';
+        s.detail = 'Combined System folder not found (needs "backend" and "Eye Tracking Module")';
       }
       notifyListeners();
       return;
@@ -87,7 +87,7 @@ class SystemProcesses extends ChangeNotifier {
       var d = Directory(start).absolute;
       for (var i = 0; i < 10; i++) {
         if (Directory(_join(d.path, 'backend')).existsSync() &&
-            File(_join(d.path, 'Binocular Eye Tracking Module', 'tracker_service.py')).existsSync()) {
+            File(_join(d.path, 'Eye Tracking Module', 'tracker_service.py')).existsSync()) {
           return d.path;
         }
         final up = d.parent;
@@ -145,7 +145,7 @@ class SystemProcesses extends ChangeNotifier {
     }
     final isTracker = s.name == 'tracker';
     final exe = isTracker ? _python('tracker_python', 'python') : _python('backend_python', 'python');
-    final dir = isTracker ? _join(rootDir!, 'Binocular Eye Tracking Module') : _join(rootDir!, 'backend');
+    final dir = isTracker ? _join(rootDir!, 'Eye Tracking Module') : _join(rootDir!, 'backend');
     final args = isTracker ? ['-u', 'tracker_service.py', '--parent-pid', '$pid'] : ['-u', 'main.py'];
     _set(s, ServiceState.starting, 'Starting…');
     final Process p;
@@ -185,6 +185,13 @@ class SystemProcesses extends ChangeNotifier {
       _set(s, ServiceState.failed, 'Port 8001 busy: another eye tracker (launcher.py?) is running');
       return;
     }
+    if (s.name == 'backend' && code == 3) {
+      // main.py takes port 8000 before loading the models and stops at once (code 3) if another backend has it:
+      // that one is usually still loading its models, so wait for it instead of starting yet another copy
+      _set(s, ServiceState.starting, 'Another AI backend is still starting on port 8000, waiting for it…');
+      unawaited(_waitForOther(s));
+      return;
+    }
     // crash: restart, at most 3 times per minute
     final now = DateTime.now();
     s._restarts.removeWhere((t) => now.difference(t) > const Duration(minutes: 1));
@@ -199,6 +206,21 @@ class SystemProcesses extends ChangeNotifier {
     });
   }
 
+  /// The backend that answers on port 8000 was started elsewhere (see _onExit code 3): use it once it answers.
+  Future<void> _waitForOther(ManagedService s) async {
+    final deadline = DateTime.now().add(s.startTimeout);
+    while (!_stopping && s.process == null && DateTime.now().isBefore(deadline)) {
+      if (await _healthy(s) == true) {
+        _set(s, ServiceState.external, 'Already running (started outside the app)');
+        return;
+      }
+      await Future.delayed(const Duration(seconds: 1));
+    }
+    if (!_stopping && s.process == null) {
+      _set(s, ServiceState.failed, 'Port 8000 stayed busy but no AI backend answered (see logs/${s.name}.log)');
+    }
+  }
+
   Future<void> _stop(ManagedService s) async {
     final p = s.process;
     if (p == null) return;
@@ -209,6 +231,13 @@ class SystemProcesses extends ChangeNotifier {
       try {
         await p.exitCode.timeout(const Duration(seconds: 5));
         return;
+      } catch (_) {}
+    }
+    // A venv python.exe is only a launcher: the real Python is its CHILD process. Killing just the launcher left
+    // the real backend running (Restart did nothing, the old models stayed in memory), so end the whole tree.
+    if (Platform.isWindows) {
+      try {
+        await Process.run('taskkill', ['/PID', '${p.pid}', '/T', '/F']).timeout(const Duration(seconds: 5));
       } catch (_) {}
     }
     p.kill();

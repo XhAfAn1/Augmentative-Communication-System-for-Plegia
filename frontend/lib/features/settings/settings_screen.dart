@@ -1,3 +1,4 @@
+import 'dart:async' show TimeoutException;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +10,7 @@ import '../../core/utils/tts_service.dart';
 import '../../core/services/tracker_client.dart';
 import '../../core/widgets/dwell_wrapper.dart' show dwellDurationMs;
 import '../../core/widgets/ui_kit.dart';
+import '../tracking/emg_card.dart';
 import '../keyboard/gaze_keyboard.dart' show flutterSpacebarEnabled, flutterDwellEnabled, selectionSoundEnabled, selectionFeedback;
 
 class SettingsScreen extends StatefulWidget {
@@ -31,17 +33,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   double _ttsTemperature = 0.3;
   bool _isTestingVoice = false;
 
-  static const Map<String, Map<String, List<Map<String, String>>>> _ttsVoiceCatalog = {
+  // voices: loaded from the backend (GET /api/tts/voices) in _loadTtsSettings; this built-in copy is only used
+  // while the backend is offline
+  Map<String, Map<String, List<Map<String, String>>>> _ttsVoiceCatalog = _defaultVoiceCatalog;
+  static const Map<String, Map<String, List<Map<String, String>>>> _defaultVoiceCatalog = {
     'edge_tts': {
       'female': [
-        {'id': 'en-US-JennyNeural', 'name': 'Jenny (US Female — Conversational Flagship)'},
-        {'id': 'en-US-AriaNeural', 'name': 'Aria (US Female — Expressive)'},
-        {'id': 'en-GB-SoniaNeural', 'name': 'Sonia (UK Female — British)'},
+        {'id': 'en-US-JennyNeural', 'name': 'Jenny (US Female - Conversational Flagship)'},
+        {'id': 'en-US-AriaNeural', 'name': 'Aria (US Female - Expressive)'},
+        {'id': 'en-GB-SoniaNeural', 'name': 'Sonia (UK Female - British)'},
       ],
       'male': [
-        {'id': 'en-US-GuyNeural', 'name': 'Guy (US Male — Conversational Flagship)'},
-        {'id': 'en-US-ChristopherNeural', 'name': 'Christopher (US Male — Professional)'},
-        {'id': 'en-GB-RyanNeural', 'name': 'Ryan (UK Male — British)'},
+        {'id': 'en-US-GuyNeural', 'name': 'Guy (US Male - Conversational Flagship)'},
+        {'id': 'en-US-ChristopherNeural', 'name': 'Christopher (US Male - Professional)'},
+        {'id': 'en-GB-RyanNeural', 'name': 'Ryan (UK Male - British)'},
       ],
     },
     'pocket_tts': {
@@ -106,8 +111,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _loadTtsSettings() async {
     await _ttsService.init();
+    final catalog = await _ttsService.fetchVoiceCatalog();
     if (mounted) {
       setState(() {
+        if (catalog != null) _ttsVoiceCatalog = catalog;
         _selectedEngine = _ttsService.engine;
         _selectedGender = _ttsService.gender;
         _selectedVoice = _ttsService.voice;
@@ -192,18 +199,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// The backend saves the GPU choice itself (backend_settings.json) and reloads both models for it, which can
+  /// take a while on the CPU. The app's own copy ('gpu_acceleration', only for showing the switch while the
+  /// backend is offline) is saved only after the backend confirmed the change.
   Future<void> _toggleGpu(bool value) async {
+    final before = _gpuEnabled;
     setState(() {
       _gpuEnabled = value;
       _isLoadingGpu = true;
-      _gpuSubtitle = value ? 'Switching to GPU mode...' : 'Switching to CPU mode...';
+      _gpuSubtitle = value ? 'Switching to GPU mode... (reloading the AI models)' : 'Switching to CPU mode... (reloading the AI models)';
     });
 
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('gpu_acceleration', value);
-    } catch (_) {}
-
+    String failure;
     try {
       final res = await http
           .post(
@@ -211,14 +218,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode({'enabled': value}),
           )
-          .timeout(const Duration(seconds: 15));
+          .timeout(const Duration(minutes: 3));
 
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
+        final bool applied = data['gpu_enabled'] ?? value;
+        try {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('gpu_acceleration', applied);
+        } catch (_) {}
         if (mounted) {
           setState(() {
-            _gpuEnabled = data['gpu_enabled'] ?? value;
-            final mode = data['active_mode'] ?? (value ? 'GPU Enabled' : 'CPU Mode');
+            _gpuEnabled = applied;
+            final mode = data['active_mode'] ?? (applied ? 'GPU Enabled' : 'CPU Mode');
             final device = data['device_name'] ?? 'NVIDIA GPU';
             _gpuSubtitle = '$mode ($device)';
             _isLoadingGpu = false;
@@ -226,16 +238,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
         }
         return;
       }
+      failure = res.statusCode == 503
+          ? 'AI backend is still starting · GPU setting not changed, try again in a moment'
+          : 'AI backend error ${res.statusCode} · GPU setting not changed';
+    } on TimeoutException {
+      // the backend may still finish the switch: the real state is shown the next time Settings opens
+      if (mounted) {
+        setState(() {
+          _isLoadingGpu = false;
+          _gpuSubtitle = 'Still switching (the AI backend is reloading the models) · open Settings again to check';
+        });
+      }
+      return;
     } catch (e) {
       debugPrint('Failed to toggle GPU: $e');
+      failure = 'AI backend not reachable · GPU setting not changed';
     }
 
     if (mounted) {
       setState(() {
+        _gpuEnabled = before; // nothing reached the backend: the switch shows what is really used
         _isLoadingGpu = false;
-        _gpuSubtitle = value
-            ? 'GPU Mode saved (Applied on backend)'
-            : 'CPU Mode active';
+        _gpuSubtitle = failure;
       });
     }
   }
@@ -350,16 +374,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ]),
           const SectionHeader('EMG / Muscle Signal Input'),
-          const SettingCard(children: [
-            SwitchTile(
-              title: 'EMG Sensor Input',
-              subtitle: 'Muscle sensor as an alternative input · coming in a later version',
-              value: false,
-              onChanged: null, // disabled until the EMG sensor is added
-              icon: Icons.sensors,
-              iconColor: Colors.grey,
-            ),
-          ]),
+          const EmgCard(), // switch + EMG View together (same card as Eye Tracking > Sensors)
           const SectionHeader('Prediction Profile'),
           SettingCard(children: [
             ListTile(
@@ -544,7 +559,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const Divider(),
 
-            // 4. Speech Rate Slider
+            // 4. Speech Rate Slider (Edge-TTS and Windows voice; Pocket TTS has no rate setting)
+            if (TtsService.usesRate(_selectedEngine))
             ListTile(
               leading: const Icon(Icons.speed, color: AppColors.primaryBlue),
               title: Text('Speech Rate: ${_ttsRate.toStringAsFixed(1)}x',
@@ -561,9 +577,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
             ),
-            const Divider(),
+            if (TtsService.usesRate(_selectedEngine)) const Divider(),
 
-            // 5. Pitch Slider
+            // 5. Pitch Slider (Edge-TTS only)
+            if (TtsService.usesPitch(_selectedEngine))
             ListTile(
               leading: const Icon(Icons.graphic_eq, color: AppColors.primaryBlue),
               title: Text('Pitch: ${_ttsPitch.toStringAsFixed(1)}',
@@ -580,10 +597,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
             ),
+            if (TtsService.usesPitch(_selectedEngine)) const Divider(),
 
             // 6. Voice Expressiveness (Temperature) — Pocket TTS specific
             if (_selectedEngine == 'pocket_tts') ...[
-              const Divider(),
               ListTile(
                 leading: const Icon(Icons.tune_rounded, color: AppColors.primaryBlue),
                 title: Row(
@@ -625,8 +642,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
               ),
+              const Divider(),
             ],
-            const Divider(),
 
             // 7. Test Voice Button
             Padding(

@@ -1,0 +1,77 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261122013606
+Username: DESKTOP-JGMIUV5\saifi
+RunAs User: DESKTOP-JGMIUV5\saifi
+Configuration Name: 
+Machine: DESKTOP-JGMIUV5 (Microsoft Windows NT 10.0.19045.0)
+Host Application: powershell -NoProfile -ExecutionPolicy Bypass -File E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\setup_new_pc.ps1
+Process ID: 2920
+PSVersion: 5.1.19041.7802
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.7802
+BuildVersion: 10.0.19041.7802
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+AAC system - setup for this PC   (mode: install)
+Folder: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System
+
+=== 1. Files that must be copied with the folder ===
+  [OK]   backend\qwen2.5-0.5b-instruct-q8_0.gguf
+  [OK]   backend\Llama-3.2-3B-Instruct-Q4_K_M.gguf
+  [OK]   backend\vocab.json
+  [OK]   backend\trigrams.json
+  [OK]   backend\main.py
+  [OK]   backend\requirements-lock.txt
+  [OK]   Eye Tracking Module\tracker_service.py
+  [OK]   frontend\pubspec.yaml
+
+=== 2. Python 3.13 (eye tracker + AI backend) ===
+  [OK]   Python 3.13: C:\Python313\python.exe
+
+=== 3. Eye tracker packages (numpy, opencv-python, Pillow, matplotlib) ===
+  [OK]   installed
+
+=== 4. AI backend environment (backend\venv) ===
+  [OK]   backend\venv works
+         Installing / checking the exact package versions (requirements-lock.txt; first time: several GB, e.g. PyTorch)...
+         > E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\venv\Scripts\python.exe -m pip install --upgrade pip
+         > E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\venv\Scripts\python.exe -m pip install -r E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\backend\requirements-lock.txt
+  [OK]   backend packages installed
+
+=== 5. Prediction engine (llama-cpp-python 0.3.28, GPU or CPU) ===
+python.exe : ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8191 MiB):
+At E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two 
+sensor\Combined System\setup_new_pc.ps1:154 char:23
++ ... y { $have = & $VenvPy -c "import llama_cpp;print(llama_cpp.__version_ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ggml_cuda_init:...RAM: 8191 MiB)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+  Device 0: NVIDIA GeForce RTX 3070, compute capability 8.6, VMM: yes, VRAM: 8191 MiB
+         NVIDIA GPU: NVIDIA GeForce RTX 3070 | CUDA Toolkit: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\bin\nvcc.exe | VS 2022 C++: yes
+  [OK]   installed and working: 0.3.28 GPU
+
+=== 6. system_config.json (which Python the app starts the eye tracker with) ===
+  [TODO] tracker_python: 'python' -> 'C:\Python313\python.exe'
+  [OK]   saved
+
+=== 7. The AAC app (Flutter, Windows) ===
+  [OK]   Visual C++ runtime present
+  [TODO] the app has to be built once (start_aac.bat does it automatically)
+  [OK]   Flutter found
+  [OK]   Visual Studio C++ tools found
+
+=== Summary ===
+  Everything needed is in place.
+
+  On a new PC, after the first start:
+   1. Eye Tracking > Sensors: check which camera is the left / right eye (numbers can differ on a new PC).
+   2. Eye Tracking > Calibration: run a Full Calibration (new screen = new calibration).
+   3. Settings > Prediction Profile: choose Patient (or Test), and switch GPU Acceleration on/off as wanted.
+**********************
+Windows PowerShell transcript end
+End time: 20261122013615
+**********************

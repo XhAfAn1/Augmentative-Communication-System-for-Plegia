@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
 import os
@@ -24,9 +23,13 @@ app.add_middleware(
 
 # Global backend instance
 backend = None
-backend_lock = threading.Lock()  # For heavy LLM calls and state updates
+backend_lock = threading.Lock()  # For state updates (learning, profile) and model reloads
 fast_ai_lock = threading.Lock()  # For 0.5B word predictions
 fast_lock = threading.Lock()     # For instant N-gram calls (never blocked by LLM)
+sentence_lock = threading.Lock() # For the 3B sentence model: saving a spoken sentence no longer waits for it
+# lock order: backend_lock -> sentence_lock -> fast_ai_lock -> fast_lock
+_sentence_seq = 0                # number of the newest /api/complete_sentence request
+_sentence_seq_lock = threading.Lock()
 
 # Backend's own saved settings (shared by all profiles): GPU on/off survives a restart of the backend / app
 SETTINGS_FILE = os.environ.get("AAC_BACKEND_SETTINGS") or os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -51,11 +54,6 @@ def save_setting(key: str, value):
     except Exception as e:
         print(f"[Settings] could not save {key}: {e}")
 
-class InitRequest(BaseModel):
-    fast_gguf_path: str = "qwen2.5-0.5b-instruct-q8_0.gguf"
-    heavy_gguf_path: str = "Llama-3.2-3B-Instruct-Q4_K_M.gguf"
-    vocab_path: str = "vocab.json"
-
 class TextRequest(BaseModel):
     text: str
     context: Optional[str] = None   # /api/type: the whole typed text, so completions fit the sentence
@@ -65,7 +63,6 @@ class ProfileRequest(BaseModel):
 
 class SpacebarRequest(BaseModel):
     text: str
-    sentence_complete: bool = False  # True when user finishes/sends a sentence
 
 class GpuToggleRequest(BaseModel):
     enabled: bool
@@ -98,17 +95,6 @@ async def startup_event():
         print("Backend not fully initialized on startup. Missing model or vocab file.")
         print(f"Looked for: {fast_gguf_path}, {heavy_gguf_path} and {vocab_path}")
 
-@app.post("/api/init")
-async def initialize_backend(req: InitRequest):
-    global backend
-    with backend_lock:
-        try:
-            backend = HybridKeyboardBackend(fast_gguf_path=req.fast_gguf_path, heavy_gguf_path=req.heavy_gguf_path,
-                                            vocab_path=req.vocab_path, use_gpu=bool(load_settings().get("use_gpu", True)))
-            return {"status": "success", "message": "Backend initialized successfully."}
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Failed to initialize backend: {str(e)}")
-
 @app.post("/api/spacebar_fast")
 def predict_next_word_fast(req: SpacebarRequest):
     """Instant N-gram predictions (< 1ms). Uses its own lock, never blocked by LLM."""
@@ -123,12 +109,7 @@ def predict_next_word(req: SpacebarRequest):
     if not backend:
         raise HTTPException(status_code=503, detail="Backend not initialized. Is the model downloaded?")
 
-    # 1. Update state using the global backend_lock to prevent memory corruption
-    if req.sentence_complete and req.text.strip():
-        with backend_lock:
-            backend.on_sentence_submitted(req.text.strip())
-
-    # 2. Run the 0.5B word prediction model on its own dedicated thread lock
+    # learning happens only through /api/submit_sentence (Speak); this only predicts
     with fast_ai_lock:
         suggestions = backend.on_spacebar(req.text)
 
@@ -169,7 +150,14 @@ def complete_sentence(req: TextRequest):
     if not backend:
         raise HTTPException(status_code=503, detail="Backend not initialized. Is the model downloaded?")
     
-    with backend_lock:
+    global _sentence_seq
+    with _sentence_seq_lock:
+        _sentence_seq += 1
+        seq = _sentence_seq
+    with sentence_lock:
+        # a newer sentence request arrived while this one waited: skip the 3B run (the app ignores this reply anyway)
+        if seq != _sentence_seq:
+            return {"suggestions": [], "outdated": True}
         suggestions = backend.on_sentence_completion(req.text)
     return {"suggestions": suggestions}
 
@@ -218,7 +206,7 @@ def get_gpu_settings():
 def set_gpu_settings(req: GpuToggleRequest):
     if not backend:
         raise HTTPException(status_code=503, detail="Backend not initialized.")
-    with backend_lock:
+    with backend_lock, sentence_lock:          # no sentence may run while the models are reloaded
         with fast_ai_lock:
             info = backend.set_gpu_mode(req.enabled)
             save_setting("use_gpu", bool(req.enabled))          # used again at the next start
@@ -267,36 +255,24 @@ def stop_speech():
     tts_manager.stop_playback()
     return {"status": "stopped"}
 
-@app.get("/api/tts/audio/{filename}")
-def get_audio_file(filename: str):
-    """Static file endpoint to download or stream generated TTS audio."""
-    file_path = os.path.join(tts_manager.cache_dir, filename)
-    if os.path.exists(file_path):
-        media_type = "audio/mpeg" if filename.endswith(".mp3") else "audio/wav"
-        return FileResponse(file_path, media_type=media_type)
-    raise HTTPException(status_code=404, detail="Audio file not found.")
-
-# Serve static files for the UI
-@app.get("/")
-async def get_index():
-    if os.path.exists("index.html"):
-        return FileResponse("index.html")
-    return {"message": "index.html not found."}
-
-@app.get("/style.css")
-async def get_style():
-    if os.path.exists("style.css"):
-        return FileResponse("style.css")
-    return {"message": "style.css not found."}
-
-@app.get("/script.js")
-async def get_script():
-    if os.path.exists("script.js"):
-        return FileResponse("script.js")
-    return {"message": "script.js not found."}
+@app.get("/api/tts/status")
+def tts_status():
+    """playing = speech still audible; the app keeps its 'Speaking...' state until this turns false."""
+    return {"playing": tts_manager.is_playing()}
 
 if __name__ == "__main__":
+    import socket
+    import sys
     import uvicorn
+    # Take port 8000 BEFORE the models load (uvicorn alone binds only after startup, i.e. after loading): a second
+    # copy started meanwhile then stops here at once (exit code 3, like the tracker) instead of loading both models
+    # again and failing afterwards. No SO_REUSEADDR: on Windows that would let two copies bind the same port.
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        sock.bind(("127.0.0.1", 8000))
+    except OSError as e:
+        print(f"[Backend] port 8000 is in use ({e}): another backend is running or still starting; "
+              f"not loading the models.", flush=True)
+        sys.exit(3)
     print("Starting Hybrid Keyboard Server...")
-    print("UI will be available at: http://localhost:8000")
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.Server(uvicorn.Config(app, host="127.0.0.1", port=8000)).run(sockets=[sock])

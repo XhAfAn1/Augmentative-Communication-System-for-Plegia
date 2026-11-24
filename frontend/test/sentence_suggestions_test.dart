@@ -59,4 +59,21 @@ void main() {
     expect(s.visible('i need wa'), ['I need water please.', 'I need water now.']); // kept first, no duplicate
     expect(SentenceSuggestions.minShown, 3);
   });
+
+  test('suggestions are for the sentence being typed, finished sentences stay', () {
+    String current(String t) => t.substring(SentenceSuggestions.sentenceStart(t));
+    String done(String t) => t.substring(0, SentenceSuggestions.sentenceStart(t));
+    expect(current('I am hungry. Can'), 'Can');
+    expect(done('I am hungry. Can'), 'I am hungry. ');
+    expect(current('Help me? I need '), 'I need ');
+    expect(current('Hello, I need'), 'Hello, I need'); // a comma does not end a sentence
+    expect(current('Hello '), 'Hello '); // no sentence ended yet: whole text (as before)
+    expect(current('I am hungry. '), ''); // new sentence not started: nothing to suggest for
+    expect(current('Hi\nCan'), 'Can'); // new line also starts a new sentence (as before)
+    // picking "Can you help me?" after "I am hungry. Can" keeps the first sentence
+    expect('${done('I am hungry. Can')}Can you help me? ', 'I am hungry. Can you help me? ');
+    final s = SentenceSuggestions();
+    s.acceptModel(s.nextModelRequest(), ['Can you help me?', 'Can I have water?']);
+    expect(s.visible(current('I am hungry. Can y')), ['Can you help me?']);
+  });
 }

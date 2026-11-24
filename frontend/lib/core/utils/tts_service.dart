@@ -12,8 +12,12 @@ class TtsService {
   factory TtsService() => _instance;
   TtsService._internal();
 
+  static const _api = 'http://127.0.0.1:8000/api/tts';
+
   bool _isSpeaking = false;
   Process? _fallbackProcess;
+  bool _loaded = false; // settings read from SharedPreferences (once; updateConfig keeps them current after that)
+  int _seq = 0; // every speak / stop gets a new number: an older speak stops waiting for its sound
 
   String _engine = 'edge_tts'; // 'edge_tts', 'pocket_tts', 'sapi'
   String _voice = 'en-US-JennyNeural';
@@ -30,7 +34,17 @@ class TtsService {
   double get pitch => _pitch;
   double get temperature => _temperature;
 
+  /// Which settings an engine really uses (Settings hides the others).
+  static bool usesRate(String engine) => engine == 'edge_tts' || engine == 'sapi';
+  static bool usesPitch(String engine) => engine == 'edge_tts';
+
+  /// Reads the saved settings; on app start also warms up Pocket TTS when it is the chosen engine.
   Future<void> init() async {
+    await _loadPrefs();
+    if (_engine == 'pocket_tts') notifyEngineSelected('pocket_tts');
+  }
+
+  Future<void> _loadPrefs() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       _engine = prefs.getString('tts_engine') ?? 'edge_tts';
@@ -39,19 +53,42 @@ class TtsService {
       _rate = prefs.getDouble('tts_rate') ?? 1.0;
       _pitch = prefs.getDouble('tts_pitch') ?? 1.0;
       _temperature = prefs.getDouble('tts_temperature') ?? 0.3;
-
-      // If pocket_tts is saved, warm it up in background on startup
-      if (_engine == 'pocket_tts') {
-        notifyEngineSelected('pocket_tts');
-      }
+      _loaded = true;
     } catch (_) {}
+  }
+
+  /// The backend's voice list (GET /api/tts/voices), so the app and the backend never disagree.
+  /// Returns null when the backend is not reachable (Settings then uses its built-in list).
+  Future<Map<String, Map<String, List<Map<String, String>>>>?> fetchVoiceCatalog() async {
+    try {
+      final r = await http.get(Uri.parse('$_api/voices')).timeout(const Duration(seconds: 3));
+      if (r.statusCode != 200) return null;
+      final out = <String, Map<String, List<Map<String, String>>>>{};
+      for (final e in (jsonDecode(r.body)['engines'] as List)) {
+        final byGender = <String, List<Map<String, String>>>{'female': [], 'male': []};
+        for (final v in (e['voices'] as List)) {
+          final entry = {'id': v['id'].toString(), 'name': v['name'].toString()};
+          final g = v['gender']?.toString();
+          if (e['id'] == 'sapi') {
+            byGender['female']!.add(entry); // the one Windows voice is offered for both
+            byGender['male']!.add(entry);
+          } else if (byGender.containsKey(g)) {
+            byGender[g]!.add(entry);
+          }
+        }
+        out[e['id'].toString()] = byGender;
+      }
+      return out.isEmpty ? null : out;
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<void> notifyEngineSelected(String engine) async {
     try {
       await http
           .post(
-            Uri.parse('http://127.0.0.1:8000/api/tts/select_engine'),
+            Uri.parse('$_api/select_engine'),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode({'engine': engine}),
           )
@@ -77,6 +114,7 @@ class TtsService {
     if (rate != null) _rate = rate;
     if (pitch != null) _pitch = pitch;
     if (temperature != null) _temperature = temperature;
+    _loaded = true;
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -94,6 +132,7 @@ class TtsService {
     }
   }
 
+  /// Speaks [text]; the returned future ends when the speech has FINISHED (or was stopped / replaced).
   Future<void> speak(
     String text, {
     String? engine,
@@ -104,11 +143,10 @@ class TtsService {
   }) async {
     final useText = text.trim();
     if (useText.isEmpty) return;
-
-    // Refresh preferences to ensure latest voice/engine are active
-    await init();
+    if (!_loaded) await _loadPrefs();
 
     await stop();
+    final seq = ++_seq;
     _isSpeaking = true;
 
     final targetEngine = engine ?? _engine;
@@ -119,69 +157,94 @@ class TtsService {
 
     debugPrint('[TtsService] Speaking with engine: $targetEngine, voice: $targetVoice');
 
-    // 1. If Windows Native SAPI is explicitly chosen:
-    if (targetEngine == 'sapi') {
-      await _speakSapi(useText);
-      _isSpeaking = false;
-      return;
-    }
-
-    // 2. Call FastAPI backend TTS endpoint (Edge-TTS or Pocket TTS)
     try {
-      final res = await http
-          .post(
-            Uri.parse('http://127.0.0.1:8000/api/tts/speak'),
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode({
-              'text': useText,
-              'engine': targetEngine,
-              'voice': targetVoice,
-              'speed': targetSpeed,
-              'pitch': targetPitch,
-              'temperature': targetTemperature,
-              'play_now': true,
-            }),
-          )
-          .timeout(const Duration(seconds: 12));
-
-      if (res.statusCode == 200) {
-        debugPrint('[TtsService] Successfully synthesized and played via backend: ${res.body}');
-        _isSpeaking = false;
+      // 1. If Windows Native SAPI is explicitly chosen:
+      if (targetEngine == 'sapi') {
+        await _speakSapi(useText, targetSpeed);
         return;
-      } else {
-        debugPrint('[TtsService] Backend returned status ${res.statusCode}: ${res.body}, falling back to SAPI');
-        await _speakSapi(useText);
       }
-    } catch (e) {
-      debugPrint('[TtsService] Backend error: $e, falling back to SAPI');
-      await _stopBackend(); // a late backend result must not be spoken as well (double speech)
-      await _speakSapi(useText);
+
+      // 2. Call FastAPI backend TTS endpoint (Edge-TTS or Pocket TTS)
+      try {
+        final res = await http
+            .post(
+              Uri.parse('$_api/speak'),
+              headers: {'Content-Type': 'application/json'},
+              body: jsonEncode({
+                'text': useText,
+                'engine': targetEngine,
+                'voice': targetVoice,
+                'speed': targetSpeed,
+                'pitch': targetPitch,
+                'temperature': targetTemperature,
+                'play_now': true,
+              }),
+            )
+            .timeout(const Duration(seconds: 12));
+
+        if (res.statusCode == 200) {
+          debugPrint('[TtsService] Synthesized via backend: ${res.body}');
+          await _waitUntilQuiet(seq); // the backend only STARTS the sound
+        } else {
+          debugPrint('[TtsService] Backend returned status ${res.statusCode}: ${res.body}, falling back to SAPI');
+          await _speakSapi(useText, targetSpeed);
+        }
+      } catch (e) {
+        debugPrint('[TtsService] Backend error: $e, falling back to SAPI');
+        await _stopBackend(); // a late backend result must not be spoken as well (double speech)
+        if (seq == _seq) await _speakSapi(useText, targetSpeed);
+      }
     } finally {
-      _isSpeaking = false;
+      if (seq == _seq) _isSpeaking = false;
     }
   }
 
-  Future<void> _speakSapi(String text) async {
-    final safe = text.replaceAll("'", "''");
+  /// Waits while the backend still plays this sentence (GET /api/tts/status). Ends early when another speak or
+  /// a stop replaces it, when the backend cannot be asked, or after 2 minutes at most.
+  Future<void> _waitUntilQuiet(int seq) async {
+    final until = DateTime.now().add(const Duration(minutes: 2));
+    while (seq == _seq && DateTime.now().isBefore(until)) {
+      await Future.delayed(const Duration(milliseconds: 250));
+      if (seq != _seq) return;
+      try {
+        final r = await http.get(Uri.parse('$_api/status')).timeout(const Duration(seconds: 2));
+        if (r.statusCode != 200 || jsonDecode(r.body)['playing'] != true) return;
+      } catch (_) {
+        return;
+      }
+    }
+  }
+
+  /// App speech rate 0.5..1.5 -> Windows SAPI Rate -5..+5 (0 = normal). Same mapping as the backend.
+  static int sapiRate(double speed) => ((speed - 1.0) * 10).round().clamp(-10, 10);
+
+  /// The text goes to PowerShell in an environment variable, never inside the command: PowerShell also treats
+  /// curly quotes (’ ‘) as quote marks, so "I don’t know" used to break the command (silence).
+  static const _sapiCommand = r"Add-Type -AssemblyName System.Speech; "
+      r"$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; "
+      r"$s.Rate = [int]$env:AAC_TTS_RATE; "
+      r"$s.Speak($env:AAC_TTS_TEXT);";
+
+  Future<void> _speakSapi(String text, double speed) async {
+    Process? p;
     try {
-      _fallbackProcess = await Process.start('powershell', [
-        '-NoProfile',
-        '-WindowStyle',
-        'Hidden',
-        '-Command',
-        "Add-Type -AssemblyName System.Speech; "
-            r"$s=New-Object System.Speech.Synthesis.SpeechSynthesizer; "
-            "\$s.Speak('$safe');",
-      ]);
-      await _fallbackProcess!.exitCode;
+      p = await Process.start(
+        'powershell',
+        ['-NoProfile', '-WindowStyle', 'Hidden', '-Command', _sapiCommand],
+        environment: {'AAC_TTS_TEXT': text, 'AAC_TTS_RATE': '${sapiRate(speed)}'},
+      );
+      _fallbackProcess = p;
+      await p.exitCode;
     } catch (_) {
       // Fail silently
     } finally {
-      _fallbackProcess = null;
+      // only forget OUR process: a newer sentence may already have started its own (Stop must still reach it)
+      if (identical(_fallbackProcess, p)) _fallbackProcess = null;
     }
   }
 
   Future<void> stop() async {
+    _seq++;
     _fallbackProcess?.kill();
     _fallbackProcess = null;
 
@@ -193,9 +256,7 @@ class TtsService {
   /// backend BEFORE the next speak request (otherwise it could cancel the new sentence).
   Future<void> _stopBackend() async {
     try {
-      await http
-          .post(Uri.parse('http://127.0.0.1:8000/api/tts/stop'))
-          .timeout(const Duration(milliseconds: 500));
+      await http.post(Uri.parse('$_api/stop')).timeout(const Duration(milliseconds: 500));
     } catch (_) {}
   }
 }

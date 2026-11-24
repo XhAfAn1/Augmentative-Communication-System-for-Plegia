@@ -51,6 +51,17 @@ class SentenceSuggestions {
     return out;
   }
 
+  /// Where the sentence being typed starts: after the last finished sentence (". ", "? ", "! ") or new line.
+  /// Sentence suggestions are made for that part only: "I am hungry. Can" -> suggestions for "Can", and picking
+  /// one keeps "I am hungry. " (before, suggestions had to repeat the whole text, so there were usually none).
+  static int sentenceStart(String text) {
+    var start = 0;
+    for (final m in RegExp(r'[.!?]\s+|\n').allMatches(text)) {
+      start = m.end;
+    }
+    return start;
+  }
+
   static String norm(String s) =>
       s.toLowerCase().replaceAll(RegExp(r"[^\w' ]"), ' ').replaceAll(RegExp(r'\s+'), ' ').trim();
 

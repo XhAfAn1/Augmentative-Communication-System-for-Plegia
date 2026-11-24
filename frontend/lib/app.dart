@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show File, Platform;
 import 'dart:ui' show AppExitResponse;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -63,9 +64,29 @@ class _SynapTalkAppState extends State<SynapTalkApp> {
 
   SharedPreferences? _prefs;
 
+  /// Opens the saved settings. A power cut during a save can leave the file unreadable (seen 2026-11-21: all
+  /// zero bytes); then nothing could load or save again. Such a file is put aside as
+  /// shared_preferences.json.corrupt and the app continues with default settings, which save normally again.
+  Future<SharedPreferences> _openPrefs() async {
+    try {
+      return await SharedPreferences.getInstance();
+    } catch (e) {
+      final appData = Platform.environment['APPDATA'];
+      if (appData == null) rethrow;
+      // folder = CompanyName\ProductName from windows/runner/Runner.rc (where the settings plugin keeps the file)
+      final f = File('$appData\\com.capstone\\synaptalk\\shared_preferences.json');
+      if (!f.existsSync()) rethrow;
+      var aside = File('${f.path}.corrupt');
+      if (aside.existsSync()) aside = File('${f.path}.corrupt_${DateTime.now().millisecondsSinceEpoch}');
+      f.renameSync(aside.path);
+      debugPrint('Settings file could not be read ($e): moved to ${aside.path}, using default settings');
+      return SharedPreferences.getInstance();
+    }
+  }
+
   Future<void> _loadPrefs() async {
     try {
-      final p = _prefs = await SharedPreferences.getInstance();
+      final p = _prefs = await _openPrefs();
       dwellDurationMs.value = p.getInt('dwell_ms') ?? dwellDurationMs.value;
       flutterDwellEnabled.value = p.getBool('dwell_enabled') ?? flutterDwellEnabled.value;
       selectionSoundEnabled.value = p.getBool('selection_sound') ?? selectionSoundEnabled.value;
@@ -99,7 +120,14 @@ class _SynapTalkAppState extends State<SynapTalkApp> {
     if (want != null && flutterSpacebarEnabled.value != want) flutterSpacebarEnabled.value = want;
   }
 
+  /// HIDDEN SWITCH (code only): false = the bottom pop-up messages (SnackBars) are not shown (2026-11-23, user).
+  /// They are the app's only pop-ups: tracker events (calibration done, re-centre, ...) and tracker errors.
+  /// Messages still go to the debug log; set true to show them again.
+  static const bool _showPopups = false;
+
   void _showMessage(String msg) {
+    debugPrint('[Message] $msg');
+    if (!_showPopups) return;
     _messenger.currentState?.showSnackBar(SnackBar(
       content: Text(msg, style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
       backgroundColor: AppColors.keyboardDark,

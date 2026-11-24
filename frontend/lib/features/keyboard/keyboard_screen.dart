@@ -15,6 +15,7 @@ import 'widgets/dwell_sentence_tile.dart';
 import 'gaze_keyboard.dart';
 import 'sentence_suggestions.dart';
 import '../tracking/tracker_status_tile.dart';
+import '../../core/services/gaze_targets.dart';
 
 class KeyboardScreen extends StatefulWidget {
   const KeyboardScreen({super.key});
@@ -87,6 +88,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   void _addChar(String c) {
     setState(() {
+      // ", " and ". " keys: no space before the mark, one after ("can " + ". " -> "can. ", not "can . ")
+      if (c == ', ' || c == '. ') _output = _output.replaceFirst(RegExp(r' +$'), '');
       _output += c;
       if (_isShift && !_isCaps) {
         _isShift = false;
@@ -173,7 +176,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   void _addWord(String word) {
     setState(() {
       if (_output.isNotEmpty && !_output.endsWith(' ') && !_output.endsWith('\n')) _output += ' ';
-      _output += word;
+      _output += '$word '; // trailing space: the next picked word is added after it, not put in its place
     });
     _fetchNextWordPredictions();
     _debouncedFetchSentencePredictions();
@@ -202,14 +205,14 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     _debouncedFetchSentencePredictions();
   }
 
+  /// The sentence being typed (after the last finished sentence) and the finished part before it.
+  String get _current => _output.substring(SentenceSuggestions.sentenceStart(_output));
+  String get _done => _output.substring(0, SentenceSuggestions.sentenceStart(_output));
+
   void _addSentence(String sentence) {
     setState(() {
-      final lastNewlineIdx = _output.lastIndexOf('\n');
-      if (lastNewlineIdx == -1) {
-        _output = sentence + ' ';
-      } else {
-        _output = _output.substring(0, lastNewlineIdx + 1) + sentence + ' ';
-      }
+      _output = '$_done$sentence '; // earlier finished sentences (and lines) stay
+
       _predictions = [];
       _sentencePredictions = [];
     });
@@ -233,37 +236,43 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   }
 
   void _showSentences() {
-    if (mounted) setState(() => _sentencePredictions = _sent.visible(_output));
+    if (mounted) setState(() => _sentencePredictions = _sent.visible(_current));
   }
 
   /// While letters are typed: the shown sentences are filtered by the letters at once, and the profile's
   /// phrase memory (a quick lookup, no model) is asked. The model is asked for more when fewer than 3 fit.
   void _updateSentencesWhileTyping() {
     _showSentences();
-    if (_output.trim().isEmpty) return;
+    if (_current.trim().isEmpty) return;
     final seq = _sent.nextPhraseRequest();
     _client
         .post(Uri.parse('http://127.0.0.1:8000/api/phrases'),
-            headers: {'Content-Type': 'application/json'}, body: jsonEncode({'text': _output}))
+            headers: {'Content-Type': 'application/json'}, body: jsonEncode({'text': _current}))
         .then((r) {
       if (r.statusCode != 200 || !mounted) return;
       final list = ((jsonDecode(r.body)['suggestions'] as List?) ?? const []).map((e) => e.toString()).toList();
       if (!_sent.acceptPhrases(seq, list)) return; // a newer letter was typed meanwhile
       _showSentences();
-      // too few still fit: ask the model for more (after a short pause, see _debouncedFetchSentencePredictions)
-      if (_sentencePredictions.length < SentenceSuggestions.minShown) _debouncedFetchSentencePredictions();
+      // too few still fit: ask the model for more, mid-word only after a real pause (see _midWordPause)
+      if (_sentencePredictions.length < SentenceSuggestions.minShown) {
+        _debouncedFetchSentencePredictions(delay: _midWordPause);
+      }
     }).catchError((e) {
       debugPrint('Failed to fetch phrases: $e');
     });
   }
 
-  void _debouncedFetchSentencePredictions() {
+  /// Mid-word wait before the 3B sentence model is asked: one dwell selection + 1 s, so it is asked when the user
+  /// pauses, not after every letter (600 ms was shorter than one gaze letter). Word boundaries keep 600 ms.
+  Duration get _midWordPause => Duration(milliseconds: dwellDurationMs.value + 1000);
+
+  void _debouncedFetchSentencePredictions({Duration delay = const Duration(milliseconds: 600)}) {
     _sentenceDebounceTimer?.cancel();
     _showSentences(); // sentences that no longer fit disappear at once
-    if (_output.trim().isEmpty) {
+    if (_current.trim().isEmpty) {
       return;
     }
-    _sentenceDebounceTimer = Timer(const Duration(milliseconds: 600), () {
+    _sentenceDebounceTimer = Timer(delay, () {
       _fetchSentencePredictions();
     });
   }
@@ -284,8 +293,9 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
       if (response.statusCode == 200 && mounted && seq == _prefixSeq) {
         final currentLastWord = _output.split(RegExp(r'\s+')).last;
-        // Accept as long as user is still in the same word (e.g. still matches prefix)
-        if (currentLastWord.toLowerCase().startsWith(lastWord.toLowerCase()) || currentLastWord.isEmpty) {
+        // Accept only while the user is still in the same word. After a space (empty last word) the next-word list
+        // is showing: a late letter list must not replace it.
+        if (currentLastWord.isNotEmpty && currentLastWord.toLowerCase().startsWith(lastWord.toLowerCase())) {
           final data = jsonDecode(response.body);
           final suggestions = data['suggestions'] as List;
           setState(() {
@@ -336,7 +346,9 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'text': currentText}),
     ).then((response) {
-      if (response.statusCode == 200 && mounted && seq == _nextWordSeq) {
+      // _output == currentText: no letter typed since; otherwise the letter completions are showing and this
+      // (slow) next-word list would replace them with words that do not start with those letters
+      if (response.statusCode == 200 && mounted && seq == _nextWordSeq && _output == currentText) {
         final data = jsonDecode(response.body);
         final suggestions = data['suggestions'] as List;
         if (suggestions.isNotEmpty) {
@@ -357,14 +369,14 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       final response = await _client.post(
         Uri.parse('http://127.0.0.1:8000/api/complete_sentence'),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'text': _output.trim()}),
+        body: jsonEncode({'text': _current.trim()}),
       );
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final suggestions = data['suggestions'] as List;
         // an older request's reply (slow model) is ignored; the newest is filtered by what is typed NOW
-        if (_sent.acceptModel(seq, suggestions.map((e) => e.toString()).toList(), typed: _output)) _showSentences();
+        if (_sent.acceptModel(seq, suggestions.map((e) => e.toString()).toList(), typed: _current)) _showSentences();
       }
     } catch (e) {
       debugPrint('Failed to fetch sentence predictions: $e');
@@ -584,15 +596,24 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                     final wordMap = e.value;
                                     final wordText = wordMap['word']!;
                                     final isAi = wordMap['source'] == 'ai';
+                                    final chip = DwellWordChip(
+                                      label: wordText,
+                                      onTap: () => _acceptPrediction(wordText),
+                                      isPrediction: true,
+                                      isTopPick: isAi,
+                                    );
+                                    // Level 2 points (GazeTargets): first and last box of the top row
+                                    final gazeName = !showAiIcon
+                                        ? null
+                                        : e.key == 0
+                                            ? 'word_first'
+                                            : (e.key == words.length - 1 ? 'word_last' : null);
                                     return Expanded(
                                       child: Padding(
                                         padding: EdgeInsets.only(left: e.key == 0 && !showAiIcon ? 0 : e.key == 0 ? 0 : 4),
-                                        child: DwellWordChip(
-                                          label: wordText,
-                                          onTap: () => _acceptPrediction(wordText),
-                                          isPrediction: true,
-                                          isTopPick: isAi,
-                                        ),
+                                        child: gazeName == null
+                                            ? chip
+                                            : KeyedSubtree(key: GazeTargets.key(gazeName), child: chip),
                                       ),
                                     );
                                   }),
@@ -600,16 +621,25 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                               );
                             }
 
-                            Widget buildStaticRow(List<String> words) {
+                            Widget buildStaticRow(List<String> words, {bool gazeTagged = false}) {
                               return Row(
                                 children: words.asMap().entries.map((e) {
+                                  final chip = DwellWordChip(
+                                    label: e.value,
+                                    onTap: () => _addWord(e.value),
+                                  );
+                                  // Level 2 points when nothing is typed: first and last box of the top row
+                                  final gazeName = !gazeTagged
+                                      ? null
+                                      : e.key == 0
+                                          ? 'word_first'
+                                          : (e.key == words.length - 1 ? 'word_last' : null);
                                   return Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.only(left: e.key == 0 ? 0 : 4),
-                                      child: DwellWordChip(
-                                        label: e.value,
-                                        onTap: () => _addWord(e.value),
-                                      ),
+                                      child: gazeName == null
+                                          ? chip
+                                          : KeyedSubtree(key: GazeTargets.key(gazeName), child: chip),
                                     ),
                                   );
                                 }).toList(),
@@ -639,7 +669,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                 height: 185,
                                 child: Column(
                                   children: [
-                                    buildStaticRow(AppConstants.quickWordsRow1),
+                                    buildStaticRow(AppConstants.quickWordsRow1, gazeTagged: true),
                                     const SizedBox(height: 5),
                                     buildStaticRow(AppConstants.quickWordsRow2),
                                   ],
@@ -707,7 +737,9 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                     borderRadius:
                                         const BorderRadius.vertical(bottom: Radius.circular(10)),
                                   ),
-                                  child: ListView.separated(
+                                  child: KeyedSubtree(
+                                    key: GazeTargets.key('sentence_list'), // Level 2: visible part of the list
+                                    child: ListView.separated(
                                     padding: const EdgeInsets.symmetric(vertical: 4),
                                     itemCount: _sentencePredictions.length + AppConstants.presetSentences.length,
                                     separatorBuilder: (_, i) {
@@ -721,19 +753,27 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                       return const Divider(height: 1, thickness: 0.5);
                                     },
                                     itemBuilder: (_, i) {
+                                      // Level 2: every tile tagged; GazeTargets picks the first and last visible one
                                       if (i < _sentencePredictions.length) {
-                                        return DwellSentenceTile(
-                                          text: _sentencePredictions[i],
-                                          onTap: () => _addSentence(_sentencePredictions[i]),
-                                          isAiPrediction: true,
+                                        return KeyedSubtree(
+                                          key: GazeTargets.sentenceKey(i),
+                                          child: DwellSentenceTile(
+                                            text: _sentencePredictions[i],
+                                            onTap: () => _addSentence(_sentencePredictions[i]),
+                                            isAiPrediction: true,
+                                          ),
                                         );
                                       }
                                       final presetIdx = i - _sentencePredictions.length;
-                                      return DwellSentenceTile(
-                                        text: AppConstants.presetSentences[presetIdx],
-                                        onTap: () => _addSentence(AppConstants.presetSentences[presetIdx]),
+                                      return KeyedSubtree(
+                                        key: GazeTargets.sentenceKey(i),
+                                        child: DwellSentenceTile(
+                                          text: AppConstants.presetSentences[presetIdx],
+                                          onTap: () => _addSentence(AppConstants.presetSentences[presetIdx]),
+                                        ),
                                       );
                                     },
+                                  ),
                                   ),
                                 ),
                               ),
@@ -775,15 +815,20 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            buildDwellFuncBtn(
+                            KeyedSubtree(
+                              key: GazeTargets.key('Speak'), // Level 2 point
+                              child: buildDwellFuncBtn(
                               label: 'Speak',
                               icon: Icons.volume_up_rounded,
                               color: AppColors.speakBtn,
                               onTap: () => _speak(_output),
                               height: 130,
                             ),
+                            ),
                             const SizedBox(height: 8),
-                            buildDwellFuncBtn(
+                            KeyedSubtree(
+                              key: GazeTargets.key('Clear'), // Level 2 point
+                              child: buildDwellFuncBtn(
                               label: 'Clear',
                               icon: Icons.delete_outline_rounded,
                               color: AppColors.clearBtn,
@@ -791,6 +836,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                                 _clear();
                               },
                               height: 110,
+                            ),
                             ),
                           ],
                         ),

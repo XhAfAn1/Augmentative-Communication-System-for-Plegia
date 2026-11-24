@@ -71,7 +71,6 @@ class _DwellWrapperState extends State<DwellWrapper>
   late AnimationController _dwellCtrl;
   bool _hovering = false;
   final HoverTrail _trail = HoverTrail(); // where the cursor rested (Auto re-centre)
-  bool _pressed = false;
 
   @override
   void initState() {
@@ -114,10 +113,6 @@ class _DwellWrapperState extends State<DwellWrapper>
     GazeOffsetLearner.instance.selected(context, _trail);
     widget.onTap();
     _dwellCtrl.reset();
-    setState(() => _pressed = true);
-    Future.delayed(const Duration(milliseconds: 120), () {
-      if (mounted) setState(() => _pressed = false);
-    });
   }
 
   @override
@@ -135,10 +130,7 @@ class _DwellWrapperState extends State<DwellWrapper>
       },
       onHover: (e) => _trail.add(e.position),
       onExit: (_) {
-        setState(() {
-          _hovering = false;
-          _pressed = false;
-        });
+        setState(() => _hovering = false);
         _dwellCtrl.reset();
       },
       child: GestureDetector(
@@ -146,10 +138,6 @@ class _DwellWrapperState extends State<DwellWrapper>
           _dwellCtrl.reset();
           selectionFeedback();
           widget.onTap();
-          setState(() => _pressed = true);
-          Future.delayed(const Duration(milliseconds: 120), () {
-            if (mounted) setState(() => _pressed = false);
-          });
         },
         child: AnimatedBuilder(
           animation: _dwellCtrl,

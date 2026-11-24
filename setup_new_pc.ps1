@@ -10,7 +10,7 @@ $ErrorActionPreference = "Continue"
 $Check = ($Mode -eq "check")
 $Root = $PSScriptRoot
 $Backend = Join-Path $Root "backend"
-$Tracker = Join-Path $Root "Binocular Eye Tracking Module"
+$Tracker = Join-Path $Root "Eye Tracking Module"
 $VenvPy = Join-Path $Backend "venv\Scripts\python.exe"
 $LlamaVersion = "0.3.28"
 $Problems = New-Object System.Collections.ArrayList
@@ -95,7 +95,7 @@ if ($Check) { Write-Host "CHECK ONLY: nothing will be installed or changed." -Fo
 Step "1. Files that must be copied with the folder"
 foreach ($f in @("backend\qwen2.5-0.5b-instruct-q8_0.gguf", "backend\Llama-3.2-3B-Instruct-Q4_K_M.gguf", "backend\vocab.json",
                  "backend\trigrams.json", "backend\main.py", "backend\requirements-lock.txt",
-                 "Binocular Eye Tracking Module\tracker_service.py", "frontend\pubspec.yaml")) {
+                 "Eye Tracking Module\tracker_service.py", "frontend\pubspec.yaml")) {
     $p = Join-Path $Root $f
     if ((Test-Path $p) -and ((Get-Item $p).Length -gt 0)) { Ok $f } else { Bad "missing: $f (copy the whole Combined System folder again)" }
 }

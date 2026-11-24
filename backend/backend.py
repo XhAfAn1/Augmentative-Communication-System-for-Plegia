@@ -3,50 +3,54 @@ import re
 import json
 import os
 import math
-import pickle
 import time
+import bisect
+import numpy as np
 from llama_cpp import Llama
 
 # ---------------------------------------------------------
 # 1. FIXED & NORMALIZED FREQUENCY TRIE (Unigrams)
 # ---------------------------------------------------------
-class TrieNode:
-    def __init__(self):
-        self.children = {}
-        self.is_end_of_word = False
-        self.frequency = 0
-
 class FrequencyTrie:
+    """vocab.json word list for prefix completion (name kept from the old trie; same results, same interface).
+    Was a tree of Python objects (~99 MB, 18 ms for a 1-letter prefix); now one alphabetical list + bisect (~14 MB,
+    < 1 ms). Order = highest frequency first; equal frequencies (most of the 158k words share one) keep the old
+    trie's depth-first order, so every prefix gives exactly the old list (checked on 12,466 prefixes,
+    research/tests_20261123). Call insert() for each word, then build_cache() once."""
+
     def __init__(self):
-        self.root = TrieNode()
         self.top_global_words = []
-        self._all_words = []
+        self._all_words = []          # (word, frequency) as inserted, until build_cache()
+        self._alpha = []              # all words, alphabetical
+        self._freq = np.zeros(0, dtype=np.int64)
+        self._rank = np.zeros(0, dtype=np.int32)   # old trie depth-first position: breaks frequency ties
         self._cache = {}
 
     def insert(self, word: str, frequency: int):
         word = word.lower().strip()
         if not word: return
-        self._cache.clear()
-        node = self.root
-        for char in word:
-            if char not in node.children: node.children[char] = TrieNode()
-            node = node.children[char]
-        node.is_end_of_word = True
-        node.frequency = max(node.frequency, frequency)
         self._all_words.append((word, frequency))
 
-    def update_frequency(self, word: str, increment: int = 5):
-        word = word.lower().strip()
-        if not word: return
-        self._cache.clear()
-        node = self.root
-        for char in word:
-            if char not in node.children: node.children[char] = TrieNode()
-            node = node.children[char]
-        node.is_end_of_word = True
-        node.frequency += increment
-
     def build_cache(self):
+        freq, words = {}, []                     # first insertion order; a repeated word keeps its highest count
+        for w, f in self._all_words:
+            if w in freq:
+                freq[w] = max(freq[w], f)
+            else:
+                freq[w] = f
+                words.append(w)
+        # trie depth-first order: at each letter, branches in the order they were first inserted
+        first = {}
+        for i, w in enumerate(words):
+            for k in range(1, len(w) + 1):
+                first.setdefault(w[:k], i)
+        dfs = sorted(words, key=lambda w: tuple(first[w[:k]] for k in range(1, len(w) + 1)))
+        rank = {w: i for i, w in enumerate(dfs)}
+        del first, dfs
+        self._alpha = sorted(words)
+        self._freq = np.array([freq[w] for w in self._alpha], dtype=np.int64)
+        self._rank = np.array([rank[w] for w in self._alpha], dtype=np.int32)
+
         self._all_words.sort(key=lambda x: x[1], reverse=True)
         seen = set()
         self.top_global_words = []
@@ -60,33 +64,20 @@ class FrequencyTrie:
 
     def is_valid_word(self, word: str) -> bool:
         word = word.lower().strip()
-        node = self.root
-        for char in word:
-            if char not in node.children: return False
-            node = node.children[char]
-        return node.is_end_of_word
+        i = bisect.bisect_left(self._alpha, word)
+        return i < len(self._alpha) and self._alpha[i] == word
 
     def get_words_with_prefix(self, prefix: str, top_n: int = 10):
         prefix = prefix.lower().strip()
         if not prefix: return self.top_global_words[:top_n]
         if prefix in self._cache:
             return self._cache[prefix][:top_n]
-
-        node = self.root
-        for char in prefix:
-            if char not in node.children: return []
-            node = node.children[char]
-
-        results = []
-        def dfs(curr_node, curr_prefix):
-            if curr_node.is_end_of_word:
-                results.append((curr_prefix, curr_node.frequency))
-            for char, child_node in curr_node.children.items():
-                dfs(child_node, curr_prefix + char)
-
-        dfs(node, prefix)
-        results.sort(key=lambda x: x[1], reverse=True)
-        top_words = [word for word, freq in results[:top_n]]
+        lo = bisect.bisect_left(self._alpha, prefix)
+        hi = bisect.bisect_left(self._alpha, prefix[:-1] + chr(ord(prefix[-1]) + 1))   # all words with the prefix
+        top_words = []
+        if hi > lo:
+            idx = np.lexsort((self._rank[lo:hi], -self._freq[lo:hi]))[:top_n] + lo
+            top_words = [self._alpha[i] for i in idx]
         self._cache[prefix] = top_words
         return top_words
 
@@ -211,7 +202,8 @@ class UserProfile:
             return []
         if typed[-1:].isspace():
             t += " "                               # "i need " must not match "i needed ..."
-        hits = [p for k, p in self.phrases.items() if k.startswith(t) and len(k) > len(t.strip())]
+        # list(...) = a copy made in one step: a sentence being saved at the same moment cannot break the loop
+        hits = [p for k, p in list(self.phrases.items()) if k.startswith(t) and len(k) > len(t.strip())]
         hits.sort(key=lambda p: (p["count"], p["last"]), reverse=True)
         return [p["text"] for p in hits[:n]]
 
@@ -286,6 +278,8 @@ class RankingEngine:
 # 4. INTELLECTUAL HYBRID ORCHESTRATOR (Upgraded)
 # ---------------------------------------------------------
 class HybridKeyboardBackend:
+    _fast_topk = False      # True after _check_fast_topk passed (set in _load_llm_models)
+
     def __init__(self, fast_gguf_path: str, heavy_gguf_path: str, vocab_path: str, use_gpu: bool = True):
         self.fast_gguf_path = fast_gguf_path
         self.heavy_gguf_path = heavy_gguf_path
@@ -299,8 +293,6 @@ class HybridKeyboardBackend:
         # ACTION 3: Session history buffer (last 5 completed sentences)
         self.session_history = collections.deque(maxlen=5)
 
-        # Old single learning file (before profiles): moved into the "Test" profile once, file left in place
-        self._pers_path = os.path.join(os.path.dirname(os.path.abspath(fast_gguf_path)), "personalization.pkl")
         self.conv_freq = collections.Counter()   # everyday-conversation word frequency (from trigrams.json)
         self._last_cands = ("", [])              # (text before the word, ranked next-word candidates)
 
@@ -370,16 +362,6 @@ class HybridKeyboardBackend:
         if prof.exists():
             prof.load()
         else:
-            if name == "Test" and os.path.exists(self._pers_path):
-                try:                                    # the learning made before profiles existed
-                    with open(self._pers_path, "rb") as f:
-                        old = pickle.load(f)
-                    for ctx, nxt in old.ngrams.items():
-                        for w, c in nxt.items():
-                            prof.ngrams.update(ctx, w, c)
-                    print("[Profile] moved the earlier learning (personalization.pkl) into profile 'Test'")
-                except Exception as e:
-                    print(f"[Profile] could not read personalization.pkl: {e}")
             seed = SEED_FILES.get(name)
             if seed and os.path.exists(seed):
                 with open(seed, "r", encoding="utf-8") as f:
@@ -428,14 +410,21 @@ class HybridKeyboardBackend:
         target_device = gpu_info["device_name"] if (use_gpu and gpu_info["llama_cuda"]) else "CPU"
         print(f"[Backend] Loading models targeting {target_device} (use_gpu={use_gpu}, n_gpu_layers={gpu_layers})...")
 
+        # logits_all=False: only the last token's scores are needed (see _top_next_tokens); logits_all=True kept a
+        # score row for every prompt token and made each Space ~10x slower (research/tests_20261123)
         self.fast_llm = Llama(
             model_path=self.fast_gguf_path,
             n_ctx=512,
             n_gpu_layers=gpu_layers,
-            logits_all=True,
+            logits_all=False,
             verbose=False,
             n_threads=8
         )
+        self._fast_topk = self._check_fast_topk()
+        if not self._fast_topk:                  # e.g. a newer llama-cpp-python: back to the old, slower way
+            del self.fast_llm
+            self.fast_llm = Llama(model_path=self.fast_gguf_path, n_ctx=512, n_gpu_layers=gpu_layers,
+                                  logits_all=True, verbose=False, n_threads=8)
         self.heavy_llm = Llama(
             model_path=self.heavy_gguf_path,
             n_ctx=512,
@@ -482,9 +471,10 @@ class HybridKeyboardBackend:
         it to focus on daily life conversation words.
         """
         history_str = ""
-        if self.session_history:
+        history = list(self.session_history)       # copy: a spoken sentence may be added at the same moment
+        if history:
             history_str = "Context from earlier in this conversation:\n"
-            for s in self.session_history:
+            for s in history:
                 history_str += f"- {s}\n"
             history_str += "\n"
 
@@ -493,13 +483,58 @@ class HybridKeyboardBackend:
             "Complete the sentence below with the single most natural and contextually relevant next word for a daily life scenario of a patient. "
             "Output only the word, nothing else.\n\n"
             f"{history_str}"
-            f"Sentence: {current_sentence}"
+            f"Sentence: {current_sentence.rstrip()}"   # no trailing space: the model's words start with one
         )
         return prompt
 
     # ---------------------------------------------------------
     # INTERNAL: Get LLM scores (Actions 1, 5)
     # ---------------------------------------------------------
+    def _top_next_tokens(self, prompt: str, n: int = 200) -> dict:
+        """{token text: logprob} of the n most likely next tokens - the same dict as
+        create_completion(prompt, max_tokens=1, logprobs=n, temperature=0)["choices"][0]["logprobs"]["top_logprobs"][0],
+        but without logits_all=True: the prompt is evaluated (reusing the cached prefix like Llama.generate) and only
+        the LAST token's scores are read. Same tokenization, the library's own logits_to_logprobs, same sort.
+        Measured: 15/16 presses bit-identical, the cold first press differs only by CPU rounding (~0.2 %); median
+        264 -> 27 ms per Space. Uses llama-cpp-python 0.3.28 internals - checked at load (_check_fast_topk)."""
+        llm = self.fast_llm
+        bos = llm.token_bos()
+        toks = (([bos] if (llm._model.add_bos_token() and bos != -1) else [])
+                + llm.tokenize(prompt.encode("utf-8"), add_bos=False, special=True))
+        if not toks or len(toks) >= llm.n_ctx():
+            raise ValueError(f"prompt of {len(toks)} tokens does not fit the context ({llm.n_ctx()})")
+        keep = 0                                   # cached prefix (the last token is always evaluated again)
+        for a, b in zip(llm.input_ids[:llm.n_tokens], toks[:-1]):
+            if a != b:
+                break
+            keep += 1
+        if keep > 0 and llm._ctx.kv_cache_seq_rm(-1, keep, -1):
+            llm.n_tokens = keep
+            llm.eval(toks[keep:])
+        else:
+            llm.reset()
+            llm.eval(toks)
+        logits = np.ctypeslib.as_array(llm._ctx.get_logits(), shape=(llm.n_vocab(),)).copy()
+        logp = Llama.logits_to_logprobs(logits)
+        cand = np.nonzero(logp >= np.partition(logp, -n)[-n])[0]          # the top n, ties included
+        best_n = sorted(((float(logp[t]), int(t)) for t in cand), reverse=True)[:n]   # library's sort key
+        top = {llm.detokenize([t]).decode("utf-8", errors="ignore"): v for v, t in best_n}
+        best = best_n[0][1]                         # the greedy (temperature 0) token, as the library adds it
+        top[llm.detokenize([best], prev_tokens=toks).decode("utf-8", errors="ignore")] = float(logp[best])
+        return top
+
+    def _check_fast_topk(self) -> bool:
+        """Startup check of _top_next_tokens (it relies on llama-cpp-python internals); False -> old way."""
+        try:
+            top = self._top_next_tokens("Sentence: I want", 5)
+            if len(top) >= 1 and all(isinstance(v, float) and v <= 0.0 for v in top.values()):
+                print("[Backend] Fast next-word scoring active (logits_all off).")
+                return True
+            print(f"[Backend] Fast next-word scoring check gave an odd result {top!r}; using the old way.")
+        except Exception as e:
+            print(f"[Backend] Fast next-word scoring not available ({e!r}); using the old way (logits_all).")
+        return False
+
     def _get_llm_scores(self, current_sentence: str) -> dict:
         """
         Always runs the LLM with a context-aware prompt and expanded logprobs.
@@ -508,29 +543,36 @@ class HybridKeyboardBackend:
         prompt = self._build_llm_prompt(current_sentence)
 
         try:
-            output = self.fast_llm.create_completion(
-                prompt=prompt,
-                max_tokens=1,
-                logprobs=200,       # ACTION 5: was 50, now 200 for broader candidates
-                echo=False,
-                temperature=0,      # Greedy, deterministic — best single prediction
-            )
+            if self._fast_topk:
+                top_tokens = self._top_next_tokens(prompt, 200)
+            else:
+                output = self.fast_llm.create_completion(
+                    prompt=prompt,
+                    max_tokens=1,
+                    logprobs=200,       # ACTION 5: was 50, now 200 for broader candidates
+                    echo=False,
+                    temperature=0,      # Greedy, deterministic — best single prediction
+                )
+                top_tokens = output["choices"][0]["logprobs"]["top_logprobs"][0]
         except Exception as e:
             print(f"[LLM] Error during completion: {e}")
             return {}
 
-        top_tokens = output["choices"][0]["logprobs"]["top_logprobs"][0]
-        self.ai_cache = {}
-
+        ai_cache = {}                              # built aside, then swapped in at once (/api/type reads it)
         raw_scores = {}
         for token_str, logprob in top_tokens.items():
+            # the prompt ends right after the last word, so a NEW word starts with a space; a piece without one
+            # continues the last word ("can" -> "'t", "want" -> "ing") and is not a next word
+            if not token_str.startswith((" ", "Ġ")):
+                continue
             valid_word = self.clean_and_validate_token(token_str)
             if valid_word:
                 prob = math.exp(logprob)
                 if valid_word not in raw_scores or raw_scores[valid_word] < prob:
                     raw_scores[valid_word] = prob
-                if valid_word not in self.ai_cache:
-                    self.ai_cache[valid_word] = logprob
+                if valid_word not in ai_cache:
+                    ai_cache[valid_word] = logprob
+        self.ai_cache = ai_cache
 
         if not raw_scores:
             return {}
@@ -601,7 +643,9 @@ class HybridKeyboardBackend:
         clean = re.sub(r"^[^\w]+|[^\w]+$", "", clean)
         if not re.match(r"^[a-z]+(?:'[a-z]+)?$", clean):
             return None
-        if self.trie.is_valid_word(clean) or len(clean) >= 4:
+        # only real words: the word list (vocab.json) or a word this profile has spoken (names etc.). Was "or any
+        # piece of 4+ letters", which let word pieces such as "medicat" (first token of "medication") through.
+        if self.trie.is_valid_word(clean) or clean in self.profile.words:
             return clean
         return None
 
@@ -714,8 +758,9 @@ class HybridKeyboardBackend:
         seen = {UserProfile.key(m) for m in matches}
         try:
             history_str = ""
-            if self.session_history:
-                history_str = "\n".join(f"- {s}" for s in self.session_history)
+            history = list(self.session_history)   # copy: saving a spoken sentence no longer waits for this
+            if history:
+                history_str = "\n".join(f"- {s}" for s in history)
                 history_str = f"Prior context:\n{history_str}\n\n"
 
             messages = [
@@ -758,9 +803,12 @@ class HybridKeyboardBackend:
             text = output["choices"][0]["message"]["content"].strip()
 
             lines = text.split('\n')
+            typed_key = UserProfile.key(current_text)   # compared loosely: case, punctuation, extra spaces ignored
+            got, dropped, n_phrases = 0, [], len(matches)
             for line in lines:
                 match = re.match(r'^\d+\.\s*(.*)', line.strip())
                 if match:
+                    got += 1
                     full_sentence = match.group(1).strip()
                     full_sentence = re.sub(r'\s+([.,?!])', r'\1', full_sentence)
                     if full_sentence and full_sentence[-1] not in ['.', '?', '!']:
@@ -768,13 +816,19 @@ class HybridKeyboardBackend:
                     if len(full_sentence) > 0:
                         full_sentence = full_sentence[0].upper() + full_sentence[1:]
                     if "_" in full_sentence or ".." in full_sentence or "()" in full_sentence.replace(" ", "") or "（）" in full_sentence:
+                        dropped.append(full_sentence)
                         continue
-                    if (len(full_sentence) > len(current_text) and full_sentence.lower().startswith(clean_input)
-                            and UserProfile.key(full_sentence) not in seen):
-                        seen.add(UserProfile.key(full_sentence))
+                    k = UserProfile.key(full_sentence)
+                    if len(k) > len(typed_key) and k.startswith(typed_key) and k not in seen:
+                        seen.add(k)
                         matches.append(full_sentence)
                         if len(matches) >= count:
                             break
+                    else:
+                        dropped.append(full_sentence)
+            # one line per request: shows why a list can stay empty (e.g. the model reworded the typed text)
+            print(f"[Sentences] {current_text!r}: model gave {got}, kept {len(matches) - n_phrases}"
+                  + (f"; dropped {dropped[:3]}" if dropped else ""), flush=True)
         except Exception as e:
             print(f"Error in LLM sentence completion: {e}", flush=True)
 
@@ -792,7 +846,9 @@ class HybridKeyboardBackend:
             return []
         ctx_matches = []
         if context is not None and context.split():
-            before = context[:len(context) - len(context.split()[-1])].rstrip()
+            # text before the last word; rsplit ignores trailing spaces, so they cannot cut into the previous word
+            parts = context.rsplit(None, 1)
+            before = parts[0].rstrip() if len(parts) > 1 else ""
             if before:
                 if self._last_cands[0] == before:
                     cands = self._last_cands[1]
@@ -801,8 +857,11 @@ class HybridKeyboardBackend:
                     sc = {w: max(p.get(w, 0.0), t.get(w, 0.0)) for w in set(p) | set(t)}
                     cands = sorted(sc, key=lambda w: -sc[w])
                 ctx_matches = [w for w in cands if w.startswith(prefix)][:self.CTX_SLOTS]
-        own = sorted((w for w in self.profile.words if w.startswith(prefix)), key=lambda w: -self.profile.words[w])
-        ai_matches = sorted((w for w in self.ai_cache if w.startswith(prefix)), key=lambda w: -self.ai_cache[w])
+        # copies taken in one step: a sentence being learned / a new model list cannot break these loops
+        words = list(self.profile.words.items())
+        own = [w for w, c in sorted(words, key=lambda wc: -wc[1]) if w.startswith(prefix)]
+        ai = self.ai_cache
+        ai_matches = sorted((w for w in ai if w.startswith(prefix)), key=lambda w: -ai[w])
         final, seen = [], set()
         for src, words in (("ai", ctx_matches), ("trie", own), ("ai", ai_matches), ("trie", self._everyday(prefix))):
             for w in words:

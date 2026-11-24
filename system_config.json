@@ -1,7 +1,7 @@
-{
-  "_comment": "Read by the AAC app (frontend) at start. Paths may be absolute or relative to this folder. 'python' = the Python on PATH.",
-  "tracker_python": "python",
-  "backend_python": "backend/venv/Scripts/python.exe",
-  "start_tracker": true,
-  "start_backend": true
+﻿{
+    "_comment":  "Read by the AAC app (frontend) at start. Paths may be absolute or relative to this folder. \u0027python\u0027 = the Python on PATH.",
+    "backend_python":  "backend/venv/Scripts/python.exe",
+    "start_tracker":  true,
+    "start_backend":  true,
+    "tracker_python":  "C:\\Python313\\python.exe"
 }

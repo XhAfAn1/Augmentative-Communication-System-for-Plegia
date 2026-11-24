@@ -223,3 +223,1592 @@
 [TrackerService] ready on http://127.0.0.1:8001 (pid 5492)
 [ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
 [TrackerService] shutting down
+
+===== 2026-11-20 19:56:43.380141 start pid 19896 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 19896)
+[ WARN:0@0.003] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-20 20:21:17.876768 start pid 23360 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 23360)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[Recorder] saved {'left': 0, 'right': 31} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261120_202138_eyeview
+[TrackerService] shutting down
+
+===== 2026-11-20 20:30:44.471373 start pid 14900 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14900)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-20 20:40:41.527603 start pid 2684 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 2684)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-20 20:43:47.789910 start pid 23212 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 23212)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-20 20:55:21.250740 start pid 4976 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 4976)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-20 21:04:06.809534 start pid 15496 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15496)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 19:52:35.060724 start pid 5872 =====
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5872)
+[TrackerService] shutting down
+
+===== 2026-11-21 19:53:18.195077 start pid 14608 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14608)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 19:53:45.398932 start pid 5428 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5428)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 19:54:38.726140 start pid 5088 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5088)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 19:57:34.454636 start pid 14280 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14280)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+
+===== 2026-11-21 20:21:20.127895 start pid 7016 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 7016)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 20:21:58.136764 start pid 14080 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14080)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+
+===== 2026-11-21 20:43:33.610395 start pid 16304 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 16304)
+[ WARN:0@0.003] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 20:43:57.191194 start pid 2120 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 2120)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 20:44:09.636525 start pid 4564 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 4564)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 21:00:33.225628 start pid 15148 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15148)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 21:13:58.076781 start pid 20364 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 20364)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 21:20:46.402985 start pid 13108 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 13108)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 21:20:57.359294 start pid 20364 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 20364)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 21:31:39.104867 start pid 19792 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 19792)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 21:53:40.289072 start pid 1908 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 1908)
+[TrackerService] shutting down
+
+===== 2026-11-21 21:59:30.904468 start pid 8180 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 8180)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 21:59:53.907616 start pid 1680 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 1680)
+[TrackerService] shutting down
+
+===== 2026-11-21 22:05:00.220805 start pid 13148 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 13148)
+[TrackerService] shutting down
+
+===== 2026-11-21 22:15:37.282073 start pid 20564 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 20564)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 22:21:28.502606 start pid 5656 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5656)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 23:47:45.140468 start pid 8908 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 8908)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 23:48:31.679418 start pid 15144 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15144)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 23:48:41.511263 start pid 9028 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 9028)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-21 23:53:55.988583 start pid 5036 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5036)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-22 00:11:42.453748 start pid 17484 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 17484)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-22 01:29:21.565841 start pid 16248 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 16248)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] Position guide closed · last check: Move left and up
+[TrackerService] shutting down
+
+===== 2026-11-22 01:36:51.485025 start pid 4260 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 4260)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-22 01:41:07.216206 start pid 20668 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 20668)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-23 01:18:12.437506 start pid 5052 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5052)
+[ WARN:0@0.003] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-23 01:25:08.255056 start pid 8820 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 8820)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-23 02:13:01.781749 start pid 23924 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 23924)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-23 03:15:49.432541 start pid 25968 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 25968)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-23 03:16:31.152073 start pid 22520 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 22520)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-23 03:17:06.667573 start pid 22048 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 22048)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-23 03:29:46.957095 start pid 21792 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21792)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 9.9), (3, 4.9), (5, 11.8), (8, 8.2), (9, 4.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 5.3), (2, 18.8), (5, 22.0), (7, 9.4), (8, 16.6)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check right: dots [1] disagree (16.7 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 8.8), (3, 6.0), (5, 12.1), (8, 8.7), (9, 4.3)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 8.5), (2, 19.5), (5, 22.4), (7, 6.8), (8, 16.9)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(1, 0.65), (4, 0.85), (9, 0.74)]
+[Calibration] right: reduced influence for dots [(2, 0.98), (3, 0.97), (4, 0.81), (9, 0.86)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_034257_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 105.3 px
+[Fine-tune] slip -60, -38 px; new dots vs current model after slip: 9, 44, 20, 10, 20, 35, 39, 47, 74 (limit 120)
+[Fine-tune] path check left: dots [0, 2, 3, 4, 5, 8] disagree (314, 161, 160, 152, 226, 299 px)
+[Fine-tune] extra look at old dot 1 added as its own data point
+[Fine-tune] extra look at old dot 3 added as its own data point
+[Fine-tune] extra look at old dot 4 added as its own data point
+[Fine-tune] extra look at old dot 5 added as its own data point
+[Fine-tune] extra look at old dot 6 added as its own data point
+[Fine-tune] extra look at old dot 9 added as its own data point
+[Fine-tune] new dots: current map 33 px -> updated map 39 px; old dots (held out) 105 -> 60 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 33 -> 39 px, old dots 105 -> 60 px)); slip learned, correction now (+60, +38) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 33 -> 39 px, old dots 105 -> 60 px)); slip learned, correction now (+60, +38) px
+[TrackerService] Re-centred: shift (+141, +27) px
+[TrackerService] Re-centred: shift (+133, +24) px
+[TrackerService] shutting down
+
+===== 2026-11-23 03:49:20.540698 start pid 21932 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21932)
+[Calibration] grid nudge left: dots [(2, 11.7), (5, 14.1), (8, 9.3), (9, 6.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 19.8), (5, 19.9), (7, 9.1), (8, 13.3)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [2] disagree (227.9 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 10.7), (5, 13.5), (8, 7.2), (9, 6.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 20.1), (5, 21.0), (7, 8.3), (8, 14.9)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(1, 0.93), (2, 0.86), (6, 0.88), (8, 0.97)]
+[Calibration] right: reduced influence for dots [(2, 0.97), (3, 0.96), (4, 0.97), (9, 0.98)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_035151_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 52.8 px
+[Fine-tune] slip -31, +29 px; new dots vs current model after slip: 11, 24, 11, 0, 8, 27, 9, 21, 7 (limit 120)
+[Fine-tune] new dots: current map 13 px -> updated map 16 px; old dots (held out) 39 -> 25 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 13 -> 16 px, old dots 39 -> 25 px)); slip learned, correction now (+31, -29) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 13 -> 16 px, old dots 39 -> 25 px)); slip learned, correction now (+31, -29) px
+[TrackerService] Re-centred: shift (+39, -51) px
+[TrackerService] Re-centred: shift (+29, -49) px
+[AutoRecentre] selection off by (-12, +31) px -> correction shift (-12, +31) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-48, -5) px -> correction shift (-36, +29) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+23, -21) px -> correction shift (-37, +22) px, scale (0.962, 1.000)
+[AutoRecentre] selection off by (+54, -12) px -> correction shift (-33, +19) px, scale (0.938, 1.000)
+[AutoRecentre] selection off by (+12, -21) px -> correction shift (-29, +14) px, scale (0.942, 1.000)
+[AutoRecentre] selection off by (+19, -11) px -> correction shift (-25, +9) px, scale (0.948, 1.000)
+[AutoRecentre] selection off by (-10, -46) px -> correction shift (-24, +8) px, scale (0.951, 0.881)
+[AutoRecentre] selection off by (+26, +1) px -> correction shift (-18, +10) px, scale (0.928, 0.872)
+[AutoRecentre] selection off by (-34, +22) px -> correction shift (-24, +18) px, scale (0.917, 0.852)
+[AutoRecentre] selection off by (-27, -7) px -> correction shift (-30, +16) px, scale (0.910, 0.864)
+[AutoRecentre] selection off by (-13, +24) px -> correction shift (-37, +20) px, scale (0.904, 0.865)
+[AutoRecentre] selection off by (-6, -15) px -> correction shift (-41, +20) px, scale (0.904, 0.865)
+[AutoRecentre] selection off by (+10, -19) px -> correction shift (-38, +18) px, scale (0.904, 0.865)
+[AutoRecentre] selection off by (+23, -15) px -> correction shift (-34, +13) px, scale (0.904, 0.865)
+[AutoRecentre] selection off by (-22, -13) px -> correction shift (-44, +11) px, scale (0.926, 0.865)
+[AutoRecentre] selection off by (-21, -5) px -> correction shift (-44, +4) px, scale (0.930, 0.865)
+[AutoRecentre] selection off by (+34, -17) px -> correction shift (-34, +2) px, scale (0.946, 0.865)
+[AutoRecentre] selection off by (-2, +14) px -> correction shift (-33, +6) px, scale (0.954, 0.865)
+[AutoRecentre] selection off by (-7, +12) px -> correction shift (-31, +8) px, scale (0.963, 0.865)
+[AutoRecentre] selection off by (+17, +18) px -> correction shift (-33, +12) px, scale (0.941, 0.865)
+[AutoRecentre] selection off by (+25, +16) px -> correction shift (-32, +15) px, scale (0.935, 0.865)
+[AutoRecentre] selection off by (-16, +13) px -> correction shift (-47, +21) px, scale (0.916, 0.865)
+[AutoRecentre] selection off by (-15, -23) px -> correction shift (-52, +16) px, scale (0.910, 0.865)
+[AutoRecentre] selection off by (-1, -14) px -> correction shift (-58, +14) px, scale (0.900, 0.865)
+[AutoRecentre] selection off by (-6, +9) px -> correction shift (-57, +14) px, scale (0.907, 0.865)
+[AutoRecentre] selection off by (-14, +24) px -> correction shift (-50, +17) px, scale (0.923, 0.865)
+[AutoRecentre] selection off by (+36, +19) px -> correction shift (-31, +19) px, scale (0.951, 0.865)
+[AutoRecentre] selection off by (-34, -9) px -> correction shift (-41, +13) px, scale (0.932, 0.905)
+[AutoRecentre] selection off by (-21, -8) px -> correction shift (-43, +10) px, scale (0.939, 0.941)
+[AutoRecentre] selection off by (+8, -19) px -> correction shift (-41, +6) px, scale (0.941, 0.969)
+[AutoRecentre] selection off by (-18, +2) px -> correction shift (-46, +7) px, scale (0.946, 0.955)
+[AutoRecentre] selection off by (+7, -9) px -> correction shift (-48, +5) px, scale (0.942, 0.955)
+[AutoRecentre] selection off by (-9, +0) px -> correction shift (-41, +4) px, scale (0.963, 0.955)
+[AutoRecentre] selection off by (+6, -3) px -> correction shift (-41, +3) px, scale (0.963, 0.955)
+[AutoRecentre] selection off by (+19, -0) px -> correction shift (-40, +4) px, scale (0.963, 0.955)
+[AutoRecentre] selection off by (-1, -5) px -> correction shift (-37, +2) px, scale (0.963, 0.955)
+[AutoRecentre] selection off by (-20, +4) px -> correction shift (-45, +4) px, scale (0.935, 0.955)
+[AutoRecentre] selection off by (+60, -63) px -> correction shift (-29, -10) px, scale (1.005, 0.955)
+[AutoRecentre] selection off by (+45, +28) px -> correction shift (-24, -7) px, scale (0.970, 0.955)
+[AutoRecentre] selection off by (-48, +19) px -> correction shift (-33, -5) px, scale (0.952, 0.955)
+[AutoRecentre] selection off by (-33, +18) px -> correction shift (-36, -2) px, scale (0.942, 0.955)
+[AutoRecentre] selection off by (-32, +24) px -> correction shift (-35, +0) px, scale (0.937, 0.955)
+[AutoRecentre] selection off by (-20, +17) px -> correction shift (-50, +15) px, scale (0.930, 0.955)
+[AutoRecentre] selection off by (+22, -70) px -> correction shift (-46, +4) px, scale (0.930, 0.850)
+[AutoRecentre] selection off by (+23, -53) px -> correction shift (-41, +2) px, scale (0.930, 0.850)
+[AutoRecentre] selection off by (+20, -19) px -> correction shift (-36, +1) px, scale (0.930, 0.850)
+[AutoRecentre] selection off by (+16, -6) px -> correction shift (-32, -2) px, scale (0.930, 0.850)
+[AutoRecentre] selection off by (-10, +7) px -> correction shift (-32, -2) px, scale (0.930, 0.850)
+[AutoRecentre] selection off by (+1, +14) px -> correction shift (-35, +4) px, scale (0.938, 0.850)
+[AutoRecentre] selection off by (-2, +22) px -> correction shift (-35, +9) px, scale (0.933, 0.850)
+[AutoRecentre] selection off by (+21, +33) px -> correction shift (-35, +15) px, scale (0.917, 0.850)
+[AutoRecentre] selection off by (+19, -13) px -> correction shift (-44, +16) px, scale (0.894, 0.850)
+[AutoRecentre] selection off by (-9, +8) px -> correction shift (-46, +19) px, scale (0.898, 0.850)
+[AutoRecentre] selection off by (-3, +26) px -> correction shift (-46, +25) px, scale (0.898, 0.850)
+[AutoRecentre] selection off by (+28, +15) px -> correction shift (-39, +28) px, scale (0.898, 0.850)
+[AutoRecentre] selection off by (-14, -15) px -> correction shift (-43, +22) px, scale (0.898, 0.850)
+[AutoRecentre] selection off by (+21, -10) px -> correction shift (-5, +17) px, scale (0.959, 0.911)
+[AutoRecentre] selection off by (+22, -20) px -> correction shift (-13, +15) px, scale (0.943, 0.957)
+[AutoRecentre] selection off by (+31, -19) px -> correction shift (-9, +14) px, scale (0.953, 0.957)
+[AutoRecentre] selection off by (-12, -5) px -> correction shift (-13, +12) px, scale (0.970, 0.957)
+[AutoRecentre] selection off by (-14, -5) px -> correction shift (-14, +11) px, scale (0.934, 0.957)
+[AutoRecentre] selection off by (+0, +10) px -> correction shift (-14, +10) px, scale (0.934, 0.989)
+[TrackerService] Re-centred: shift (+43, -24) px
+[Calibration] grid nudge left: dots [(2, 14.5), (3, 6.2), (5, 17.8), (8, 12.8), (9, 4.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 5.1), (2, 16.0), (5, 15.8), (7, 5.4), (8, 6.8)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [5] disagree (15.3 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [1, 8] disagree (304.8, 8.0 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 16.6), (3, 5.0), (5, 5.9), (8, 12.0)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.6), (2, 15.9), (5, 14.9), (7, 4.2)] camera px from the expected grid (pulled toward it)
+[Calibration] path check left: dots [7] disagree with the paths (132 px, limit 128) -> one more look
+[Calibration] dot 7 left: readings blended by fit (132 px, 148 px -> weights 0.55, 0.45)
+[Calibration] left: reduced influence for dots [(1, 0.84), (2, 0.79), (6, 0.86), (7, 0.54)]
+[Calibration] right: reduced influence for dots [(2, 0.97), (3, 0.92), (4, 0.85), (6, 0.96)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_041233_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 62.2 px
+[Fine-tune] slip +61, +31 px; new dots vs current model after slip: 22, 16, 43, 19, 15, 9, 3, 39, 2 (limit 120)
+[Fine-tune] new dots: current map 19 px -> updated map 21 px; old dots (held out) 56 -> 41 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 19 -> 21 px, old dots 56 -> 41 px)); slip learned, correction now (-61, -31) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 19 -> 21 px, old dots 56 -> 41 px)); slip learned, correction now (-61, -31) px
+[TrackerService] Re-centred: shift (-69, -33) px
+[AutoRecentre] selection off by (+4, -5) px -> correction shift (+4, -5) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+3, -6) px -> correction shift (+4, -6) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+9, -6) px -> correction shift (+5, -6) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-12, +11) px -> correction shift (+3, -3) px, scale (0.979, 1.000)
+[AutoRecentre] selection off by (-23, +15) px -> correction shift (+2, -1) px, scale (0.971, 1.000)
+[AutoRecentre] selection off by (-19, +13) px -> correction shift (+2, +2) px, scale (0.970, 1.000)
+[AutoRecentre] selection off by (-14, +13) px -> correction shift (+5, +5) px, scale (0.963, 1.000)
+[AutoRecentre] selection off by (+57, -17) px -> correction shift (+25, +4) px, scale (0.924, 1.000)
+[AutoRecentre] selection off by (+57, -16) px -> correction shift (+23, +1) px, scale (0.923, 1.000)
+[AutoRecentre] selection off by (+57, -15) px -> correction shift (+24, -3) px, scale (0.923, 1.000)
+[AutoRecentre] selection off by (+19, -14) px -> correction shift (+21, -6) px, scale (0.924, 1.000)
+[AutoRecentre] selection off by (+12, +16) px -> correction shift (+23, -9) px, scale (0.924, 1.069)
+[AutoRecentre] selection off by (+10, -29) px -> correction shift (+25, -12) px, scale (0.924, 1.032)
+[AutoRecentre] selection off by (+10, -26) px -> correction shift (+26, -15) px, scale (0.924, 1.023)
+[AutoRecentre] selection off by (+6, -32) px -> correction shift (+28, -12) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (+6, -56) px -> correction shift (+33, -21) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (+6, -58) px -> correction shift (+32, -35) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (+6, -56) px -> correction shift (+32, -41) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (+5, -48) px -> correction shift (+32, -49) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (+1, -36) px -> correction shift (+32, -54) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (-0, -33) px -> correction shift (+32, -54) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (-0, -25) px -> correction shift (+32, -54) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (-0, -13) px -> correction shift (+32, -52) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (+0, -10) px -> correction shift (+32, -50) px, scale (0.924, 0.968)
+[AutoRecentre] selection off by (-8, +44) px -> correction shift (+31, -12) px, scale (0.924, 0.862)
+[AutoRecentre] selection off by (-8, +43) px -> correction shift (+29, -12) px, scale (0.924, 0.863)
+[AutoRecentre] selection off by (-8, +42) px -> correction shift (+28, -11) px, scale (0.924, 0.866)
+[AutoRecentre] selection off by (-8, +39) px -> correction shift (+26, -12) px, scale (0.924, 0.864)
+[AutoRecentre] selection off by (-8, +39) px -> correction shift (+24, -12) px, scale (0.924, 0.864)
+[AutoRecentre] selection off by (+9, -14) px -> correction shift (+26, -14) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (+9, -13) px -> correction shift (+28, -15) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (+9, -13) px -> correction shift (+30, -17) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (+5, +14) px -> correction shift (+31, -15) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (+3, +24) px -> correction shift (+33, -11) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (+3, +24) px -> correction shift (+33, -6) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (+3, +24) px -> correction shift (+33, -0) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (+1, +23) px -> correction shift (+33, +5) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (-0, +16) px -> correction shift (+33, +7) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (-0, +12) px -> correction shift (+33, +8) px, scale (0.924, 0.850)
+[AutoRecentre] selection off by (-25, -28) px -> correction shift (+11, +2) px, scale (0.902, 0.850)
+[AutoRecentre] selection off by (-17, -25) px -> correction shift (+14, -3) px, scale (0.905, 0.850)
+[AutoRecentre] selection off by (-16, -25) px -> correction shift (+16, -8) px, scale (0.906, 0.850)
+[AutoRecentre] selection off by (-16, -25) px -> correction shift (+16, -13) px, scale (0.907, 0.850)
+[AutoRecentre] selection off by (-15, -24) px -> correction shift (+17, -18) px, scale (0.907, 0.850)
+[AutoRecentre] selection off by (-15, -23) px -> correction shift (+19, -17) px, scale (0.907, 0.850)
+[AutoRecentre] selection off by (+0, +39) px -> correction shift (+19, -9) px, scale (0.907, 0.850)
+[AutoRecentre] selection off by (+56, -6) px -> correction shift (+34, -23) px, scale (0.907, 0.896)
+[AutoRecentre] selection off by (+50, -6) px -> correction shift (+46, -18) px, scale (0.907, 0.892)
+[AutoRecentre] selection off by (+45, -3) px -> correction shift (+57, -15) px, scale (0.907, 0.899)
+[AutoRecentre] selection off by (+41, -2) px -> correction shift (+67, -12) px, scale (0.907, 0.918)
+[AutoRecentre] selection off by (+36, +1) px -> correction shift (+65, -11) px, scale (0.907, 0.918)
+[AutoRecentre] selection off by (-46, -6) px -> correction shift (+29, -11) px, scale (0.976, 0.918)
+[AutoRecentre] selection off by (+7, -33) px -> correction shift (+30, -14) px, scale (0.971, 0.850)
+[AutoRecentre] selection off by (+3, -27) px -> correction shift (+31, -14) px, scale (0.969, 0.850)
+[AutoRecentre] selection off by (-15, -25) px -> correction shift (+26, -14) px, scale (0.976, 0.850)
+[AutoRecentre] selection off by (+11, -9) px -> correction shift (+30, -17) px, scale (0.976, 0.859)
+[AutoRecentre] selection off by (+61, +31) px -> correction shift (+43, -11) px, scale (0.919, 0.859)
+[AutoRecentre] selection off by (+25, +22) px -> correction shift (+43, -4) px, scale (0.903, 0.859)
+[AutoRecentre] selection off by (+49, +4) px -> correction shift (+54, +1) px, scale (0.921, 0.850)
+[AutoRecentre] selection off by (+45, +3) px -> correction shift (+67, +3) px, scale (0.935, 0.850)
+[AutoRecentre] selection off by (+31, +1) px -> correction shift (+72, +5) px, scale (0.938, 0.850)
+[AutoRecentre] selection off by (-45, -23) px -> correction shift (+67, -1) px, scale (0.952, 0.850)
+[AutoRecentre] selection off by (-35, -23) px -> correction shift (+60, -7) px, scale (0.966, 0.850)
+[AutoRecentre] selection off by (-16, -17) px -> correction shift (+60, -11) px, scale (0.963, 0.850)
+[AutoRecentre] selection off by (+13, +24) px -> correction shift (+61, -8) px, scale (0.962, 0.850)
+[AutoRecentre] selection off by (-49, +13) px -> correction shift (-22, -7) px, scale (0.873, 0.850)
+[AutoRecentre] selection off by (-70, +10) px -> correction shift (-19, -3) px, scale (0.890, 0.850)
+[AutoRecentre] selection off by (-53, +8) px -> correction shift (+1, +2) px, scale (0.931, 0.850)
+[AutoRecentre] selection off by (-49, +8) px -> correction shift (-12, +7) px, scale (0.931, 0.850)
+[AutoRecentre] selection off by (-48, +8) px -> correction shift (-28, +5) px, scale (0.931, 0.850)
+[AutoRecentre] selection off by (-47, +8) px -> correction shift (-33, +5) px, scale (0.931, 0.850)
+[AutoRecentre] selection off by (-45, +8) px -> correction shift (-31, +5) px, scale (0.931, 0.850)
+[AutoRecentre] selection off by (-41, +9) px -> correction shift (-29, +6) px, scale (0.931, 0.850)
+[Fine-tune] Fine-tuning cancelled
+[TrackerService] Fine-tuning cancelled
+[Calibration] grid nudge left: dots [(1, 6.6), (2, 12.8), (3, 4.2), (5, 16.5), (8, 10.7), (9, 6.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 11.3), (3, 6.3), (5, 13.2), (7, 5.7), (8, 15.6)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check right: dots [9] disagree (8.0 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 12.0), (5, 14.2), (8, 9.1), (9, 6.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 13.8), (3, 4.1), (5, 16.7), (7, 7.1), (8, 14.8)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(1, 0.87), (4, 0.96), (7, 0.93), (8, 0.99)]
+[Calibration] right: reduced influence for dots [(3, 0.73), (6, 0.64), (7, 0.94), (9, 0.67)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_044708_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 48.5 px
+[Fine-tune] slip -29, -13 px; new dots vs current model after slip: 13, 19, 12, 18, 44, 12, 0, 5, 33 (limit 120)
+[Fine-tune] path check right: dots [8] disagree (128 px)
+[Fine-tune] extra look at old dot 9 added as its own data point
+[Fine-tune] new dots: current map 17 px -> updated map 18 px; old dots (held out) 46 -> 29 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 17 -> 18 px, old dots 46 -> 29 px)); slip learned, correction now (+29, +13) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 17 -> 18 px, old dots 46 -> 29 px)); slip learned, correction now (+29, +13) px
+[AutoRecentre] selection off by (-20, -13) px -> correction shift (-20, -13) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-20, +24) px -> correction shift (-31, -1) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+0, +9) px -> correction shift (-31, -5) px, scale (1.000, 1.043)
+[AutoRecentre] selection off by (-8, +12) px -> correction shift (-33, -0) px, scale (1.000, 1.028)
+[AutoRecentre] selection off by (-10, +12) px -> correction shift (-35, +2) px, scale (1.000, 1.022)
+[AutoRecentre] selection off by (-11, +14) px -> correction shift (-41, +7) px, scale (1.000, 1.007)
+[AutoRecentre] selection off by (-11, +15) px -> correction shift (-41, +7) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (-12, +16) px -> correction shift (-41, +7) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (-12, +14) px -> correction shift (-42, +8) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (-11, +12) px -> correction shift (-43, +9) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (-9, +11) px -> correction shift (-43, +10) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (-6, +9) px -> correction shift (-43, +11) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (-5, +9) px -> correction shift (-44, +11) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (-3, +6) px -> correction shift (-43, +12) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+0, +29) px -> correction shift (-43, +18) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+0, +29) px -> correction shift (-43, +24) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+0, +29) px -> correction shift (-43, +30) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+0, +28) px -> correction shift (-43, +35) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+0, +27) px -> correction shift (-43, +40) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+0, +26) px -> correction shift (-43, +40) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+0, +20) px -> correction shift (-43, +39) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+41, +14) px -> correction shift (-2, +42) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+52, +14) px -> correction shift (+3, +44) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+57, +13) px -> correction shift (+7, +47) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+57, +13) px -> correction shift (+9, +49) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+57, +13) px -> correction shift (+10, +53) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+57, +14) px -> correction shift (+13, +52) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+51, +15) px -> correction shift (+13, +53) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (+34, +15) px -> correction shift (+13, +53) px, scale (1.000, 1.004)
+[AutoRecentre] selection off by (-54, -9) px -> correction shift (-20, +52) px, scale (0.962, 1.004)
+[AutoRecentre] selection off by (-60, -8) px -> correction shift (-22, +51) px, scale (0.961, 1.004)
+[AutoRecentre] selection off by (-61, -7) px -> correction shift (-23, +49) px, scale (0.960, 1.004)
+[AutoRecentre] selection off by (-57, -6) px -> correction shift (-23, +48) px, scale (0.960, 1.004)
+[AutoRecentre] selection off by (-54, -7) px -> correction shift (-23, +46) px, scale (0.960, 1.004)
+[AutoRecentre] selection off by (-53, -7) px -> correction shift (-22, +47) px, scale (0.960, 1.004)
+[AutoRecentre] selection off by (-53, -7) px -> correction shift (-21, +47) px, scale (0.960, 1.004)
+[AutoRecentre] selection off by (-15, +4) px -> correction shift (-23, +47) px, scale (0.960, 1.004)
+[AutoRecentre] selection off by (-5, +6) px -> correction shift (-24, +49) px, scale (0.960, 1.004)
+[AutoRecentre] selection off by (-2, +6) px -> correction shift (-25, +50) px, scale (0.960, 1.004)
+[AutoRecentre] selection off by (-39, -1) px -> correction shift (-41, +50) px, scale (0.997, 1.004)
+[AutoRecentre] selection off by (-36, -0) px -> correction shift (-41, +51) px, scale (0.993, 1.004)
+[AutoRecentre] selection off by (-34, +1) px -> correction shift (-38, +51) px, scale (0.996, 1.004)
+[AutoRecentre] selection off by (-30, +2) px -> correction shift (-36, +51) px, scale (0.996, 1.004)
+[AutoRecentre] selection off by (-27, +3) px -> correction shift (-34, +51) px, scale (0.996, 1.004)
+[AutoRecentre] selection off by (-23, +4) px -> correction shift (-31, +52) px, scale (0.996, 1.004)
+[AutoRecentre] selection off by (-20, +5) px -> correction shift (-28, +53) px, scale (0.996, 1.004)
+[AutoRecentre] selection off by (-13, +6) px -> correction shift (-24, +54) px, scale (0.996, 1.004)
+[TrackerService] shutting down
+
+===== 2026-11-23 05:04:38.854532 start pid 8108 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 8108)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] Point 5: left=skipped (0 frames), right=ok (32 frames)
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(1, 4.5), (2, 15.4), (5, 18.9), (8, 13.8), (9, 11.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 11.4), (3, 4.6), (5, 11.2), (7, 11.0), (8, 10.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 15.8), (5, 19.1), (8, 12.8), (9, 11.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 10.5), (5, 11.1), (7, 11.1), (8, 9.9)] camera px from the expected grid (pulled toward it)
+[Calibration] path check right: dots [7] disagree with the paths (177 px, limit 161) -> one more look
+[Calibration] left: reduced influence for dots [(4, 0.99), (6, 0.88), (7, 0.84), (9, 0.7)]
+[Calibration] dot 7 right: readings blended by fit (177 px, 22 px -> weights 0.16, 0.84)
+[Calibration] right: reduced influence for dots [(2, 0.91), (3, 0.97), (4, 0.95), (8, 0.66)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_051228_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 61.0 px
+[Fine-tune] slip +77, -28 px; new dots vs current model after slip: 23, 57, 26, 2, 44, 1, 10, 15, 37 (limit 120)
+[Fine-tune] new dots: current map 24 px -> updated map 25 px; old dots (held out) 53 -> 28 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 24 -> 25 px, old dots 53 -> 28 px)); slip learned, correction now (-77, +28) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 24 -> 25 px, old dots 53 -> 28 px)); slip learned, correction now (-77, +28) px
+[TrackerService] Re-centred: shift (-153, +19) px
+[AutoRecentre] selection off by (+40, +27) px -> correction shift (+8, +5) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+33, +25) px -> correction shift (+14, +10) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+30, +30) px -> correction shift (+18, +13) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+30, +30) px -> correction shift (+21, +16) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+29, +30) px -> correction shift (+23, +19) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+27, +28) px -> correction shift (+25, +21) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+24, +25) px -> correction shift (+26, +23) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+20, +24) px -> correction shift (+27, +24) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+17, +22) px -> correction shift (+28, +25) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+14, +21) px -> correction shift (+28, +26) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+30, +21) px -> correction shift (+29, +27) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+39, +21) px -> correction shift (+31, +29) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+38, +21) px -> correction shift (+34, +31) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+36, +21) px -> correction shift (+39, +34) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+34, +20) px -> correction shift (+44, +36) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+32, +19) px -> correction shift (+48, +38) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+31, +19) px -> correction shift (+50, +40) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+30, +19) px -> correction shift (+52, +41) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+35, +21) px -> correction shift (+54, +42) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+31, +21) px -> correction shift (+55, +43) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+27, +21) px -> correction shift (+56, +44) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+20, +19) px -> correction shift (+57, +45) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+41, +4) px -> correction shift (+59, +46) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+49, +6) px -> correction shift (+63, +47) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+49, +8) px -> correction shift (+67, +48) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+49, +9) px -> correction shift (+73, +49) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+49, +10) px -> correction shift (+79, +50) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+46, +12) px -> correction shift (+84, +51) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+5, +41) px -> correction shift (+88, +53) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+22, +32) px -> correction shift (+91, +56) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+22, +29) px -> correction shift (+93, +59) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+22, +28) px -> correction shift (+95, +63) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+22, +28) px -> correction shift (+96, +67) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+22, +27) px -> correction shift (+98, +69) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+22, +28) px -> correction shift (+100, +71) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+20, +29) px -> correction shift (+101, +73) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+19, +29) px -> correction shift (+102, +74) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+16, +27) px -> correction shift (+103, +75) px, scale (1.000, 1.000)
+[TrackerService] shutting down
+
+===== 2026-11-23 05:17:42.152595 start pid 21596 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21596)
+[AutoRecentre] selection off by (-10, +28) px -> correction shift (-2, +6) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+1, +30) px -> correction shift (-3, +10) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+4, +31) px -> correction shift (-2, +14) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+3, +31) px -> correction shift (-2, +17) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+3, +31) px -> correction shift (-2, +20) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (+0, +30) px -> correction shift (-1, +22) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-3, +30) px -> correction shift (-0, +24) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-5, +32) px -> correction shift (-0, +25) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-7, +33) px -> correction shift (-1, +26) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-9, +34) px -> correction shift (-2, +28) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-9, +33) px -> correction shift (-3, +29) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-16, +22) px -> correction shift (-4, +31) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-16, +24) px -> correction shift (-6, +33) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-15, +25) px -> correction shift (-8, +35) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-14, +26) px -> correction shift (-10, +38) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-12, +28) px -> correction shift (-11, +41) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-13, +30) px -> correction shift (-12, +44) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-15, +31) px -> correction shift (-13, +47) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-16, +32) px -> correction shift (-14, +49) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-18, +33) px -> correction shift (-15, +51) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-40, +35) px -> correction shift (-17, +54) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-30, +36) px -> correction shift (-20, +57) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-27, +37) px -> correction shift (-23, +61) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-25, +37) px -> correction shift (-26, +65) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-25, +36) px -> correction shift (-30, +70) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-26, +36) px -> correction shift (-32, +73) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-27, +35) px -> correction shift (-34, +76) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-27, +35) px -> correction shift (-35, +78) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-29, +34) px -> correction shift (-36, +80) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-29, +34) px -> correction shift (-38, +81) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-13, +41) px -> correction shift (-39, +84) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-13, +41) px -> correction shift (-40, +87) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-13, +41) px -> correction shift (-42, +91) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-13, +42) px -> correction shift (-43, +96) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-13, +43) px -> correction shift (-45, +101) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-14, +45) px -> correction shift (-46, +106) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-15, +46) px -> correction shift (-47, +110) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-16, +46) px -> correction shift (-48, +113) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-18, +46) px -> correction shift (-49, +116) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-18, +46) px -> correction shift (-50, +118) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-19, +44) px -> correction shift (-51, +120) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-20, +41) px -> correction shift (-52, +121) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-22, +38) px -> correction shift (-53, +122) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-23, +35) px -> correction shift (-55, +123) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-24, +1) px -> correction shift (-56, +123) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-25, +2) px -> correction shift (-59, +124) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-25, +2) px -> correction shift (-62, +124) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-25, +5) px -> correction shift (-65, +124) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-24, +6) px -> correction shift (-67, +125) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-24, +6) px -> correction shift (-70, +125) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-23, +7) px -> correction shift (-72, +126) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-22, +8) px -> correction shift (-73, +126) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-66, +13) px -> correction shift (-76, +127) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-58, +13) px -> correction shift (-81, +129) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-55, +13) px -> correction shift (-87, +130) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-52, +13) px -> correction shift (-94, +132) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-51, +13) px -> correction shift (-101, +133) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-52, +12) px -> correction shift (-106, +134) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-53, +11) px -> correction shift (-110, +135) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-53, +12) px -> correction shift (-113, +136) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-52, +12) px -> correction shift (-115, +136) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-50, +12) px -> correction shift (-117, +137) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-50, +13) px -> correction shift (-119, +137) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-48, +14) px -> correction shift (-120, +138) px, scale (1.000, 1.000)
+[AutoRecentre] selection off by (-45, +14) px -> correction shift (-121, +138) px, scale (1.000, 1.000)
+[TrackerService] shutting down
+
+===== 2026-11-23 05:44:22.328744 start pid 11348 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 11348)
+[Calibration] grid nudge left: dots [(2, 12.4), (5, 15.3), (8, 14.5), (9, 5.3)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 14.4), (5, 18.0), (7, 7.5), (8, 16.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 11.7), (3, 4.3), (5, 15.6), (8, 14.2), (9, 5.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 14.9), (5, 18.2), (7, 7.2), (8, 16.4)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(1, 0.98), (2, 0.83), (6, 0.76), (7, 0.77)]
+[Calibration] right: reduced influence for dots [(3, 0.99), (4, 0.9), (7, 0.67), (9, 0.98)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_054735_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 95.0 px
+[Calibration] grid nudge left: dots [(2, 5.4), (3, 10.7), (5, 10.0), (8, 7.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 10.2), (2, 15.0), (5, 19.8), (7, 4.7), (8, 16.0), (9, 5.4)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [8] disagree (8.9 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [8] disagree (9.5 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 4.7), (3, 12.2), (5, 10.3), (8, 9.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 10.2), (2, 14.8), (5, 20.1), (7, 4.2), (8, 17.7), (9, 4.4)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(2, 0.66), (3, 0.92), (7, 0.76), (8, 0.93)]
+[Calibration] right: reduced influence for dots [(1, 0.95), (3, 0.92), (6, 0.93), (9, 0.93)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_054939_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 60.4 px
+[Calibration] grid nudge left: dots [(2, 6.7), (3, 385.3), (5, 13.3), (7, 5.7), (8, 13.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 9.4), (2, 12.0), (5, 14.7), (8, 8.1), (9, 4.9)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [3] disagree (371.5 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [8] disagree (10.3 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 7.5), (3, 13.8), (5, 15.1), (8, 13.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 9.0), (2, 13.0), (5, 15.4), (7, 4.2), (8, 6.8)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 7.6), (3, 5.6), (5, 7.9), (8, 10.1), (9, 4.0)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.5), (2, 21.6), (5, 25.4), (7, 10.5), (8, 20.4)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 15.6), (3, 5.7), (5, 20.4), (8, 15.2), (9, 7.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 11.4), (5, 11.0), (7, 5.6), (8, 12.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 15.5), (3, 6.3), (5, 20.4), (8, 14.8), (9, 7.0)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 10.8), (5, 10.7), (7, 6.2), (8, 11.8)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(1, 8.0), (2, 15.6), (5, 24.5), (8, 18.1), (9, 7.0)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 4.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(1, 4.4), (2, 16.2), (3, 4.3), (5, 23.1), (8, 18.0), (9, 6.3)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 15.7), (5, 18.3), (8, 13.1), (9, 7.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 5.6), (2, 13.3), (5, 12.0), (7, 6.7), (8, 4.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 15.8), (5, 17.6), (8, 15.9), (9, 5.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.8), (2, 12.5), (5, 14.1)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(2, 0.92), (4, 0.92), (6, 0.92), (7, 0.89)]
+[Calibration] right: reduced influence for dots [(2, 0.91), (4, 0.85), (6, 0.99), (9, 0.94)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_060040_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 63.3 px
+[Fine-tune] slip +3, +67 px; new dots vs current model after slip: 19, 12, 26, 11, 1, 16, 12, 52, 41 (limit 120)
+[Fine-tune] new dots: current map 21 px -> updated map 20 px; old dots (held out) 19 -> 21 px
+[Fine-tune] Map kept (map update skipped: it would make the old dots worse (new dots 21 -> 20 px, old dots 19 -> 21 px)); slip learned, correction now (-3, -67) px
+[TrackerService] Map kept (map update skipped: it would make the old dots worse (new dots 21 -> 20 px, old dots 19 -> 21 px)); slip learned, correction now (-3, -67) px
+[TrackerService] Re-centred: shift (+16, -77) px
+[AutoRecentre] area (0, 3): selection off by (+51, -11) px; error plain 54 / corrected 54 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+62, -13) px; error plain 50 / corrected 50 px -> area correction (+7.6, -1.9) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+57, -14) px; error plain 45 / corrected 38 px -> area correction (+13.6, -3.6) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+56, -15) px; error plain 45 / corrected 32 px -> area correction (+18.5, -5.1) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+55, -14) px; error plain 44 / corrected 26 px -> area correction (+22.6, -6.4) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+53, -13) px; error plain 43 / corrected 21 px -> area correction (+25.8, -7.5) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+54, -13) px; error plain 45 / corrected 19 px -> area correction (+28.3, -8.4) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+56, -13) px; error plain 51 / corrected 23 px -> area correction (+30.6, -9.2) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+59, -13) px; error plain 57 / corrected 27 px -> area correction (+32.9, -9.9) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+59, -13) px; error plain 59 / corrected 26 px -> area correction (+35.4, -10.5) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+57, -13) px; error plain 58 / corrected 23 px -> area correction (+37.9, -11.1) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+55, -12) px; error plain 59 / corrected 21 px -> area correction (+40.4, -11.8) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+51, -11) px; error plain 60 / corrected 20 px -> area correction (+42.8, -12.4) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+47, -9) px; error plain 59 / corrected 17 px -> area correction (+44.9, -12.9) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+37, -43) px; error plain 65 / corrected 56 px -> area correction (+0.0, +0.0) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+36, -54) px; error plain 66 / corrected 58 px -> area correction (+5.9, -7.9) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+36, -58) px; error plain 68 / corrected 58 px -> area correction (+10.9, -14.7) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+33, -60) px; error plain 65 / corrected 48 px -> area correction (+15.0, -20.6) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+32, -59) px; error plain 62 / corrected 38 px -> area correction (+18.4, -25.5) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+31, -57) px; error plain 61 / corrected 31 px -> area correction (+21.1, -29.7) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+30, -52) px; error plain 58 / corrected 23 px -> area correction (+23.4, -33.0) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+30, -50) px; error plain 57 / corrected 18 px -> area correction (+25.2, -35.4) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+29, -47) px; error plain 55 / corrected 14 px -> area correction (+26.8, -37.1) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+30, -44) px; error plain 53 / corrected 10 px -> area correction (+28.1, -38.1) px, 2 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+30, -41) px; error plain 53 / corrected 9 px -> area correction (+29.2, -38.8) px, 2 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-30, +4) px; error plain 30 / corrected 28 px -> area correction (+0.0, +0.0) px, 2 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-33, +4) px; error plain 29 / corrected 28 px -> area correction (-0.3, -4.4) px, 3 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-34, +5) px; error plain 28 / corrected 17 px -> area correction (-0.5, -8.1) px, 3 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-34, +6) px; error plain 28 / corrected 16 px -> area correction (-0.8, -11.2) px, 3 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-35, +6) px; error plain 29 / corrected 16 px -> area correction (-1.0, -13.8) px, 3 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-37, +6) px; error plain 28 / corrected 16 px -> area correction (-1.4, -16.0) px, 3 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-38, +7) px; error plain 26 / corrected 15 px -> area correction (-2.0, -17.6) px, 3 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-39, +9) px; error plain 23 / corrected 14 px -> area correction (-2.6, -18.9) px, 3 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-39, +12) px; error plain 20 / corrected 12 px -> area correction (-3.3, -19.7) px, 3 areas learned (learning)
+[AutoRecentre] area (1, 6): selection off by (-39, +13) px; error plain 20 / corrected 11 px -> area correction (-3.9, -20.1) px, 3 areas learned (learning)
+[AutoRecentre] area (9, 6): selection off by (+0, +10) px; error plain 125 / corrected 125 px -> area correction (+0.0, +0.0) px, 3 areas learned (learning)
+[AutoRecentre] area (0, 7): selection off by (+40, -43) px; error plain 96 / corrected 59 px -> area correction (+0.0, +0.0) px, 3 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+2, -6) px; error plain 3 / corrected 3 px -> area correction (+0.0, +0.0) px, 3 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+1, -4) px; error plain 4 / corrected 4 px -> area correction (+0.3, -0.4) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+2, -4) px; error plain 6 / corrected 6 px -> area correction (+0.5, -0.9) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+4, -5) px; error plain 10 / corrected 9 px -> area correction (+1.0, -1.4) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+6, -6) px; error plain 12 / corrected 11 px -> area correction (+1.5, -2.0) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+7, -7) px; error plain 13 / corrected 10 px -> area correction (+2.2, -2.6) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+8, -8) px; error plain 12 / corrected 9 px -> area correction (+3.0, -3.3) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+8, -9) px; error plain 12 / corrected 8 px -> area correction (+3.7, -4.0) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+8, -9) px; error plain 12 / corrected 6 px -> area correction (+4.4, -4.7) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (+8, -9) px; error plain 12 / corrected 6 px -> area correction (+5.0, -5.4) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+17, -12) px; error plain 76 / corrected 32 px -> area correction (+47.2, -13.5) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+30, -12) px; error plain 76 / corrected 30 px -> area correction (+49.5, -14.4) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+36, -12) px; error plain 76 / corrected 28 px -> area correction (+52.0, -15.3) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+37, -12) px; error plain 76 / corrected 25 px -> area correction (+54.6, -16.4) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+38, -12) px; error plain 76 / corrected 22 px -> area correction (+57.2, -17.6) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+36, -12) px; error plain 74 / corrected 18 px -> area correction (+59.4, -18.7) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+35, -13) px; error plain 73 / corrected 15 px -> area correction (+61.1, -19.7) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+33, -13) px; error plain 72 / corrected 13 px -> area correction (+62.3, -20.6) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+32, -14) px; error plain 72 / corrected 12 px -> area correction (+63.3, -21.5) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+31, -15) px; error plain 72 / corrected 11 px -> area correction (+63.9, -22.4) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+29, -16) px; error plain 71 / corrected 9 px -> area correction (+64.2, -23.3) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+28, -15) px; error plain 71 / corrected 8 px -> area correction (+64.4, -24.1) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+27, -15) px; error plain 71 / corrected 7 px -> area correction (+64.6, -24.8) px, 4 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+25, -14) px; error plain 70 / corrected 6 px -> area correction (+64.7, -25.4) px, 4 areas learned (learning)
+[AutoRecentre] area (8, 7): selection off by (-5, -35) px; error plain 26 / corrected 26 px -> area correction (+0.0, +0.0) px, 4 areas learned (learning)
+[AutoRecentre] area (8, 7): selection off by (+19, -55) px; error plain 39 / corrected 39 px -> area correction (+0.9, -4.6) px, 5 areas learned (learning)
+[AutoRecentre] area (8, 7): selection off by (+3, -60) px; error plain 51 / corrected 46 px -> area correction (+1.6, -9.5) px, 5 areas learned (learning)
+[AutoRecentre] area (8, 7): selection off by (+2, -44) px; error plain 17 / corrected 9 px -> area correction (+1.9, -12.9) px, 5 areas learned (learning)
+[AutoRecentre] area (9, 6): selection off by (-16, +45) px; error plain 139 / corrected 127 px -> area correction (+4.0, -19.6) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-20, +31) px; error plain 34 / corrected 39 px -> area correction (+5.1, -4.6) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-12, +36) px; error plain 33 / corrected 38 px -> area correction (+4.8, -2.7) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-7, +38) px; error plain 33 / corrected 36 px -> area correction (+4.4, +0.1) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-5, +38) px; error plain 32 / corrected 32 px -> area correction (+3.9, +3.8) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-5, +37) px; error plain 32 / corrected 28 px -> area correction (+0.0, +0.0) px, 5 areas learned (reset: correction made this area worse)
+[AutoRecentre] area (5, 3): selection off by (-5, +37) px; error plain 32 / corrected 32 px -> area correction (+0.0, +0.0) px, 5 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-5, +37) px; error plain 32 / corrected 32 px -> area correction (-0.0, +4.8) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-5, +37) px; error plain 32 / corrected 27 px -> area correction (-0.2, +8.9) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-7, +37) px; error plain 31 / corrected 23 px -> area correction (-0.4, +12.3) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-10, +36) px; error plain 31 / corrected 19 px -> area correction (-0.8, +15.1) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-11, +35) px; error plain 31 / corrected 17 px -> area correction (-1.4, +17.5) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-12, +33) px; error plain 30 / corrected 14 px -> area correction (-2.2, +19.4) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-12, +31) px; error plain 30 / corrected 12 px -> area correction (-3.0, +20.9) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-12, +29) px; error plain 30 / corrected 10 px -> area correction (-3.9, +22.1) px, 6 areas learned (learning)
+[AutoRecentre] area (5, 3): selection off by (-12, +28) px; error plain 30 / corrected 9 px -> area correction (-4.7, +23.1) px, 6 areas learned (learning)
+[AutoRecentre] area (8, 7): selection off by (+6, -31) px; error plain 40 / corrected 25 px -> area correction (+2.2, -16.0) px, 6 areas learned (learning)
+[Calibration] grid nudge left: dots [(2, 17.5), (5, 20.1), (8, 13.0), (9, 8.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 11.4), (5, 12.6), (7, 8.2), (8, 11.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 16.7), (5, 19.8), (8, 13.1), (9, 9.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 11.9), (5, 12.8), (7, 7.0), (8, 12.3)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 6.7), (3, 5.7), (5, 9.0)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 20.8), (2, 20.0), (5, 26.0), (8, 22.4)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 15.6), (3, 4.1), (5, 17.5), (8, 11.8), (9, 6.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 6.7), (2, 11.3), (5, 12.6), (7, 5.3), (8, 5.7)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 8.2), (3, 10.0), (5, 8.7), (6, 4.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 13.8), (2, 23.6), (5, 28.2), (7, 6.5), (8, 23.3)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] shutting down
+
+===== 2026-11-23 06:26:46.770345 start pid 21256 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21256)
+[Calibration] grid nudge left: dots [(2, 7.5), (5, 9.7), (8, 4.1), (9, 6.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 7.2), (2, 24.0), (5, 23.9), (7, 10.2), (8, 14.0)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [2] disagree (8.3 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 5.9), (5, 9.5), (9, 5.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.5), (2, 21.9), (5, 25.1), (7, 7.9), (8, 16.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 7.7), (5, 10.1), (8, 7.2), (9, 5.3)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 21.4), (5, 22.7), (7, 10.2), (8, 11.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 6.6), (5, 9.8), (8, 7.8), (9, 5.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 20.7), (5, 23.4), (7, 7.0), (8, 13.3)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(2, 0.69), (8, 0.89)]
+[Calibration] right: reduced influence for dots [(3, 0.89), (4, 0.95), (6, 0.96), (9, 0.97)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_062949_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 48.5 px
+[Fine-tune] slip +29, +16 px; new dots vs current model after slip: 7, 24, 4, 29, 18, 9, 6, 16, 10 (limit 120)
+[Fine-tune] new dots: current map 14 px -> updated map 16 px; old dots (held out) 35 -> 31 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 14 -> 16 px, old dots 35 -> 31 px)); slip learned, correction now (-29, -16) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 14 -> 16 px, old dots 35 -> 31 px)); slip learned, correction now (-29, -16) px
+[TrackerService] Re-centred: shift (-81, -21) px
+[AutoRecentre] area (1, 3): selection off by (-8, -24) px; error plain 128 / corrected 128 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+72, -19) px; error plain 56 / corrected 56 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+71, -19) px; error plain 57 / corrected 57 px -> area correction (+8.0, -2.8) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+70, -19) px; error plain 57 / corrected 49 px -> area correction (+14.9, -5.2) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+70, -18) px; error plain 57 / corrected 42 px -> area correction (+20.7, -7.2) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+70, -18) px; error plain 58 / corrected 38 px -> area correction (+25.8, -8.8) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+65, -13) px; error plain 60 / corrected 34 px -> area correction (+30.2, -10.1) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+59, -12) px; error plain 60 / corrected 30 px -> area correction (+34.0, -11.1) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+55, -11) px; error plain 61 / corrected 27 px -> area correction (+37.4, -12.0) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+48, -10) px; error plain 59 / corrected 22 px -> area correction (+40.4, -12.8) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+43, -9) px; error plain 58 / corrected 17 px -> area correction (+42.9, -13.4) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+41, -9) px; error plain 57 / corrected 14 px -> area correction (+45.0, -14.0) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+46, -6) px; error plain 66 / corrected 21 px -> area correction (+46.9, -14.3) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+49, -6) px; error plain 66 / corrected 20 px -> area correction (+48.8, -14.4) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+50, -4) px; error plain 66 / corrected 19 px -> area correction (+50.6, -14.4) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+49, -2) px; error plain 66 / corrected 18 px -> area correction (+52.5, -14.1) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+48, -1) px; error plain 67 / corrected 17 px -> area correction (+54.4, -13.7) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+46, -1) px; error plain 68 / corrected 16 px -> area correction (+56.2, -13.2) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+43, +0) px; error plain 67 / corrected 13 px -> area correction (+57.7, -12.7) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+40, +1) px; error plain 67 / corrected 11 px -> area correction (+59.0, -12.3) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+36, +1) px; error plain 66 / corrected 9 px -> area correction (+60.1, -12.1) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+35, +1) px; error plain 67 / corrected 9 px -> area correction (+61.0, -11.9) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+30, +2) px; error plain 68 / corrected 9 px -> area correction (+61.8, -11.8) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+28, +3) px; error plain 67 / corrected 8 px -> area correction (+62.4, -11.7) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+28, +3) px; error plain 69 / corrected 9 px -> area correction (+63.0, -11.6) px, 1 areas learned (learning)
+[Calibration] grid nudge left: dots [(1, 10.8), (2, 26.1), (5, 22.3), (6, 5.0), (8, 10.3), (9, 22.3)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 8.9), (3, 9.3), (4, 5.7), (5, 7.6), (7, 21.8), (8, 5.2), (9, 6.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(1, 9.2), (2, 26.3), (5, 22.2), (6, 4.9), (8, 9.1), (9, 23.3)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 8.9), (3, 8.9), (4, 5.3), (5, 8.9), (7, 19.9), (9, 7.7)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(1, 8.3), (2, 13.7), (5, 12.1), (8, 11.2), (9, 17.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 10.8), (3, 10.7), (5, 20.8), (7, 7.6), (8, 18.0)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] shutting down
+
+===== 2026-11-23 06:41:26.211755 start pid 25020 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 25020)
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] shutting down
+
+===== 2026-11-23 19:16:17.212643 start pid 14440 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14440)
+[Calibration] grid nudge left: dots [(1, 5.2), (2, 10.2), (5, 14.1), (8, 9.7), (9, 5.9)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 9.3), (3, 5.8), (5, 10.0), (7, 10.2), (8, 9.3)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [1] disagree (8.6 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [1] disagree (9.5 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 10.1), (5, 14.1), (8, 8.7), (9, 6.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 11.1), (5, 11.9), (7, 9.2), (8, 9.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 13.1), (5, 14.1), (8, 6.9), (9, 4.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 12.3), (5, 10.4), (7, 8.0), (8, 6.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 13.1), (5, 14.6), (8, 8.3), (9, 5.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 10.9), (5, 10.6), (7, 7.6), (8, 5.0)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 9.6), (3, 5.3), (5, 14.6), (7, 5.4), (8, 29.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 9.7), (5, 10.2), (7, 5.5), (8, 24.6), (9, 6.8)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [1, 2, 3, 8, 9] disagree (13.1, 13.4, 11.9, 26.1, 198.0 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [1, 2, 3, 8, 9] disagree (15.8, 16.3, 13.0, 28.5, 223.2 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 7.9), (3, 4.6), (5, 13.6), (8, 17.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.7), (2, 8.6), (3, 4.1), (5, 10.5), (7, 5.2), (8, 7.5), (9, 4.3)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 11.1), (5, 12.5), (8, 10.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.7), (2, 12.8), (5, 11.6), (7, 5.9), (8, 6.4)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check right: dots [1] disagree (8.2 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 10.5), (3, 5.3), (5, 13.3), (8, 9.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 12.5), (5, 11.9), (7, 5.1), (8, 6.0)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(2, 0.92), (4, 0.98), (6, 0.91)]
+[Calibration] right: reduced influence for dots [(3, 0.96), (8, 0.99)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_192412_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 81.3 px
+[Calibration] grid nudge left: dots [(1, 8.0), (2, 16.7), (5, 15.0), (8, 23.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 16.7), (5, 10.2), (8, 6.8)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [2, 8] disagree (17.8, 18.6 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [2, 8] disagree (20.6, 18.8 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 11.4), (3, 5.7), (5, 15.4), (8, 7.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 7.2), (5, 9.2)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 10.8), (5, 11.3), (8, 10.1), (9, 4.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 12.1), (3, 4.1), (5, 13.1), (7, 7.0), (8, 5.9)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 9.9), (3, 4.3), (5, 11.2), (8, 11.1), (9, 4.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 12.7), (5, 13.4), (7, 6.0)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 13.2), (3, 5.4), (5, 14.3), (8, 12.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 12.5), (5, 11.4)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [4] disagree (123.6 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [4, 8] disagree (220.9, 9.5 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 12.5), (3, 4.1), (5, 15.3), (8, 8.9)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 10.3), (5, 10.2), (7, 5.0)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 47.3), (5, 12.6), (8, 8.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 53.1), (5, 13.6), (7, 5.2), (8, 5.7)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [2] disagree (52.6 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [2] disagree (55.8 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 10.5), (3, 5.5), (5, 12.9), (8, 9.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 9.0), (5, 11.3), (8, 6.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 14.2), (5, 12.1), (8, 9.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.1), (2, 15.2), (5, 12.1), (7, 5.2), (8, 5.9)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 10.7), (3, 4.6), (5, 12.0), (8, 9.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 13.6), (5, 11.9), (7, 4.5), (8, 5.3)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(2, 0.85), (6, 0.92), (7, 0.96)]
+[Calibration] right: reduced influence for dots [(2, 0.8), (3, 0.91), (4, 0.79), (8, 0.85)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_192922_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 58.5 px
+[Calibration] grid nudge left: dots [(2, 17.4), (5, 15.2), (8, 14.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 16.0), (5, 11.4), (7, 7.1)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [1] disagree (9.8 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 15.1), (3, 5.9), (5, 15.9), (8, 14.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 12.1), (5, 10.8), (7, 5.2)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Python313\Lib\tkinter\__init__.py", line 2074, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Python313\Lib\tkinter\__init__.py", line 862, in callit
+    func(*args)
+    ~~~~^^^^^^^
+  File "E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\eye_view_window.py", line 475, in _render_loop
+    self._update_record_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\eye_view_window.py", line 499, in _update_record_status
+    self.rec_lbl.config(text=f"Recording… {left:.1f} s left  ·  frames L {rec.count['left']}  R {rec.count['right']}",
+                                          ^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+[Calibration] grid nudge left: dots [(2, 12.5), (3, 6.7), (5, 17.0), (8, 11.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 10.1), (5, 10.7), (8, 5.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 12.2), (3, 7.6), (5, 17.8), (8, 13.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.2), (2, 10.0), (5, 11.0)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 13.5), (3, 8.9), (5, 17.0), (8, 12.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 207.0), (5, 13.5), (8, 4.1)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check right: dots [2] disagree (218.3 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 11.7), (3, 9.6), (5, 16.5), (8, 12.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.2), (2, 9.4), (5, 12.9), (8, 5.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 14.1), (3, 5.8), (5, 16.3), (8, 11.9)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 5.8), (2, 9.7), (5, 11.3), (7, 4.4), (8, 5.8)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check right: dots [1] disagree (9.9 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 12.5), (3, 7.4), (5, 16.8), (8, 12.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 9.9), (5, 11.3), (8, 5.6)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(6, 0.89), (7, 0.97)]
+[Calibration] right: reduced influence for dots [(2, 0.79), (4, 0.89), (6, 0.85), (8, 0.81)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_193525_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 5792, 'right': 5795} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261123_193210_calibration
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 56.8 px
+[Calibration] grid nudge left: dots [(1, 4.4), (2, 12.7), (5, 15.3), (8, 4.8), (9, 6.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 7.5), (5, 8.3), (7, 4.8), (8, 8.3)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [7] disagree (207.8 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [7, 8] disagree (227.2, 8.6 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 12.8), (5, 15.0), (8, 7.0), (9, 6.3)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 7.0), (5, 8.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 13.4), (5, 15.5), (8, 5.3), (9, 4.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 5.0), (2, 6.8), (5, 8.5), (8, 12.4)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [1] disagree (9.1 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [1] disagree (11.0 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 12.6), (5, 15.1), (8, 6.9), (9, 4.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 7.1), (5, 9.2), (8, 9.3)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(4, 0.91), (6, 0.96), (7, 0.96)]
+[Calibration] right: reduced influence for dots [(2, 0.74), (6, 0.86)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_194402_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 4709, 'right': 4711} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261123_194124_calibration
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 74.6 px
+[Fine-tune] slip +1, +17 px; new dots vs current model after slip: 44, 13, 27, 26, 13, 6, 13, 24, 45 (limit 120)
+[Fine-tune] new dots: current map 24 px -> updated map 21 px; old dots (held out) 45 -> 32 px
+[Fine-tune] Map updated: new dots 24 -> 21 px, old dots 45 -> 32 px, slip (+1, +17) px learned. Saved data/calibrations/20261123_194627_ArcFit_finetune
+[TrackerService] Map updated: new dots 24 -> 21 px, old dots 45 -> 32 px, slip (+1, +17) px learned. Saved data/calibrations/20261123_194627_ArcFit_finetune
+[Fine-tune] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261123_194627_ArcFit_finetune\calibration_chart.png
+[TrackerService] Re-centred: shift (-3, -7) px
+[TrackerService] shutting down
+
+===== 2026-11-24 02:17:03.940511 start pid 3652 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 3652)
+[Calibration] grid nudge left: dots [(2, 11.8), (5, 12.6), (8, 11.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 5.9), (5, 9.0), (8, 5.1)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [1] disagree (124.3 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 11.1), (3, 4.1), (5, 13.5), (8, 12.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 7.2), (5, 9.0), (8, 4.1)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(1, 111.0), (2, 17.4), (5, 15.3), (7, 6.8), (8, 8.7), (9, 5.4)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 14.4), (2, 10.6), (5, 13.2), (8, 9.8)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [1, 2, 5, 7] disagree (78.5, 223.1, 241.9, 128.3 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(1, 18.2), (3, 18.4), (4, 43.2), (5, 28.1), (8, 6.0), (9, 32.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 12.8), (2, 10.3), (5, 13.9), (8, 8.3)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 13.3), (3, 5.6), (5, 14.1), (8, 14.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 7.9), (2, 12.6), (5, 16.7), (8, 4.6)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [2, 4, 5] disagree (223.8, 126.2, 243.5 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(1, 4.3), (2, 40.5), (5, 5.2), (7, 4.7), (8, 16.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 8.1), (2, 12.2), (5, 14.0), (8, 4.7)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 11.6), (3, 10.8), (5, 17.0), (7, 5.0), (8, 13.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 5.5), (2, 7.2), (5, 10.9), (8, 5.3)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 11.1), (3, 10.7), (5, 17.6), (7, 4.4), (8, 13.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 6.1), (2, 7.6), (5, 11.0), (8, 6.0)] camera px from the expected grid (pulled toward it)
+[Calibration] path check left: dots [1] disagree with the paths (288 px, limit 251) -> one more look
+[Calibration] path check right: dots [3] disagree with the paths (322 px, limit 313) -> one more look
+[Calibration] dot 1 left: readings blended by fit (288 px, 307 px -> weights 0.53, 0.47)
+[Calibration] left: reduced influence for dots [(1, 0.56), (4, 0.69), (7, 0.83)]
+[Calibration] dot 3 right: readings blended by fit (322 px, 323 px -> weights 0.50, 0.50)
+[Calibration] right: reduced influence for dots [(2, 0.91), (3, 0.56), (6, 0.7), (7, 0.78)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_022736_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3492, 'right': 3492} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_022539_calibration
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 58.3 px
+[Fine-tune] slip -10, +63 px; new dots vs current model after slip: 46, 185, 69, 41, 11, 67, 19, 124, 44 (limit 120)
+[Fine-tune] path check right: dots [2, 5, 6] disagree (316, 231, 187 px)
+[Fine-tune] extra look at new dot 2 added as its own data point
+[Fine-tune] extra look at new dot 8 added as its own data point
+[Fine-tune] extra look at old dot 3 added as its own data point
+[Fine-tune] extra look at old dot 6 added as its own data point
+[Fine-tune] extra look at old dot 7 added as its own data point
+[Fine-tune] new dots: current map 67 px -> updated map 38 px; old dots (held out) 138 -> 159 px
+[Fine-tune] Map kept (map update skipped: it would make the old dots worse (new dots 67 -> 38 px, old dots 138 -> 159 px)); slip learned, correction now (+10, -63) px
+[TrackerService] Map kept (map update skipped: it would make the old dots worse (new dots 67 -> 38 px, old dots 138 -> 159 px)); slip learned, correction now (+10, -63) px
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] saved {'left': 111, 'right': 111} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_023016_calibration
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Python313\Lib\tkinter\__init__.py", line 2074, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Python313\Lib\tkinter\__init__.py", line 862, in callit
+    func(*args)
+    ~~~~^^^^^^^
+  File "E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\eye_view_window.py", line 475, in _render_loop
+    self._update_record_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\eye_view_window.py", line 499, in _update_record_status
+    self.rec_lbl.config(text=f"Recording… {left:.1f} s left  ·  frames L {rec.count['left']}  R {rec.count['right']}",
+                                          ^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+[Calibration] grid nudge left: dots [(2, 17.1), (3, 4.2), (5, 18.9), (7, 4.5), (8, 10.3), (9, 4.9)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 9.1), (5, 11.4), (8, 10.0)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] saved {'left': 793, 'right': 793} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_023033_calibration
+[Calibration] grid nudge left: dots [(2, 122.6), (3, 7.6), (5, 18.2), (8, 13.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 15.4), (2, 12.4), (5, 14.0), (8, 9.0)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check left: dots [2, 3, 5] disagree (109.8, 111.9, 233.1 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 15.9), (3, 9.0), (5, 16.0), (8, 12.9)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 13.0), (2, 10.0), (5, 14.8), (8, 9.3)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] saved {'left': 1956, 'right': 1960} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_023107_calibration
+[Recorder] saved {'left': 244, 'right': 244} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_023229_eyeview
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Python313\Lib\tkinter\__init__.py", line 2074, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Python313\Lib\tkinter\__init__.py", line 862, in callit
+    func(*args)
+    ~~~~^^^^^^^
+  File "E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\eye_view_window.py", line 475, in _render_loop
+    self._update_record_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\eye_view_window.py", line 499, in _update_record_status
+    self.rec_lbl.config(text=f"Recording… {left:.1f} s left  ·  frames L {rec.count['left']}  R {rec.count['right']}",
+                                          ^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] saved {'left': 299, 'right': 299} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_023319_calibration
+[Calibration] grid nudge left: dots [(2, 25.3), (3, 8.5), (5, 31.0), (7, 4.8), (8, 22.5), (9, 7.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 23.7), (3, 9.7), (5, 30.9), (7, 4.6), (8, 23.3), (9, 6.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 4.2)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 17.9), (5, 19.8), (8, 15.8), (9, 9.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 11.7), (5, 12.2), (7, 6.6), (8, 10.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 18.1), (3, 4.4), (5, 20.8), (8, 16.3), (9, 8.5)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(2, 10.3), (5, 11.2), (7, 5.4), (8, 11.6)] camera px from the expected grid (pulled toward it)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] grid nudge left: dots [(2, 17.4), (3, 9.0), (5, 21.8), (8, 19.8)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 22.8), (4, 16.2), (5, 7.3), (7, 43.2), (8, 6.3)] camera px from the expected grid (pulled toward it)
+[Calibration] repeat check right: dots [7] disagree (56.2 camera px, limit 8) -> one more look
+[Calibration] grid nudge left: dots [(2, 16.5), (3, 9.7), (5, 20.7), (8, 21.2)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 10.6), (2, 9.0), (5, 13.4), (8, 13.7)] camera px from the expected grid (pulled toward it)
+[Calibration] path check left: dots [1, 4] disagree with the paths (383, 225 px, limit 190) -> one more look
+[Calibration] dot 1 left: readings blended by fit (383 px, 243 px -> weights 0.30, 0.70)
+[Calibration] dot 4 left: readings blended by fit (227 px, 221 px -> weights 0.49, 0.51)
+[Calibration] left: reduced influence for dots [(1, 0.72), (2, 0.71), (4, 0.69), (5, 0.92)]
+[Calibration] right: reduced influence for dots [(2, 0.85), (3, 0.97), (6, 0.91), (9, 0.89)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_024101_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3648, 'right': 3649} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_023859_calibration
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 30.5 px
+[Fine-tune] slip +12, +1 px; new dots vs current model after slip: 46, 20, 31, 15, 17, 37, 13, 69, 68 (limit 120)
+[Fine-tune] new dots: current map 35 px -> updated map 35 px; old dots (held out) 55 -> 49 px
+[Fine-tune] Map updated: new dots 35 -> 35 px, old dots 55 -> 49 px, slip (+12, +1) px learned. Saved data/calibrations/20261124_024222_ArcFit_finetune
+[TrackerService] Map updated: new dots 35 -> 35 px, old dots 55 -> 49 px, slip (+12, +1) px learned. Saved data/calibrations/20261124_024222_ArcFit_finetune
+[Fine-tune] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_024222_ArcFit_finetune\calibration_chart.png
+[Calibration] grid nudge left: dots [(2, 26.1), (3, 12.0), (5, 31.0), (8, 26.5), (9, 7.7)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.4), (2, 4.9), (8, 10.6)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge left: dots [(2, 24.0), (3, 14.2), (5, 31.2), (8, 26.6), (9, 8.1)] camera px from the expected grid (pulled toward it)
+[Calibration] grid nudge right: dots [(1, 4.9), (2, 4.3), (8, 9.2)] camera px from the expected grid (pulled toward it)
+[Calibration] left: reduced influence for dots [(1, 0.99), (3, 0.95), (6, 0.97), (7, 0.85)]
+[Calibration] right: reduced influence for dots [(2, 0.6), (3, 0.95), (7, 0.86), (8, 0.91)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_024534_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3527, 'right': 3537} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_024335_calibration
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 52.7 px
+[Fine-tune] slip +69, -27 px; new dots vs current model after slip: 17, 11, 44, 152, 9, 11, 30, 16, 52 (limit 120)
+[Fine-tune] path check left: dots [6] disagree (196 px)
+[Fine-tune] path check right: dots [6, 12] disagree (154, 160 px)
+[Fine-tune] extra look at new dot 4 added as its own data point
+[Fine-tune] extra look at old dot 7 added as its own data point
+[Fine-tune] new dots: current map 38 px -> updated map 38 px; old dots (held out) 55 -> 47 px
+[Fine-tune] Map updated: new dots 38 -> 38 px, old dots 55 -> 47 px, slip (+69, -27) px learned. Saved data/calibrations/20261124_024634_ArcFit_finetune
+[TrackerService] Map updated: new dots 38 -> 38 px, old dots 55 -> 47 px, slip (+69, -27) px learned. Saved data/calibrations/20261124_024634_ArcFit_finetune
+[Fine-tune] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_024634_ArcFit_finetune\calibration_chart.png
+[TrackerService] shutting down
+
+===== 2026-11-24 03:09:56.899653 start pid 2416 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 2416)
+[Controller] right detector error: index 1024 is out of bounds for axis 0 with size 7
+[Controller] right detector error: index 1024 is out of bounds for axis 0 with size 11
+[Controller] left detector error: index 1024 is out of bounds for axis 0 with size 3
+[Calibration] path check right: dots [2] disagree with the paths (123 px, limit 120) -> one more look
+[Calibration] left: reduced influence for dots [(1, 0.81), (2, 0.88), (4, 0.95), (7, 0.98)]
+[Calibration] dot 2 right: readings blended by fit (123 px, 80 px -> weights 0.35, 0.65)
+[Calibration] right: reduced influence for dots [(2, 0.76), (3, 0.97), (8, 0.86)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_031231_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3400, 'right': 3390} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_031038_calibration
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 68.4 px
+[TrackerService] shutting down
+
+===== 2026-11-24 03:13:21.649130 start pid 15840 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15840)
+[Calibration] repeat check left: dots [1] disagree (104.6 camera px, limit 8) -> one more look
+[Calibration] left: reduced influence for dots [(2, 0.64), (8, 0.79)]
+[Calibration] right: reduced influence for dots [(2, 0.89), (3, 0.63), (6, 0.91), (7, 0.66)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_031531_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3398, 'right': 3399} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_031338_calibration
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 68.2 px
+[TrackerService] shutting down
+
+===== 2026-11-24 03:30:15.760603 start pid 11008 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 11008)
+[Calibration] repeat check left: dots [1, 2, 3] disagree (100.4, 201.1, 323.4 camera px, limit 8) -> one more look
+[Calibration] path check left: dots [2] disagree with the paths (199 px, limit 170) -> one more look
+[Calibration] dot 2 left: readings blended by fit (199 px, 3572 px -> weights 1.00, 0.00)
+[Calibration] left: reduced influence for dots [(1, 0.7), (2, 0.48), (3, 0.74), (8, 0.93)]
+[Calibration] right: reduced influence for dots [(2, 0.69), (8, 0.89)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_033307_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3622, 'right': 3614} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_033106_calibration
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 54.9 px
+[Calibration] path check right: dots [2] disagree with the paths (126 px, limit 120) -> one more look
+[Calibration] left: reduced influence for dots [(2, 0.59), (8, 0.67)]
+[Calibration] dot 2 right: readings blended by fit (126 px, 138 px -> weights 0.54, 0.46)
+[Calibration] right: reduced influence for dots [(2, 0.54), (8, 0.68)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_033530_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3402, 'right': 3405} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_033337_calibration
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 40.7 px
+[TrackerService] shutting down
+
+===== 2026-11-24 03:45:32.075809 start pid 21936 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21936)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] discarded (deleted) E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_034549_calibration
+[Calibration] repeat check left: dots [1] disagree (120.9 camera px, limit 8) -> one more look
+[Calibration] left: reduced influence for dots [(2, 0.74), (7, 0.92), (8, 0.76)]
+[Calibration] right: reduced influence for dots [(2, 0.77), (7, 0.97), (8, 0.73)]
+[Calibration] end shift (-86, +21) px applied · VAL 89.3 -> 37.0 px (leave-one-out)
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_034845_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3487, 'right': 3491} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_034648_calibration
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 37.0 px
+[TrackerService] shutting down
+
+===== 2026-11-24 04:02:07.674494 start pid 20812 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 20812)
+[ WARN:0@0.004] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-24 05:39:51.626771 start pid 4544 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 4544)
+[TrackerService] shutting down
+
+===== 2026-11-24 05:40:23.570120 start pid 3184 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 3184)
+[Calibration] repeat check left: dots [2, 3] disagree (194.3, 320.8 camera px, limit 8) -> one more look
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] discarded (deleted) E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_054147_calibration
+[Calibration] path check left: dots [2] disagree with the paths (123 px, limit 120) -> one more look
+[Calibration] dot 2 left: readings blended by fit (123 px, 154 px -> weights 0.59, 0.41)
+[Calibration] left: reduced influence for dots [(2, 0.51), (8, 0.78)]
+[Calibration] right: reduced influence for dots [(2, 0.76), (8, 0.77)]
+[Calibration] end shift (-56, +40) px applied · VAL 71.7 -> 17.0 px (leave-one-out)
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_054649_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3914, 'right': 3919} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_054437_calibration
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 17.0 px
+[Calibration] left: reduced influence for dots [(2, 0.73), (7, 0.84), (8, 0.88)]
+[Calibration] right: reduced influence for dots [(2, 0.72), (6, 0.99), (7, 0.96), (8, 0.91)]
+[Calibration] end shift (-17, -32) px applied · VAL 39.7 -> 14.3 px (leave-one-out)
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_055133_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3937, 'right': 3947} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_054920_calibration
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 14.3 px
+[TrackerService] shutting down
+
+===== 2026-11-24 06:06:03.280215 start pid 22588 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 22588)
+[Calibration] repeat check left: dots [1, 2, 3] disagree (120.9, 216.4, 311.0 camera px, limit 8) -> one more look
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] discarded (deleted) E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_060757_calibration
+[Calibration] left: reduced influence for dots [(2, 0.85), (7, 0.98), (9, 0.94)]
+[Calibration] right: reduced influence for dots [(2, 0.99), (9, 0.91)]
+[Calibration] end shift (+11, +83) px applied · VAL 84.7 -> 9.6 px (leave-one-out)
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_061111_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3849, 'right': 3850} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_060902_calibration
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 9.6 px
+[Fine-tune] weak-area dots (score 0-1): (355,237) 0.63, (960,86) 0.39, (1766,86) 0.77, (153,540) 0.42, (1161,388) 0.68, (1363,691) 0.61, (153,993) 0.93, (960,993) 0.95, (1363,993) 0.98, (556,993) 0.81, (355,842) 0.7, (1363,237) 0.68, (153,86) 0.62
+[Fine-tune] slip -71, -86 px; new dots vs current model after slip: 21, 29, 21, 26, 4, 2, 37, 110, 30, 53, 40, 32, 40 (limit 120)
+[Fine-tune] path check right: dots [16] disagree (124 px)
+[Fine-tune] extra look at new dot 8 added as its own data point
+[Fine-tune] new dots: current map 34 px -> updated map 38 px; old dots (held out) 28 -> 18 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 34 -> 38 px, old dots 28 -> 18 px)); slip learned, correction now (+71, +86) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 34 -> 38 px, old dots 28 -> 18 px)); slip learned, correction now (+71, +86) px
+[Calibration] left: reduced influence for dots [(2, 0.6), (8, 0.7)]
+[Calibration] right: reduced influence for dots [(2, 0.84), (6, 0.91), (8, 0.88)]
+[Calibration] end shift (-50, +14) px applied · VAL 53.6 -> 11.7 px (leave-one-out)
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_061527_ArcFit\calibration_chart.png
+[Recorder] saved {'left': 3820, 'right': 3840} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_061318_calibration
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 11.7 px
+[Fine-tune] weak-area dots (score 0-1): (355,237) 0.82, (758,86) 0.89, (1363,237) 0.99, (153,540) 0.93, (758,691) 0.96, (1363,388) 0.93, (153,993) 0.5, (1161,993) 0.85, (1363,993) 0.75, (1766,540) 0.71, (1161,540) 0.7, (1766,993) 0.63, (556,540) 0.61
+[Fine-tune] slip -4, -17 px; new dots vs current model after slip: 10, 1399, 19, 16, 3, 11, 21, 16, 41, 12, 25, 30, 10 (limit 120)
+[Fine-tune] path check left: dots [0, 1, 3, 8, 10, 20] disagree (227, 157, 153, 182, 2831, 126 px)
+[Fine-tune] extra look at new dot 2 added as its own data point
+[Fine-tune] extra look at new dot 12 added as its own data point
+[Fine-tune] extra look at old dot 1 added as its own data point
+[Fine-tune] extra look at old dot 2 added as its own data point
+[Fine-tune] extra look at old dot 4 added as its own data point
+[Fine-tune] extra look at old dot 9 added as its own data point
+[Fine-tune] new dots: current map 124 px -> updated map 141 px; old dots (held out) 33 -> 45 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 124 -> 141 px, old dots 33 -> 45 px)); slip learned, correction now (+4, +17) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 124 -> 141 px, old dots 33 -> 45 px)); slip learned, correction now (+4, +17) px
+[Fine-tune] weak-area dots (score 0-1): (355,237) 0.82, (758,86) 0.89, (1363,237) 0.99, (153,540) 0.93, (758,691) 0.96, (1363,388) 0.93, (153,993) 0.5, (1161,993) 0.85, (1363,993) 0.75, (1766,540) 0.71, (1161,540) 0.7, (1766,993) 0.63, (556,540) 0.61
+[Fine-tune] slip -46, +11 px; new dots vs current model after slip: 38, 30, 2, 34, 3, 11, 31, 31, 11, 6, 10, 48, 25 (limit 120)
+[Fine-tune] new dots: current map 22 px -> updated map 28 px; old dots (held out) 33 -> 20 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 22 -> 28 px, old dots 33 -> 20 px)); slip learned, correction now (+46, -11) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 22 -> 28 px, old dots 33 -> 20 px)); slip learned, correction now (+46, -11) px
+[Calibration] repeat check left: dots [1, 2, 3] disagree (121.4, 211.9, 321.2 camera px, limit 8) -> one more look
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] discarded (deleted) E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_062247_calibration
+[Recorder] discarded (deleted) E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_062140_calibration
+[Calibration] repeat check left: dots [2, 3] disagree (214.3, 306.4 camera px, limit 8) -> one more look
+[Calibration] path check left: dots [1] disagree with the paths (2176 px, limit 356) -> one more look
+[Calibration] dot 1 left: readings blended by fit (2176 px, 2386 px -> weights 0.55, 0.45)
+[Calibration] left: reduced influence for dots [(1, 0.03), (2, 0.98), (3, 0.98), (4, 0.97)]
+[Calibration] right: reduced influence for dots [(2, 0.76), (8, 0.93)]
+[Calibration] end shift (+25, +22) px applied · VAL 33.9 -> 6.3 px (leave-one-out)
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_062521_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 6.3 px
+[Calibration] path check left: dots [2] disagree with the paths (134 px, limit 120) -> one more look
+[Calibration] dot 2 left: readings blended by fit (134 px, 3711 px -> weights 1.00, 0.00)
+[Calibration] left: reduced influence for dots [(2, 0.52), (7, 0.96), (8, 0.73)]
+[Calibration] right: reduced influence for dots [(2, 0.85), (8, 0.78)]
+[Calibration] end shift (-60, +47) px applied · VAL 74.8 -> 27.2 px (leave-one-out)
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_062838_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 27.2 px
+[Fine-tune] weak-area dots (score 0-1): (153,86) 0.99, (1161,86) 0.43, (1363,237) 0.92, (355,540) 0.61, (1161,388) 0.82, (1766,540) 0.88, (355,842) 0.73, (960,993) 0.3, (1363,842) 0.63, (556,237) 0.67, (758,388) 0.64, (1363,540) 0.56, (556,691) 0.54
+[Fine-tune] slip +102, +27 px; new dots vs current model after slip: 1312, 29, 38, 10, 1760, 10, 11, 48, 5, 19, 1, 13, 8 (limit 120)
+[Fine-tune] path check left: dots [0, 3, 9, 13] disagree (304, 180, 371, 1123 px)
+[Fine-tune] extra look at new dot 1 added as its own data point
+[Fine-tune] extra look at new dot 5 added as its own data point
+[Fine-tune] extra look at old dot 1 added as its own data point
+[Fine-tune] extra look at old dot 4 added as its own data point
+[Fine-tune] new dots: current map 251 px -> updated map 92 px; old dots (held out) 30 -> 95 px
+[Fine-tune] Map kept (map update skipped: it would make the old dots worse (new dots 251 -> 92 px, old dots 30 -> 95 px)); slip learned, correction now (-102, -27) px
+[TrackerService] Map kept (map update skipped: it would make the old dots worse (new dots 251 -> 92 px, old dots 30 -> 95 px)); slip learned, correction now (-102, -27) px
+[TrackerService] shutting down
+
+===== 2026-11-24 07:19:32.749010 start pid 20324 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 20324)
+[Calibration] repeat check left: dots [1, 5] disagree (94.4, 243.3 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [2, 3] disagree (211.9, 92.5 camera px, limit 8) -> one more look
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] repeat check left: dots [2] disagree (221.4 camera px, limit 8) -> one more look
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] left: reduced influence for dots [(2, 0.61), (8, 0.76)]
+[Calibration] right: reduced influence for dots [(1, 0.91), (2, 0.64), (6, 0.98), (8, 0.86)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_072558_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 47.9 px
+[Fine-tune] weak-area dots (score 0-1): (153,86) 0.95, (1161,86) 0.9, (1363,86) 0.89, (153,540) 0.98, (758,540) 0.71, (1564,540) 0.71, (556,993) 0.45, (1161,993) 0.65, (1363,993) 0.64, (1766,86) 0.77, (1564,237) 0.56, (556,86) 0.52
+[Fine-tune] slip +54, +77 px; new dots vs current model after slip: 51, 10, 9, 42, 17, 22, 21, 26, 10, 6, 23, 18 (limit 120)
+[Fine-tune] new dots: current map 21 px -> updated map 26 px; old dots (held out) 43 -> 20 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 21 -> 26 px, old dots 43 -> 20 px)); slip learned, correction now (-54, -77) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 21 -> 26 px, old dots 43 -> 20 px)); slip learned, correction now (-54, -77) px
+[TrackerService] shutting down
+
+===== 2026-11-24 07:37:17.933400 start pid 11256 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 11256)
+[TrackerService] shutting down
+
+===== 2026-11-24 07:37:43.278318 start pid 2664 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 2664)
+[Calibration] repeat check left: dots [8] disagree (11.5 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [8] disagree (10.4 camera px, limit 8) -> one more look
+[Calibration] left: reduced influence for dots [(2, 0.88)]
+[Calibration] right: reduced influence for dots [(2, 0.82)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_074008_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 57.1 px
+[Fine-tune] weak-area dots (score 0-1): (355,237) 0.8, (758,86) 0.21, (1363,86) 0.62, (355,540) 0.68, (1161,388) 0.55, (1363,691) 0.77, (355,993) 0.93, (758,993) 0.99, (1363,842) 0.75, (1766,993) 0.62, (153,86) 0.61, (1161,993) 0.55, (1564,540) 0.54
+[Fine-tune] slip +51, +24 px; new dots vs current model after slip: 0, 38, 18, 29, 9, 38, 50, 207, 5, 47, 7, 142, 11 (limit 120)
+[Fine-tune] path check left: dots [16, 20] disagree (221, 198 px)
+[Fine-tune] path check right: dots [16, 20] disagree (240, 168 px)
+[Fine-tune] extra look at new dot 8 added as its own data point
+[Fine-tune] extra look at new dot 12 added as its own data point
+[Fine-tune] new dots: current map 46 px -> updated map 52 px; old dots (held out) 19 -> 19 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 46 -> 52 px, old dots 19 -> 19 px)); slip learned, correction now (-51, -24) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 46 -> 52 px, old dots 19 -> 19 px)); slip learned, correction now (-51, -24) px
+[TrackerService] shutting down
+
+===== 2026-11-24 07:56:07.781815 start pid 14820 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14820)
+[TrackerService] shutting down
+
+===== 2026-11-24 07:56:14.726776 start pid 20168 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 20168)
+[Calibration] left: reduced influence for dots [(2, 0.87), (8, 0.95)]
+[Calibration] right: reduced influence for dots [(2, 0.89), (8, 0.96)]
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_075838_ArcFit\calibration_chart.png
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 20.4 px
+[Fine-tune] weak-area dots (score 0-1): (355,237) 0.95, (758,86) 0.49, (1363,237) 0.8, (153,540) 0.69, (758,388) 0.7, (1363,691) 0.67, (153,993) 0.73, (1161,993) 0.58, (1363,842) 0.79, (1564,993) 0.69, (556,842) 0.58, (153,86) 0.52, (1161,388) 0.51
+[Fine-tune] slip -27, +21 px; new dots vs current model after slip: 34, 18, 12, 0, 21, 5, 24, 22, 12, 22, 18, 4, 16 (limit 120)
+[Fine-tune] new dots: current map 16 px -> updated map 21 px; old dots (held out) 32 -> 19 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 16 -> 21 px, old dots 32 -> 19 px)); slip learned, correction now (+27, -21) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 16 -> 21 px, old dots 32 -> 19 px)); slip learned, correction now (+27, -21) px
+[TrackerService] shutting down
+
+===== 2026-11-24 08:12:26.239919 start pid 15996 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15996)
+[Calibration] left: reduced influence for dots [(2, 0.83), (8, 0.79)]
+[Calibration] right: reduced influence for dots [(2, 0.88), (8, 0.91)]
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 58.9 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_081503_ArcFit\calibration_chart.png
+[TrackerService] Re-centred: shift (+48, -45) px
+[Calibration] path check right: dots [2] disagree with the paths (128 px, limit 120) -> one more look
+[Calibration] left: reduced influence for dots [(2, 0.77), (8, 0.94)]
+[Calibration] dot 2 right: readings blended by fit (128 px, 146 px -> weights 0.56, 0.44)
+[Calibration] right: reduced influence for dots [(2, 0.52)]
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 67.2 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_082047_ArcFit\calibration_chart.png
+[Fine-tune] slip +6, +46 px; new dots vs current model after slip: 27, 19, 11, 4, 0, 16, 28, 9, 18 (limit 120)
+[Fine-tune] new dots: current map 15 px -> updated map 22 px; old dots (held out) 26 -> 20 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 15 -> 22 px, old dots 26 -> 20 px)); slip learned, correction now (-6, -46) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 15 -> 22 px, old dots 26 -> 20 px)); slip learned, correction now (-6, -46) px
+[TrackerService] shutting down
+
+===== 2026-11-24 08:26:22.831007 start pid 15376 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15376)
+[Calibration] left: reduced influence for dots [(2, 0.88), (7, 0.99)]
+[Calibration] right: reduced influence for dots [(2, 0.96)]
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 81.3 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_082903_ArcFit\calibration_chart.png
+[TrackerService] Calibration cancelled · previous calibration kept
+[Controller] left detector error: index 1024 is out of bounds for axis 0 with size 85
+[Calibration] left: reduced influence for dots [(2, 0.82), (7, 0.96)]
+[Calibration] right: reduced influence for dots [(2, 0.91)]
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 61.0 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_083251_ArcFit\calibration_chart.png
+[TrackerService] shutting down
+
+===== 2026-11-24 08:36:52.162649 start pid 18440 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 18440)
+[Controller] right detector error: index 1024 is out of bounds for axis 0 with size 55
+[Calibration] left: reduced influence for dots [(2, 0.69), (7, 0.94), (8, 0.83)]
+[Calibration] right: reduced influence for dots [(2, 0.73), (8, 0.88)]
+[Recorder] saved {'left': 3878, 'right': 3879} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_083725_calibration
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 108.5 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_083937_ArcFit\calibration_chart.png
+[TrackerService] shutting down
+
+===== 2026-11-24 08:42:07.905725 start pid 14464 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14464)
+[TrackerService] shutting down
+
+===== 2026-11-24 08:42:26.658554 start pid 14720 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14720)
+
+===== 2026-11-24 08:42:44.552627 start pid 3108 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 3108)
+
+===== 2026-11-24 08:42:56.629250 start pid 19612 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 19612)
+[Calibration] left: reduced influence for dots [(2, 0.79), (7, 0.87), (8, 0.88)]
+[Calibration] right: reduced influence for dots [(2, 0.85), (7, 0.93), (8, 0.98)]
+[Recorder] saved {'left': 3335, 'right': 3336} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_084325_calibration
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 104.8 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_084519_ArcFit\calibration_chart.png
+[TrackerService] Calibration cancelled · previous calibration kept
+[Recorder] discarded (deleted) E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_084534_calibration
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] left: reduced influence for dots [(2, 0.62), (8, 0.86)]
+[Calibration] right: reduced influence for dots [(2, 0.73), (8, 0.95)]
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 79.5 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_084904_ArcFit\calibration_chart.png
+[TrackerService] shutting down
+
+===== 2026-11-24 08:51:51.360307 start pid 18856 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 18856)
+[Calibration] left: reduced influence for dots [(2, 0.74)]
+[Calibration] right: reduced influence for dots [(2, 0.79)]
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 44.2 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_085427_ArcFit\calibration_chart.png
+[Calibration] left: reduced influence for dots [(2, 0.86), (8, 0.93)]
+[Calibration] right: reduced influence for dots [(2, 0.75), (8, 0.98)]
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 27.8 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_085812_ArcFit\calibration_chart.png
+[TrackerService] shutting down
+
+===== 2026-11-24 21:50:11.965631 start pid 23272 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 23272)
+[TrackerService] shutting down
+
+===== 2026-11-24 21:50:44.745568 start pid 21556 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21556)
+[Calibration] left: reduced influence for dots [(2, 0.63), (7, 0.92), (8, 0.88), (9, 0.97)]
+[Calibration] right: reduced influence for dots [(2, 0.79), (8, 0.99), (9, 0.9)]
+[Recorder] saved {'left': 3803, 'right': 3801} frames (0 dropped) -> E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\recordings\20261124_215127_calibration
+[TrackerService] Calibration complete · Grade C [ACCEPTABLE - USABLE] · mean error 58.1 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_215336_ArcFit\calibration_chart.png
+[TrackerService] shutting down
+
+===== 2026-11-24 21:54:28.932851 start pid 4580 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 4580)
+[TrackerService] shutting down
+
+===== 2026-11-24 21:56:49.668020 start pid 5740 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 5740)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] left: reduced influence for dots [(2, 0.58), (9, 0.98)]
+[Calibration] right: reduced influence for dots [(2, 0.6)]
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 75.6 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261124_220148_ArcFit\calibration_chart.png
+[TrackerService] Re-centred: shift (+46, -28) px
+[Fine-tune] slip -59, +17 px; new dots vs current model after slip: 5, 12, 8, 5, 16, 12, 5, 31, 37 (limit 120)
+[Fine-tune] new dots: current map 15 px -> updated map 18 px; old dots (held out) 38 -> 22 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 15 -> 18 px, old dots 38 -> 22 px)); slip learned, correction now (+59, -17) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 15 -> 18 px, old dots 38 -> 22 px)); slip learned, correction now (+59, -17) px
+[TrackerService] shutting down
+
+===== 2026-11-24 22:54:18.106437 start pid 11456 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 11456)
+[ WARN:0@0.004] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[EMG] opened COM1
+[EMG] port closed (EMG off, view closed)
+[EMG] opened COM1
+[EMG] opened COM1
+[EMG] opened COM3
+[EMG] auto-calibrate: rest 41 (high 53), squeeze 238 -> threshold 120, release 70
+[EMG] port closed (EMG off, view closed)
+[EMG] opened COM3
+[EMG] COM3 lost, reconnecting
+[TrackerService] shutting down
+
+===== 2026-11-24 23:08:25.422085 start pid 8008 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 8008)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-25 00:52:38.402627 start pid 22632 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 22632)
+[Calibration] left: reduced influence for dots [(8, 0.87)]
+[Calibration] right: reduced influence for dots [(2, 0.81), (8, 0.9)]
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 26.6 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_005609_ArcFit\calibration_chart.png
+[Fine-tune] slip +9, +78 px; new dots vs current model after slip: 36, 1489, 30, 44, 6, 13, 16, 30, 27 (limit 120)
+[Fine-tune] path check left: dots [0, 10] disagree (219, 2992 px)
+[Fine-tune] extra look at new dot 2 added as its own data point
+[Fine-tune] extra look at old dot 1 added as its own data point
+[Fine-tune] new dots: current map 188 px -> updated map 157 px; old dots (held out) 28 -> 59 px
+[Fine-tune] Map kept (map update skipped: it would make the old dots worse (new dots 188 -> 157 px, old dots 28 -> 59 px)); slip learned, correction now (-9, -78) px
+[TrackerService] Map kept (map update skipped: it would make the old dots worse (new dots 188 -> 157 px, old dots 28 -> 59 px)); slip learned, correction now (-9, -78) px
+[AutoRecentre] area (4, 4): selection off by (-3, -25) px; error plain 28 / corrected 28 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (5, 4): selection off by (+12, -24) px; error plain 24 / corrected 24 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (7, 4): selection off by (+12, -18) px; error plain 21 / corrected 21 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (8, 4): selection off by (+6, -12) px; error plain 26 / corrected 26 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (9, 4): selection off by (+24, -13) px; error plain 20 / corrected 20 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (2, 4): selection off by (-10, -15) px; error plain 17 / corrected 17 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (1, 4): selection off by (-8, -16) px; error plain 16 / corrected 16 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (0, 4): selection off by (-2, -21) px; error plain 23 / corrected 23 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (-6, -20) px; error plain 18 / corrected 18 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (-3, -7) px; error plain 31 / corrected 31 px -> area correction (+0.0, +0.0) px, 0 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (-9, -33) px; error plain 36 / corrected 36 px -> area correction (-1.4, -4.8) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (-9, -34) px; error plain 35 / corrected 31 px -> area correction (-2.6, -8.9) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (-6, -33) px; error plain 32 / corrected 24 px -> area correction (-3.3, -12.5) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (-4, -32) px; error plain 31 / corrected 19 px -> area correction (-3.7, -15.4) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (-2, -31) px; error plain 29 / corrected 16 px -> area correction (-3.7, -18.0) px, 1 areas learned (learning)
+[AutoRecentre] area (0, 6): selection off by (+0, -30) px; error plain 29 / corrected 12 px -> area correction (-3.4, -19.9) px, 1 areas learned (learning)
+[AutoRecentre] area (8, 6): selection off by (+42, -43) px; error plain 48 / corrected 48 px -> area correction (+0.0, +0.0) px, 1 areas learned (learning)
+[AutoRecentre] area (9, 6): selection off by (+23, -41) px; error plain 37 / corrected 37 px -> area correction (+0.0, +0.0) px, 1 areas learned (learning)
+[AutoRecentre] area (9, 6): selection off by (-0, -32) px; error plain 25 / corrected 25 px -> area correction (-0.9, -4.5) px, 2 areas learned (learning)
+[AutoRecentre] area (9, 6): selection off by (-6, -21) px; error plain 15 / corrected 12 px -> area correction (-1.9, -7.3) px, 2 areas learned (learning)
+[AutoRecentre] area (8, 6): selection off by (-54, -3) px; error plain 26 / corrected 24 px -> area correction (-3.6, -3.4) px, 3 areas learned (learning)
+[AutoRecentre] area (8, 6): selection off by (-36, -3) px; error plain 29 / corrected 26 px -> area correction (-6.9, -5.3) px, 3 areas learned (learning)
+[AutoRecentre] area (8, 6): selection off by (-30, -3) px; error plain 26 / corrected 21 px -> area correction (-9.7, -6.4) px, 3 areas learned (learning)
+[AutoRecentre] area (8, 6): selection off by (-28, -1) px; error plain 25 / corrected 19 px -> area correction (-12.1, -7.1) px, 3 areas learned (learning)
+[AutoRecentre] area (8, 6): selection off by (-25, +2) px; error plain 25 / corrected 18 px -> area correction (-14.2, -6.3) px, 3 areas learned (learning)
+[AutoRecentre] area (6, 6): selection off by (-49, -7) px; error plain 31 / corrected 18 px -> area correction (+0.0, +0.0) px, 3 areas learned (learning)
+[AutoRecentre] area (6, 6): selection off by (-32, -11) px; error plain 31 / corrected 18 px -> area correction (-4.0, -2.5) px, 4 areas learned (learning)
+[AutoRecentre] area (6, 6): selection off by (-24, -11) px; error plain 29 / corrected 22 px -> area correction (-7.2, -4.6) px, 4 areas learned (learning)
+[AutoRecentre] area (6, 6): selection off by (-20, -11) px; error plain 30 / corrected 20 px -> area correction (-10.0, -6.3) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 6): selection off by (-41, -15) px; error plain 21 / corrected 12 px -> area correction (+0.0, +0.0) px, 4 areas learned (learning)
+[AutoRecentre] area (5, 6): selection off by (-18, -16) px; error plain 21 / corrected 14 px -> area correction (-1.4, -2.8) px, 5 areas learned (learning)
+[AutoRecentre] area (5, 6): selection off by (-11, -17) px; error plain 22 / corrected 18 px -> area correction (-2.6, -5.3) px, 5 areas learned (learning)
+[AutoRecentre] area (5, 6): selection off by (-5, -18) px; error plain 23 / corrected 17 px -> area correction (-3.5, -7.5) px, 5 areas learned (learning)
+[AutoRecentre] area (5, 6): selection off by (-3, -18) px; error plain 24 / corrected 16 px -> area correction (-4.2, -9.4) px, 5 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (-37, -23) px; error plain 35 / corrected 27 px -> area correction (-0.1, -3.9) px, 6 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (-15, -25) px; error plain 32 / corrected 28 px -> area correction (-0.1, -7.5) px, 6 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (-4, -24) px; error plain 30 / corrected 23 px -> area correction (+0.1, -10.7) px, 6 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+2, -22) px; error plain 28 / corrected 18 px -> area correction (+0.4, -13.3) px, 6 areas learned (learning)
+[AutoRecentre] area (0, 3): selection off by (+5, -21) px; error plain 26 / corrected 14 px -> area correction (+1.1, -15.8) px, 6 areas learned (learning)
+[TrackerService] shutting down
+
+===== 2026-11-25 01:13:12.319565 start pid 23428 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 23428)
+[TrackerService] shutting down
+
+===== 2026-11-25 01:13:32.785227 start pid 12364 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 12364)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] repeat check left: dots [1] disagree (118.8 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [2] disagree (177.5 camera px, limit 8) -> one more look
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] repeat check left: dots [5] disagree (241.3 camera px, limit 8) -> one more look
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] shutting down
+
+===== 2026-11-25 01:20:16.010855 start pid 14928 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 14928)
+[Calibration] Top Horizontal (Right → Left): Left eye pupil jumped in 72% -> retry 1/2
+[Calibration] Top Horizontal (Right → Left): Left eye pupil jumped in 81% -> retry 2/2
+[Calibration] Diagonal 1 (Top-Left ↘ Bottom-Right): Left eye pupil jumped in 31% -> retry 1/2
+[Calibration] Diagonal 1 (Top-Left ↘ Bottom-Right): Left eye pupil jumped in 89% -> retry 2/2
+[Calibration] Vertical Right (Bottom ↑ Top): Right eye pupil jumped in 83% -> retry 1/2
+[Calibration] left: reduced influence for dots [(2, 0.74), (8, 0.78)]
+[Calibration] right: reduced influence for dots [(2, 0.67), (8, 0.93), (9, 0.87)]
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] repeat check left: dots [2] disagree (208.0 camera px, limit 8) -> one more look
+[Calibration] repeat check right: dots [1] disagree (312.7 camera px, limit 8) -> one more look
+[Calibration] Top Horizontal (Left → Right): Right eye pupil jumped in 43% -> retry 1/2
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] left: reduced influence for dots [(2, 0.96)]
+[Calibration] right: reduced influence for dots [(1, 0.98), (2, 0.99)]
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 78.5 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_012815_ArcFit\calibration_chart.png
+[Calibration] left: reduced influence for dots [(2, 0.97), (8, 0.94)]
+[Calibration] right: reduced influence for dots [(2, 0.94), (8, 0.98)]
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 147.3 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_014808_ArcFit\calibration_chart.png
+[Fine-tune] Fine-tuning cancelled
+[TrackerService] Fine-tuning cancelled
+[Calibration] repeat check left: dots [1] disagree (141.2 camera px, limit 8) -> one more look
+[Calibration] left: reduced influence for dots [(2, 0.77), (8, 0.85)]
+[Calibration] right: reduced influence for dots [(2, 0.91), (8, 0.89)]
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 34.1 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_015531_ArcFit\calibration_chart.png
+[Fine-tune] slip +43, +34 px; new dots vs current model after slip: 26, 10, 16, 30, 40, 42, 60, 16, 12 (limit 120)
+[Fine-tune] new dots: current map 28 px -> updated map 32 px; old dots (held out) 27 -> 20 px
+[Fine-tune] Map kept (map update skipped: it would not improve the new dots (new dots 28 -> 32 px, old dots 27 -> 20 px)); slip learned, correction now (-43, -34) px
+[TrackerService] Map kept (map update skipped: it would not improve the new dots (new dots 28 -> 32 px, old dots 27 -> 20 px)); slip learned, correction now (-43, -34) px
+[TrackerService] shutting down
+
+===== 2026-11-25 02:23:05.098195 start pid 15300 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 15300)
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] left: reduced influence for dots [(2, 0.92), (8, 0.96)]
+[Calibration] right: reduced influence for dots [(2, 0.9)]
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 45.2 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_022901_ArcFit\calibration_chart.png
+[TrackerService] shutting down
+
+===== 2026-11-25 02:37:02.816299 start pid 22724 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 22724)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[TrackerService] shutting down
+
+===== 2026-11-25 02:37:53.869525 start pid 18800 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 18800)
+[TrackerService] Calibration cancelled · previous calibration kept
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] left: reduced influence for dots [(2, 0.96)]
+[Calibration] end shift (-74, -41) px stored · check dots 84.4 px, with it 8.4 px (leave-one-out)
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 84.5 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_024149_ArcFit\calibration_chart.png
+[Calibration] left: reduced influence for dots [(2, 0.82), (8, 0.88), (9, 0.97)]
+[Calibration] right: reduced influence for dots [(2, 0.92), (8, 0.94)]
+[Calibration] end shift (-9, -32) px stored · check dots 40.5 px, with it 25.8 px (leave-one-out)
+[TrackerService] Calibration complete · Grade B [GOOD - ACCESSIBLE] · mean error 40.4 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_024500_ArcFit\calibration_chart.png
+[TrackerService] Calibration cancelled · previous calibration kept
+[Calibration] left: reduced influence for dots [(8, 0.96)]
+[Calibration] right: reduced influence for dots [(2, 0.98)]
+[Calibration] end shift (-27, -103) px stored · check dots 106.7 px, with it 16.7 px (leave-one-out)
+[TrackerService] Calibration complete · Grade D [POOR - RECALIBRATION ADVISED] · mean error 106.8 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_024937_ArcFit\calibration_chart.png
+[Calibration] left: reduced influence for dots [(2, 0.73), (8, 0.83)]
+[Calibration] right: reduced influence for dots [(2, 0.88), (8, 0.93)]
+[Calibration] end shift (+6, -16) px stored · check dots 22.3 px, with it 10.6 px (leave-one-out)
+[TrackerService] Calibration complete · Grade A [EXCELLENT - CLINICAL GRADE] · mean error 22.4 px
+[Calibration] chart ready: E:\Files and Other Things\Projects\Augmentative Communication System for Plegia\Eye Tracking with two sensor\Combined System\Eye Tracking Module\data\calibrations\20261125_025158_ArcFit\calibration_chart.png
+[TrackerService] Re-centred: shift (+17, -8) px
+[TrackerService] shutting down
+
+===== 2026-11-25 03:39:02.811821 start pid 21692 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 21692)
+[ WARN:0@0.000] global cap_ffmpeg_impl.hpp:1246 open VIDEOIO/FFMPEG: OpenCV should be configured with libavdevice to open a camera device
+[Level 2] Level 2 cancelled
+[TrackerService] Level 2 cancelled
+[TrackerService] shutting down
+
+===== 2026-11-25 03:39:57.017585 start pid 4644 =====
+[TrackerService] ready on http://127.0.0.1:8001 (pid 4644)
+[Level 2] one more look: Q, First word
+[Level 2] Level 2 done (shift + stretch): points 64 -> 48 px (each point checked without itself)
+[TrackerService] Level 2 done (shift + stretch): points 64 -> 48 px (each point checked without itself)
+[Level 2] Level 2 cancelled
+[TrackerService] Level 2 cancelled
+[TrackerService] shutting down

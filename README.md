@@ -34,7 +34,7 @@ with their eyes. Version 1.2.0, Windows.
 | Folder | Contents |
 |---|---|
 | `frontend/` | The AAC app (Flutter, Windows desktop) |
-| `Binocular Eye Tracking Module/` | Eye tracker (`tracker_service.py`; `launcher.py` = standalone control panel) |
+| `Eye Tracking Module/` | Eye tracker (`tracker_service.py`; `launcher.py` = standalone control panel) |
 | `backend/` | AI prediction + speech server (`main.py`), language models, learning profiles |
 | `logs/` | `tracker.log`, `backend.log`, setup logs |
 
