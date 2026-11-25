@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'win_native.dart';
 
-/// Connection to the eye tracker (Binocular Eye Tracking Module/tracker_service.py, 127.0.0.1:8001).
+/// Connection to the eye tracker (Eye Tracking Module/tracker_service.py, 127.0.0.1:8001).
 /// Polls /status (fast while a tracking screen is open, slow otherwise) and sends commands. The tracker itself
 /// keeps running the cameras, the gaze mouse and the calibration windows; this app is only the control panel.
 class TrackerClient extends ChangeNotifier {
@@ -117,7 +117,6 @@ class TrackerClient extends ChangeNotifier {
   // ── convenience ─────────────────────────────────────────────────
   Future<bool> setEyeEnabled(String eye, bool on) => command('/eyes/$eye/enabled', {'enabled': on});
   Future<bool> setCamera(String eye, int id) => command('/eyes/$eye/camera', {'camera_id': id});
-  Future<bool> setFlip(String eye, bool h, bool v) => command('/eyes/$eye/flip', {'h': h, 'v': v});
   Future<bool> setAlgorithm(String id) => command('/algorithm', {'name': id});
   Future<bool> setPupilSmoothing(double level) => command('/pupil_smoothing', {'level': level});
   Future<bool> setMouseEnabled(bool on) => command('/mouse/enabled', {'enabled': on});
@@ -125,11 +124,17 @@ class TrackerClient extends ChangeNotifier {
   Future<bool> setMouseParams(Map<String, dynamic> p) => command('/mouse/params', p);
   Future<bool> resetMouse() => command('/mouse/reset');
   Future<bool> startCalibration() => command('/calibration/start', null, true);
-  Future<bool> startFineTune() => command('/calibration/finetune', null, true);
+  /// Level 2: [targets] = the app's button centres from GazeTargets.collect() (physical px inside the window).
+  Future<bool> startFineTune([List<Map<String, dynamic>>? targets]) =>
+      command('/calibration/finetune', targets == null ? null : {'targets': targets}, true);
   Future<bool> startRecentre() => command('/calibration/recentre', null, true);
+  Future<bool> startPositionGuide() => command('/calibration/position_guide', null, true);
   Future<bool> setRecordCalibration(bool on) => command('/calibration/record', {'enabled': on});
   Future<bool> setShowGazePointer(bool on) => command('/calibration/pointer', {'enabled': on});
+  Future<bool> setDarkCalibrationBackground(bool dark) =>
+      command('/calibration/background', {'background': dark ? 'dark' : 'light'});
   Future<bool> setAutoRecentre(bool on) => command('/calibration/auto_recentre', {'enabled': on});
+  Future<bool> setEndShift(bool on) => command('/calibration/end_shift', {'enabled': on});
 
   /// Auto re-centre: one button selection's (centre - cursor) in screen px. Quiet: no messages on failure.
   Future<void> reportSelectionOffset(double? dx, double? dy, int ageMs) async {
@@ -142,6 +147,9 @@ class TrackerClient extends ChangeNotifier {
   }
   Future<bool> openChart() => command('/calibration/chart/open', null, true);
   Future<bool> openEyeView() => command('/eyeview/open', null, true);
+  Future<bool> openEmgView() => command('/emgview/open', null, true);
+  /// EMG muscle sensor: a squeeze presses Space (same as the Spacebar, so it needs Spacebar Select on).
+  Future<bool> setEmgEnabled(bool on) => command('/emg/enabled', {'enabled': on});
 
   /// ONE Spacebar setting for the app and the tracker: Settings "Spacebar Select" and Tracking "Spacebar Click"
   /// are the same switch. The tracker's saved `mouse_spacebar_click` is the stored value; the app mirrors it.
@@ -198,13 +206,18 @@ class TrackerStatus {
   bool get recordCalibration => raw['record_calibration'] == true;
   bool get autoRecentre => raw['auto_recentre'] == true;
   int get autoRecentreCount => ((raw['auto_recentre_info'] as Map?)?['count'] as num?)?.toInt() ?? 0;
+  /// Screen areas with a learned correction (local auto re-centre); null = older tracker (global shift + scale).
+  int? get autoRecentreAreas => ((raw['auto_recentre_info'] as Map?)?['areas'] as num?)?.toInt();
   List<double> get autoRecentreScale =>
       (((raw['auto_recentre_info'] as Map?)?['scale'] as List?) ?? const [1.0, 1.0]).map((e) => (e as num).toDouble()).toList();
   List<int> get autoRecentreShift =>
       (((raw['auto_recentre_info'] as Map?)?['shift'] as List?) ?? const [0, 0]).map((e) => (e as num).toInt()).toList();
   bool get showGazePointer => raw['show_gaze_pointer'] != false;   // older tracker without the key: on
+  bool get darkCalibrationBackground => raw['calibration_background'] != 'light'; // older tracker: dark
   String? get activity => raw['activity'] as String?;
   bool get eyeViewOpen => raw['eye_view_open'] == true;
+  bool get emgViewOpen => raw['emg_view_open'] == true;
+  EmgStatus get emg => EmgStatus(_m('emg'));
   int get eventSeq => (_m('event')['seq'] as num?)?.toInt() ?? 0;
   String get eventMessage => _m('event')['message']?.toString() ?? '';
 
@@ -223,6 +236,7 @@ class TrackerStatus {
   double get effectiveGain => (_mouse['effective_gain'] as num?)?.toDouble() ?? 1.0;
   bool get spacebarClick => _mouse['spacebar_click'] == true;
   bool get spacebarPaused => _mouse['spacebar_paused'] == true;
+  bool get edgeReach => _mouse['edge_reach'] != false; // older tracker without the key: on (old behaviour)
   bool get failsafeTripped => _mouse['failsafe_tripped'] == true;
 
   // calibration
@@ -232,11 +246,29 @@ class TrackerStatus {
   String get gradeLetter => calibrated && grade.isNotEmpty ? grade[0] : '–';
   double? get meanErrorPx => (_cal['mean_error_px'] as num?)?.toDouble();
   double? get pursuitRmse => (_cal['pursuit_rmse'] as num?)?.toDouble();
+  /// End shift (2026-11-25): switch state, the stored shift [x, y] (null = none / replaced by a re-centre) and
+  /// the check-dot error without / with it from the last calibration.
+  bool get endShiftOn => _cal['end_shift_on'] == true;
+  List<int>? get endShift => (_cal['end_shift'] as List?)?.map((e) => (e as num).round()).toList();
+  double? get endShiftBeforePx => ((_cal['end_shift_info'] as Map?)?['val_mean_before_px'] as num?)?.toDouble();
+  double? get endShiftAfterPx => ((_cal['end_shift_info'] as Map?)?['val_mean_after_loo_px'] as num?)?.toDouble();
   double? get meanJitter => (_cal['mean_jitter'] as num?)?.toDouble();
   String get calibratedAt => _cal['calibrated_at']?.toString() ?? '';
   bool get canFineTune => _cal['can_finetune'] == true;
   num? get chartVersion => _cal['chart_version'] as num?;
   List? get offset => _cal['offset'] as List?;
+}
+
+/// EMG muscle sensor part of /status (tracker emg_sensor.py). Empty map = older tracker without EMG.
+class EmgStatus {
+  final Map<String, dynamic> raw;
+  EmgStatus(this.raw);
+  bool get supported => raw.isNotEmpty && raw['available'] != false;
+  bool get enabled => raw['enabled'] == true;
+  bool get ok => raw['ok'] == true;                 // connected and the electrode guard is quiet
+  String get state => raw['state']?.toString() ?? 'off';
+  String get text => raw['text']?.toString() ?? 'Sensor off';   // same text as the EMG View's status pill
+  bool get guard => (raw['guard']?.toString() ?? '').isNotEmpty;
 }
 
 class EyeStatus {
@@ -248,9 +280,6 @@ class EyeStatus {
   double get fps => (raw['fps'] as num?)?.toDouble() ?? 0;
   double get detFps => (raw['det_fps'] as num?)?.toDouble() ?? 0;
   double get conf => (raw['conf'] as num?)?.toDouble() ?? 0;
-  double get latencyMs => (raw['latency_ms'] as num?)?.toDouble() ?? 0;
-  bool get flipH => raw['flip_h'] == true;
-  bool get flipV => raw['flip_v'] == true;
   List? get pupil => raw['pupil'] as List?;
   bool get tracking => connected && pupil != null;
 }

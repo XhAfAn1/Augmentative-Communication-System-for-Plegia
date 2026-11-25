@@ -49,14 +49,7 @@ class DashboardScreen extends StatelessWidget {
                 final w = (c.maxWidth - gap * (cols - 1)) / cols;
                 final cards = [
                   _eyeTrackingCard(),
-                  const _ComponentCard(
-                    title: 'EMG Muscle Sensor',
-                    subtitle: 'Input layer · coming in a later version',
-                    icon: Icons.sensors,
-                    status: 'Not Connected',
-                    color: AppColors.statusOffline,
-                    active: false,
-                  ),
+                  _emgCard(),
                   const _ComponentCard(
                     title: 'Signal Processing',
                     subtitle: 'Processing layer',
@@ -131,6 +124,29 @@ class DashboardScreen extends StatelessWidget {
         const SizedBox(width: 8),
         Text(text, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w700, color: col)),
       ]),
+    );
+  }
+
+  static Widget _emgCard() {
+    final emg = TrackerClient.instance.status?.emg;
+    final (String text, Color col) = emg == null
+        ? ('Not Running', AppColors.statusOffline)
+        : !emg.enabled
+            ? ('Off', const Color(0xFF9AA5B4))
+            : emg.ok
+                ? ('Connected', AppColors.statusOnline)
+                : emg.guard
+                    ? ('Check electrodes', AppColors.statusWarning)
+                    : emg.state == 'connecting' || emg.state == 'searching'
+                        ? ('Connecting', AppColors.statusWarning)
+                        : ('Not Connected', AppColors.statusOffline);
+    return _ComponentCard(
+      title: 'EMG Muscle Sensor',
+      subtitle: emg != null && emg.enabled ? 'Input layer · squeeze = Space · ${emg.text}' : 'Input layer · squeeze = Space',
+      icon: Icons.sensors,
+      status: text,
+      color: col,
+      active: emg != null && emg.enabled,
     );
   }
 
